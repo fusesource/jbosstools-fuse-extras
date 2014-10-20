@@ -31,8 +31,8 @@ public class Activator extends AbstractUIPlugin {
 	public static final String SAP_CONNECTION_CONFIGURATION = "icons/full/obj16/SapConnectionConfiguration.gif"; //$NON-NLS-1$
 	public static final String SERVER_DATA_STORE_IMAGE = "icons/full/obj16/ServerDataStore.gif"; //$NON-NLS-1$
 	public static final String SERVER_DATA_STORE_ENTRY_IMAGE = "icons/full/obj16/ServerDataStoreEntry.gif"; //$NON-NLS-1$
-	public static final String FUSE_RS_IMAGE = "icons/fuse_rs.jpg"; //$NON-NLS-1$
-	public static final String FUSE_ICON_16C_IMAGE = "icons/fuse_icon_16c.jpg"; //$NON-NLS-1$
+	public static final String SAP16_IMAGE = "icons/SAP16.png"; //$NON-NLS-1$
+	public static final String WALDO48_IMAGE = "icons/waldo48.png"; //$NON-NLS-1$
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.fusesource.ide.sap.ui"; //$NON-NLS-1$
@@ -93,10 +93,10 @@ public class Activator extends AbstractUIPlugin {
 		getImageRegistry().put(SERVER_DATA_STORE_IMAGE, image);
 		image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(SERVER_DATA_STORE_ENTRY_IMAGE), null));
 		getImageRegistry().put(SERVER_DATA_STORE_ENTRY_IMAGE, image);
-		image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(FUSE_RS_IMAGE), null));
-		getImageRegistry().put(FUSE_RS_IMAGE, image);
-		image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(FUSE_ICON_16C_IMAGE), null));
-		getImageRegistry().put(FUSE_ICON_16C_IMAGE, image);
+		image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(SAP16_IMAGE), null));
+		getImageRegistry().put(SAP16_IMAGE, image);
+		image = ImageDescriptor.createFromURL(FileLocator.find(bundle, new Path(WALDO48_IMAGE), null));
+		getImageRegistry().put(WALDO48_IMAGE, image);
 	}
 
 }
