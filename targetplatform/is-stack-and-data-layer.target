@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="Data Layer" sequenceNumber="4">
+	<locations>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+			<unit id="org.fusesource.camel.component.sap.feature.feature.group" version="6.2.0.201502191705"/>
+			<unit id="org.fusesource.camel.component.sap.feature.source.feature.group" version="6.2.0.201502191705"/>
+			<repository location="http://fuse-sap.mw.lab.eng.bos.redhat.com/repositories/fuse-sap-data-layer/updatesite/6.2.0-SNAPSHOT/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+			<unit id="org.fusesource.ide.camel.editor.feature.feature.group" version="7.3.0.v20141209-1819-H340-Beta2" />
+			<unit id="org.fusesource.ide.camel.editor.feature.source.feature.group" version="7.3.0.v20141209-1819-H340-Beta2" />
+			<unit id="org.fusesource.ide.core.feature.feature.group" version="7.3.0.v20141209-1819-H340-Beta2" />
+			<unit id="org.fusesource.ide.core.feature.source.feature.group" version="7.3.0.v20141209-1819-H340-Beta2" />
+			<unit id="org.fusesource.ide.fabric8.feature.feature.group" version="7.3.0.v20141209-1819-H340-Beta2" />
+			<unit id="org.fusesource.ide.fabric8.feature.source.feature.group" version="7.3.0.v20141209-1819-H340-Beta2" />
+			<unit id="org.fusesource.ide.jmx.feature.feature.group" version="7.3.0.v20141209-1819-H340-Beta2" />
+			<unit id="org.fusesource.ide.jmx.feature.source.feature.group" version="7.3.0.v20141209-1819-H340-Beta2" />
+			<unit id="org.fusesource.ide.server.extensions.feature.feature.group" version="7.3.0.v20141209-1819-H340-Beta2" />
+			<unit id="org.fusesource.ide.server.extensions.feature.source.feature.group" version="7.3.0.v20141209-1819-H340-Beta2" />
+			<repository location="http://download.jboss.org/jbosstools/updates/development/luna/integration-stack/fuse-tooling/7.3.0.Beta2/all/repo/"/>
+		</location>
+	</locations>
+</target>
