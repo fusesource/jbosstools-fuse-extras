@@ -533,10 +533,12 @@
          	</description>
          </wizard>
    </extension>
+   <!-- 
    <extension
          point="org.fusesource.ide.editor.paletteContributor">
       <PaletteContribution
             class="org.fusesource.ide.sap.ui.editor.provider.SapPaletteEntry">
       </PaletteContribution>
    </extension>
+   -->
 </plugin>
