@@ -8,7 +8,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
 import org.fusesource.camel.component.sap.model.rfc.impl.ServerDataStoreEntryImpl;
 
-@SuppressWarnings("restriction")
 public abstract class ServerDataPropertySection extends BasePropertySection {
 
 	protected ServerDataStoreEntryImpl serverDataStoreEntry;

@@ -33,7 +33,6 @@ import org.fusesource.ide.sap.ui.util.LayoutUtil;
 import org.fusesource.ide.sap.ui.validator.NonNegativeIntegerValidator;
 import org.fusesource.ide.sap.ui.validator.SapRouterStringValidator;
 
-@SuppressWarnings("restriction")
 public class OptionalServerPropertySection extends ServerDataPropertySection {
 
 	private Button traceBtn;

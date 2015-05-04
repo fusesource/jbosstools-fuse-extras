@@ -8,7 +8,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
 import org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataStoreEntryImpl;
 
-@SuppressWarnings("restriction")
 public class DestinationDataPropertySection extends BasePropertySection {
 
 	protected DestinationDataStoreEntryImpl destinationDataStoreEntry;

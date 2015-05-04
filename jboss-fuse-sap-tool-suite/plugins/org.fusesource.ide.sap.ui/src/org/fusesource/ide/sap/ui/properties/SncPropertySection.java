@@ -32,7 +32,6 @@ import org.fusesource.ide.sap.ui.converter.SncQosComboSelection2SncQosConverter;
 import org.fusesource.ide.sap.ui.converter.String2BooleanConverter;
 import org.fusesource.ide.sap.ui.util.LayoutUtil;
 
-@SuppressWarnings("restriction")
 public class SncPropertySection extends DestinationDataPropertySection {
 
 	private Button sncModeBtn;

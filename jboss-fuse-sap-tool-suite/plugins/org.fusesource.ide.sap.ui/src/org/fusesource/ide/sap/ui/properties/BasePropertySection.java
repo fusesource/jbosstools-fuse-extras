@@ -7,7 +7,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 
-@SuppressWarnings("restriction")
 public abstract class BasePropertySection extends AbstractPropertySection {
 
 	private DataBindingContext bindingContext;

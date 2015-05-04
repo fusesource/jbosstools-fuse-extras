@@ -31,7 +31,6 @@ import org.fusesource.ide.sap.ui.util.LayoutUtil;
 import org.fusesource.ide.sap.ui.validator.ClientNumberValidator;
 import org.fusesource.ide.sap.ui.validator.LanguageValidator;
 
-@SuppressWarnings("restriction")
 public class AuthenticationPropertySection extends DestinationDataPropertySection {
 
 	private Binding clientBinding2;

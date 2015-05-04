@@ -19,7 +19,6 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.fusesource.ide.sap.ui.Messages;
 import org.fusesource.ide.sap.ui.util.LayoutUtil;
 
-@SuppressWarnings("restriction")
 public class SapConnectionConfigurationSection extends AbstractPropertySection {
 
 	@Override

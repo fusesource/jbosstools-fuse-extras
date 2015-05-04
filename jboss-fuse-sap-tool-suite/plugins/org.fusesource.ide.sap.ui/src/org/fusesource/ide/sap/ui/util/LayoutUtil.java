@@ -18,7 +18,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 
-@SuppressWarnings("restriction")
 public class LayoutUtil {
 
 	public static FormData descriptionLayoutData() {

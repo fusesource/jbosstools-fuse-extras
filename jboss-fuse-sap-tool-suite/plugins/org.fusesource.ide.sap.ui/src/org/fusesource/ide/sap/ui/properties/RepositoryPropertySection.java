@@ -29,7 +29,6 @@ import org.fusesource.ide.sap.ui.converter.Boolean2StringConverter;
 import org.fusesource.ide.sap.ui.converter.String2BooleanConverter;
 import org.fusesource.ide.sap.ui.util.LayoutUtil;
 
-@SuppressWarnings("restriction")
 public class RepositoryPropertySection extends DestinationDataPropertySection {
 
 	private Text repositoryDestinationText;

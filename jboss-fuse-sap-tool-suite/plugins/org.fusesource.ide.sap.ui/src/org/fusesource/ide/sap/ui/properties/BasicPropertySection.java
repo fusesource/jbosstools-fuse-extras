@@ -32,7 +32,6 @@ import org.fusesource.ide.sap.ui.validator.ClientNumberValidator;
 import org.fusesource.ide.sap.ui.validator.LanguageValidator;
 import org.fusesource.ide.sap.ui.validator.SystemNumberValidator;
 
-@SuppressWarnings("restriction")
 public class BasicPropertySection extends DestinationDataPropertySection {
 
 	private Text ashostText;

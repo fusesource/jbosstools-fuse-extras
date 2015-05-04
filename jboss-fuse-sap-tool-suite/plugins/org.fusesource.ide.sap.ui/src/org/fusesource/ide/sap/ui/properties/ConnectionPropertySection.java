@@ -30,7 +30,6 @@ import org.fusesource.ide.sap.ui.util.LayoutUtil;
 import org.fusesource.ide.sap.ui.validator.SapRouterStringValidator;
 import org.fusesource.ide.sap.ui.validator.SystemNumberValidator;
 
-@SuppressWarnings("restriction")
 public class ConnectionPropertySection extends DestinationDataPropertySection {
 
 	private Binding saprouterBinding;

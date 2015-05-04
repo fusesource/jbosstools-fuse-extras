@@ -26,6 +26,12 @@ import org.osgi.framework.BundleContext;
  */
 public class Activator extends AbstractUIPlugin {
 	
+	// GAV of SAP Camel components
+	public static final String CAMEL_SAP_GROUP_ID = "org.fusesource";
+	public static final String CAMEL_SAP_ARTIFACT_ID = "camel-sap";
+	public static final String CAMEL_SAP_VERSION = "6.2.0";
+
+	// Image locations
 	public static final String DESTINATION_DATA_STORE_IMAGE = "icons/full/obj16/DestinationDataStore.gif"; //$NON-NLS-1$
 	public static final String DESTINATION_DATA_STORE_ENTRY_IMAGE = "icons/full/obj16/DestinationDataStoreEntry.gif"; //$NON-NLS-1$
 	public static final String SAP_CONNECTION_CONFIGURATION = "icons/full/obj16/SapConnectionConfiguration.gif"; //$NON-NLS-1$

@@ -533,12 +533,37 @@
          	</description>
          </wizard>
    </extension>
-   <!-- 
    <extension
          point="org.fusesource.ide.editor.paletteContributor">
       <PaletteContribution
-            class="org.fusesource.ide.sap.ui.editor.provider.SapPaletteEntry">
+            class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcDestinationPaletteEntry">
+      </PaletteContribution>
+      <PaletteContribution
+            class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcServerPaletteEntry">
+      </PaletteContribution>
+      <PaletteContribution
+            class="org.fusesource.ide.sap.ui.editor.provider.SapTransactionalRfcDestinationPaletteEntry">
+      </PaletteContribution>
+      <PaletteContribution
+            class="org.fusesource.ide.sap.ui.editor.provider.SapTransactionalRfcServerPaletteEntry">
+      </PaletteContribution>
+      <PaletteContribution
+            class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedRfcDestinationPaletteEntry">
+      </PaletteContribution>
+      <PaletteContribution
+            class="org.fusesource.ide.sap.ui.editor.provider.SapIDocDestinationPaletteEntry">
+      </PaletteContribution>
+      <PaletteContribution
+            class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListDestinationPaletteEntry">
+      </PaletteContribution>
+      <PaletteContribution
+            class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedIDocDestinationPaletteEntry">
+      </PaletteContribution>
+      <PaletteContribution
+            class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedIDocListDestinationPaletteEntry">
+      </PaletteContribution>
+      <PaletteContribution
+            class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListServerPaletteEntry">
       </PaletteContribution>
    </extension>
-   -->
 </plugin>

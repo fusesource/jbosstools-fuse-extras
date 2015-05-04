@@ -30,7 +30,6 @@ import org.fusesource.ide.sap.ui.Messages;
 import org.fusesource.ide.sap.ui.util.LayoutUtil;
 import org.fusesource.ide.sap.ui.validator.NonNegativeIntegerValidator;
 
-@SuppressWarnings("restriction")
 public class MandatoryServerPropertySection extends ServerDataPropertySection {
 
 	private Text gwhostText;

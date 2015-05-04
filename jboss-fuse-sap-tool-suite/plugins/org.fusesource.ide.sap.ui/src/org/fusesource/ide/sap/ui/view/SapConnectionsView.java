@@ -67,7 +67,6 @@ import org.fusesource.ide.sap.ui.util.ModelUtil;
  * Sap Connections View
  */
 
-@SuppressWarnings("restriction")
 public class SapConnectionsView extends ViewPart implements ISelectionChangedListener, ITabbedPropertySheetPageContributor, IEditingDomainProvider {
 
 	/**

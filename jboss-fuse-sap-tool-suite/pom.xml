@@ -17,7 +17,7 @@
 
 	<properties>
 		<!-- JBoss Tools Integration Stack version -->
-		<jbtis.version>4.2.2.CR1a</jbtis.version>
+		<jbtis.version>4.2.2.Final</jbtis.version>
 
 		<!-- Tycho versions -->
 		<jboss-tycho-version>0.22.1-SNAPSHOT</jboss-tycho-version>
@@ -30,19 +30,18 @@
 		<ide-version>${project.version}</ide-version>
 
 		<!-- dependency versions -->
-		<fabric.version>1.2.0.Beta4</fabric.version>
-		<camel.version>2.14.0</camel.version>
-		<spring.version>3.2.9.RELEASE</spring.version>
+		<fabric.version>1.2.0.redhat-104</fabric.version>
+		<camel.version>2.15.1</camel.version>
+		<spring.version>4.1.5.RELEASE</spring.version>
 		<jclouds.version>1.8.0</jclouds.version>
 		<slf4j.version>1.7.5</slf4j.version>
-		<guava.version>15.0</guava.version>
+		<guava.version>18.0</guava.version>
 		<jolokia.version>1.2.2</jolokia.version>
 		<json-simple.version>1.1.1</json-simple.version>
-		<apache.http.version>4.3.3</apache.http.version>
-		<apache.httpcore.version>4.3.2</apache.httpcore.version>
-		<snapshot-build>redhat-610-SNAPSHOT</snapshot-build>
-		<activemq.version>5.9.0.${snapshot-build}</activemq.version>
-		<servicemix-nmr.version>1.6.0.${snapshot-build}</servicemix-nmr.version>
+		<apache.http.version>4.3.6</apache.http.version>
+		<apache.httpcore.version>4.3.3</apache.httpcore.version>
+		<activemq.version>5.11.0.redhat-620104</activemq.version>
+		<servicemix-nmr.version>1.6.1</servicemix-nmr.version>
 	</properties>
 
 	<repositories>
@@ -57,92 +56,56 @@
 		<repository>
 			<id>fuseide</id>
 			<name>JBoss Fuse IS Tooling</name>
-			<url>http://download.jboss.org/jbosstools/updates/development/luna/integration-stack/fuse-tooling/7.3.0.Beta2/all/repo/</url>
+			<url>http://download.jboss.org/jbosstools/updates/development/luna/integration-stack/fuse-tooling/7.3.0.Beta4/all/repo/</url>
 			<layout>p2</layout>
 		</repository>
 
 		<repository>
-			<id>jboss.org</id>
-			<name>JBoss Repository</name>
-			<url>http://repository.jboss.org</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
+		  <id>ea.jboss.org</id>
+		  <name>JBoss Early Access Repository</name>
+		  <url>https://repository.jboss.org/nexus/content/groups/ea</url>
+		  <snapshots>
+		    <enabled>true</enabled>
+		  </snapshots>
+		  <releases>
+		    <enabled>true</enabled>
+		  </releases>
 		</repository>
 
 		<repository>
-			<id>jboss-fuse-snapshots</id>
-			<name>jboss-fuse-snapshots</name>
-			<url>http://repository.jboss.org/nexus/content/groups/fs-public-snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
+		  <id>jboss-public-repository-group</id>
+		  <name>JBoss Public Repository Group</name>
+		  <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		  <snapshots>
+		    <enabled>false</enabled>
+		  </snapshots>
+		  <releases>
+		    <enabled>true</enabled>
+		  </releases>
 		</repository>
-
+		
 		<repository>
-			<id>ea.jboss.org</id>
-			<name>JBoss Early Access Repository</name>
-			<url>https://repository.jboss.org/nexus/content/groups/ea</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
+		  <id>jboss-snapshots-repository</id>
+		  <name>JBoss Snapshots Repository</name>
+		  <url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
+		  <snapshots>
+		    <enabled>true</enabled>
+		  </snapshots>
+		  <releases>
+		    <enabled>false</enabled>
+		  </releases>
 		</repository>
-
+		
 		<repository>
-			<id>m2-release-proxy.jboss.org</id>
-			<name>JBoss Release Proxy Repository</name>
-			<url>http://repository.jboss.org/nexus/content/groups/m2-release-proxy/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-
-		<repository>
-			<id>jboss-public-repository-group</id>
-			<name>JBoss Public Repository Group</name>
-			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-
-		<repository>
-			<id>jboss-snapshots-repository</id>
-			<name>JBoss Snapshots Repository</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/snapshots/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-
-		<repository>
-			<id>jboss-fs-snapshots-repository</id>
-			<name>JBoss FS Snapshots Repository</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/fs-snapshots/</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
+		  <id>jboss-fs-snapshots-repository</id>
+		  <name>JBoss FS Snapshots Repository</name>
+		  <url>https://repository.jboss.org/nexus/content/repositories/fs-snapshots/</url>
+		  <snapshots>
+		    <enabled>true</enabled>
+		  </snapshots>
+		  <releases>
+		    <enabled>true</enabled>
+		  </releases>
 		</repository>
 
 	</repositories>

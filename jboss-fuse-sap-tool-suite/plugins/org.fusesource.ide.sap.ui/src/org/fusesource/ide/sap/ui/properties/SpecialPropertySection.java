@@ -32,7 +32,6 @@ import org.fusesource.ide.sap.ui.converter.String2BooleanConverter;
 import org.fusesource.ide.sap.ui.converter.TraceLevel2CpicTraceComboSelectionConverter;
 import org.fusesource.ide.sap.ui.util.LayoutUtil;
 
-@SuppressWarnings("restriction")
 public class SpecialPropertySection extends DestinationDataPropertySection {
 
 	private Button traceBtn;
