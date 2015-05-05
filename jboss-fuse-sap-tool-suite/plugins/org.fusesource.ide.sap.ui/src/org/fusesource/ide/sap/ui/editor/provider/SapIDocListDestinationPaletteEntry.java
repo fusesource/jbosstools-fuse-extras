@@ -9,48 +9,46 @@ import java.util.List;
 
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.tb.IImageDecorator;
 import org.fusesource.ide.camel.editor.features.create.ext.CreateEndpointFigureFeature;
 import org.fusesource.ide.camel.editor.provider.ext.ICustomPaletteEntry;
-import org.fusesource.ide.camel.editor.provider.ext.PaletteCategoryItemProvider.CATEGORY_TYPE;
 import org.fusesource.ide.camel.model.Endpoint;
 import org.fusesource.ide.camel.model.catalog.Dependency;
 
 public class SapIDocListDestinationPaletteEntry implements
 		ICustomPaletteEntry {
 	
+	private static final String PROTOCOL = "sap-idoclist-destination";
+
 	public static final String COMPONENT_NAME = "SAP IDoc List Destination"; //$NON-NLS-1$ 
 	public static final String COMPONENT_DESCRIPTION = "Creates an SAP IDoc List Destination endpoint..."; //$NON-NLS-1$
-	public static final String COMPONENT_URL = "sap-idoclist-destination:<destination>:<idocType>:<idocTypeExtension>:<systemRelease>:<applicationRelease>"; //$NON-NLS-1$
-
-	@Override
-	public String getPaletteCategory() {
-		return CATEGORY_TYPE.COMPONENTS.name();
-	}
+	public static final String COMPONENT_URL = PROTOCOL + ":<destination>:<idocType>:<idocTypeExtension>:<systemRelease>:<applicationRelease>"; //$NON-NLS-1$
 
 	@Override
 	public ICreateFeature newCreateFeature(IFeatureProvider fp) {
-		return new CreateEndpointFigureFeature(fp, COMPONENT_NAME, COMPONENT_DESCRIPTION, new Endpoint(COMPONENT_URL)); 
+		return new CreateEndpointFigureFeature(fp, COMPONENT_NAME, COMPONENT_DESCRIPTION, new Endpoint(COMPONENT_URL), getRequiredDependencies()); 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.fusesource.ide.camel.editor.provider.ext.ICustomPaletteEntry#getProtocol()
+	 */
 	@Override
-	public IImageDecorator getImageDecorator(Object object) {
-		return null;
+	public String getProtocol() {
+		return PROTOCOL;
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see org.fusesource.ide.camel.editor.provider.ext.ICustomPaletteEntry#providesProtocol(java.lang.String)
+	 */
 	@Override
-	public String getTypeName() {
-		return COMPONENT_NAME;
+	public boolean providesProtocol(String protocol) {
+		return PROTOCOL.equalsIgnoreCase(protocol);
 	}
-
-	@SuppressWarnings("rawtypes")
+	
+	/* (non-Javadoc)
+	 * @see org.fusesource.ide.camel.editor.provider.ext.ICustomPaletteEntry#getRequiredDependencies()
+	 */
 	@Override
-	public boolean supports(Class type) {
-		return false;
-	}
-
-	@Override
-	public List<Dependency> getRequiredCapabilities(Object object) {
+	public List<Dependency> getRequiredDependencies() {
         List<Dependency> deps = new ArrayList<Dependency>();
         Dependency dep = new Dependency();
         dep.setGroupId(CAMEL_SAP_GROUP_ID);

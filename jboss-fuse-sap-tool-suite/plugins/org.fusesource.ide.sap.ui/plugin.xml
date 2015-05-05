@@ -536,33 +536,63 @@
    <extension
          point="org.fusesource.ide.editor.paletteContributor">
       <PaletteContribution
-            class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcDestinationPaletteEntry">
+            categoryName="COMPONENTS"
+            class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcDestinationPaletteEntry"
+            id="sap-srfc-destination"
+            paletteIcon="icons/sap_tool_suite_icon_16x16.png">
       </PaletteContribution>
       <PaletteContribution
+            categoryName="COMPONENTS"
+            id="sap-srfc-server"
+            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
             class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcServerPaletteEntry">
       </PaletteContribution>
       <PaletteContribution
+            id="sap-trfc-destination"
+            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
+            categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapTransactionalRfcDestinationPaletteEntry">
       </PaletteContribution>
       <PaletteContribution
+            id="sap-trfc-server"
+            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
+            categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapTransactionalRfcServerPaletteEntry">
       </PaletteContribution>
       <PaletteContribution
+            id="sap-qrfc-destination"
+            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
+            categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedRfcDestinationPaletteEntry">
       </PaletteContribution>
       <PaletteContribution
+            id="sap-idoc-destination"
+            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
+            categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapIDocDestinationPaletteEntry">
       </PaletteContribution>
       <PaletteContribution
+            id="sap-idoclist-destination"
+            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
+            categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListDestinationPaletteEntry">
       </PaletteContribution>
       <PaletteContribution
+            id="sap-qidoc-destination"
+            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
+            categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedIDocDestinationPaletteEntry">
       </PaletteContribution>
       <PaletteContribution
+            id="sap-qidoclist-destination"
+            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
+            categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedIDocListDestinationPaletteEntry">
       </PaletteContribution>
       <PaletteContribution
+            id="sap-idoclist-server"
+            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
+            categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListServerPaletteEntry">
       </PaletteContribution>
    </extension>
