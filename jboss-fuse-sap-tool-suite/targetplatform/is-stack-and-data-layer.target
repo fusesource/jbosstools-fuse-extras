@@ -7,19 +7,19 @@
 <repository location="http://fuse-sap.mw.lab.eng.bos.redhat.com/repositories/fuse-sap-data-layer/updatesite/6.2.0-SNAPSHOT/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.fusesource.ide.server.extensions.feature.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.fusesource.ide.camel.editor.feature.source.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.jboss.tools.fuse.transformation.feature.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.fusesource.ide.server.extensions.feature.source.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.fusesource.ide.core.feature.source.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.fusesource.ide.camel.editor.feature.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.jboss.tools.fuse.transformation.feature.source.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.fusesource.ide.jmx.feature.source.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.fusesource.ide.core.feature.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.fusesource.ide.fabric8.feature.source.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.fusesource.ide.fabric8.feature.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<unit id="org.fusesource.ide.jmx.feature.feature.group" version="7.3.0.v20150428-1634-H488-MASTER"/>
-<repository location="http://download.jboss.org/jbosstools/updates/development/luna/integration-stack/fuse-tooling/7.3.0.Beta4/all/repo/"/>
+<unit id="org.fusesource.ide.server.extensions.feature.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.fusesource.ide.camel.editor.feature.source.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.jboss.tools.fuse.transformation.feature.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.fusesource.ide.server.extensions.feature.source.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.fusesource.ide.core.feature.source.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.fusesource.ide.camel.editor.feature.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.jboss.tools.fuse.transformation.feature.source.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.fusesource.ide.jmx.feature.source.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.fusesource.ide.core.feature.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.fusesource.ide.fabric8.feature.source.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.fusesource.ide.fabric8.feature.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<unit id="org.fusesource.ide.jmx.feature.feature.group" version="7.3.0.v20150507-1305-H514-Beta5"/>
+<repository location="http://download.jboss.org/jbosstools/updates/development/luna/integration-stack/fuse-tooling/7.3.0.Beta5/all/repo/"/>
 </location>
 </locations>
 </target>
