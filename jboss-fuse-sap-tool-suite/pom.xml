@@ -17,7 +17,7 @@
 
 	<properties>
 		<!-- JBoss Tools Integration Stack version -->
-		<jbtis.version>4.2.2.Final</jbtis.version>
+		<jbtis.version>4.2.3.Final</jbtis.version>
 
 		<!-- Tycho versions -->
 		<jboss-tycho-version>0.22.1-SNAPSHOT</jboss-tycho-version>
@@ -31,8 +31,11 @@
 		<fuse-tooling-url>http://download.jboss.org/jbosstools/updates/development/luna/integration-stack/fuse-tooling/7.3.0.Beta5/all/repo/</fuse-tooling-url>
 
 		<!-- dependency versions -->
-		<fabric.version>1.2.0.redhat-104</fabric.version>
-		<camel.version>2.15.1</camel.version>
+                <fabric.version>1.2.0.redhat-114</fabric.version>
+                <camel.version>2.15.1.redhat-620114</camel.version>
+                <activemq.version>5.11.0.redhat-620114</activemq.version>
+                <servicemix-nmr.version>1.6.1</servicemix-nmr.version>
+
 		<spring.version>4.1.5.RELEASE</spring.version>
 		<jclouds.version>1.8.0</jclouds.version>
 		<slf4j.version>1.7.5</slf4j.version>
@@ -41,8 +44,6 @@
 		<json-simple.version>1.1.1</json-simple.version>
 		<apache.http.version>4.3.6</apache.http.version>
 		<apache.httpcore.version>4.3.3</apache.httpcore.version>
-		<activemq.version>5.11.0.redhat-620104</activemq.version>
-		<servicemix-nmr.version>1.6.1</servicemix-nmr.version>
 	</properties>
 
 	<repositories>
