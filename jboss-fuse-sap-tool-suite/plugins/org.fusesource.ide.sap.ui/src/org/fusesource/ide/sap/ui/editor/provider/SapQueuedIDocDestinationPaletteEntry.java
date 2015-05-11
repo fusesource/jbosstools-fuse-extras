@@ -21,7 +21,7 @@ public class SapQueuedIDocDestinationPaletteEntry implements
 	
 	public static final String COMPONENT_NAME = "SAP Queued IDoc Destination"; //$NON-NLS-1$ 
 	public static final String COMPONENT_DESCRIPTION = "Creates an SAP Queued IDoc Destination endpoint..."; //$NON-NLS-1$
-	public static final String COMPONENT_URL = PROTOCOL + ":<destination>:<queue>:<idocType>:<idocTypeExtension>:<systemRelease>:<applicationRelease>"; //$NON-NLS-1$
+	public static final String COMPONENT_URL = PROTOCOL + ":destination:queue:idocType:idocTypeExtension:systemRelease:applicationRelease"; //$NON-NLS-1$
 
 	@Override
 	public ICreateFeature newCreateFeature(IFeatureProvider fp) {

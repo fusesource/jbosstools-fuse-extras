@@ -21,7 +21,7 @@ public class SapSynchronousRfcServerPaletteEntry implements
 		
 	public static final String COMPONENT_NAME = "SAP sRFC Server"; //$NON-NLS-1$ 
 	public static final String COMPONENT_DESCRIPTION = "Creates an SAP Synchronous RFC Server endpoint..."; //$NON-NLS-1$
-	public static final String COMPONENT_URL = PROTOCOL + ":<server>:<rfc>"; //$NON-NLS-1$
+	public static final String COMPONENT_URL = PROTOCOL + ":server:rfc"; //$NON-NLS-1$
 
 	@Override
 	public ICreateFeature newCreateFeature(IFeatureProvider fp) {

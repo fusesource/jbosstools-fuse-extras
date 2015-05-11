@@ -21,7 +21,7 @@ public class SapTransactionalRfcDestinationPaletteEntry implements
 	
 	public static final String COMPONENT_NAME = "SAP tRFC Destination"; //$NON-NLS-1$ 
 	public static final String COMPONENT_DESCRIPTION = "Creates an SAP Transactional RFC Destination endpoint..."; //$NON-NLS-1$
-	public static final String COMPONENT_URL = PROTOCOL + ":<destination>:<rfc>"; //$NON-NLS-1$
+	public static final String COMPONENT_URL = PROTOCOL + ":destination:rfc"; //$NON-NLS-1$
 
 	@Override
 	public ICreateFeature newCreateFeature(IFeatureProvider fp) {
