@@ -21,7 +21,7 @@ public class SapQueuedRfcDestinationPaletteEntry implements
 
 	public static final String COMPONENT_NAME = "SAP qRFC Destination"; //$NON-NLS-1$ 
 	public static final String COMPONENT_DESCRIPTION = "Creates an SAP Queued RFC Destination endpoint..."; //$NON-NLS-1$
-	public static final String COMPONENT_URL = PROTOCOL + ":<destination>:<queue>:<rfc>"; //$NON-NLS-1$
+	public static final String COMPONENT_URL = PROTOCOL + ":destination:queue:rfc"; //$NON-NLS-1$
 
 	@Override
 	public ICreateFeature newCreateFeature(IFeatureProvider fp) {

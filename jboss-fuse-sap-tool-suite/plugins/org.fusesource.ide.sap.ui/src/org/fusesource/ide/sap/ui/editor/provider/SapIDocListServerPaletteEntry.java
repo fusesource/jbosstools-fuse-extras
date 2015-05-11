@@ -21,7 +21,7 @@ public class SapIDocListServerPaletteEntry implements
 	
 	public static final String COMPONENT_NAME = "SAP IDoc List Server"; //$NON-NLS-1$ 
 	public static final String COMPONENT_DESCRIPTION = "Creates an SAP IDoc List Server endpoint..."; //$NON-NLS-1$
-	public static final String COMPONENT_URL = PROTOCOL + ":<destination>:<idocType>:<idocTypeExtension>:<systemRelease>:<applicationRelease>"; //$NON-NLS-1$
+	public static final String COMPONENT_URL = PROTOCOL + ":destination:idocType:idocTypeExtension:systemRelease:applicationRelease"; //$NON-NLS-1$
 
 	@Override
 	public ICreateFeature newCreateFeature(IFeatureProvider fp) {
