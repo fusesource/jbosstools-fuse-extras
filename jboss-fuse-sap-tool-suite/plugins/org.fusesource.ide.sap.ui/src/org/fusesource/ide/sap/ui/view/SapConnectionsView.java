@@ -190,6 +190,7 @@ public class SapConnectionsView extends ViewPart implements ISelectionChangedLis
 
 		if (propertySheetPage != null) {
 			propertySheetPage.dispose();
+			propertySheetPage = null;
 		}
 
 		// Unregister data stores
@@ -212,7 +213,7 @@ public class SapConnectionsView extends ViewPart implements ISelectionChangedLis
 	}
 
 	public IPropertySheetPage getPropertySheetPage() {
-		if (propertySheetPage == null) {
+		if (propertySheetPage == null || propertySheetPage.getControl() == null || propertySheetPage.getControl().isDisposed()) {
 			propertySheetPage = new TabbedPropertySheetPage(this) {
 				@Override
 				public void setActionBars(IActionBars actionBars) {
