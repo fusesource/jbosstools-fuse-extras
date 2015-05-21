@@ -143,7 +143,7 @@ public class TestServerDialog extends TitleAreaDialog {
 	 */
 	public TestServerDialog(Shell parentShell, String serverName) {
 		super(parentShell);
-		setShellStyle(SWT.DIALOG_TRIM);
+		setShellStyle(SWT.DIALOG_TRIM | SWT.RESIZE);
 		this.serverName = serverName;
 	}
 	
@@ -219,7 +219,9 @@ public class TestServerDialog extends TitleAreaDialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(550, 335);
+		Point minimumSize = getShell().computeSize(550, 335, true);
+		getShell().setMinimumSize(minimumSize);
+		return minimumSize;
 	}
 	
 	private void closePressed() {

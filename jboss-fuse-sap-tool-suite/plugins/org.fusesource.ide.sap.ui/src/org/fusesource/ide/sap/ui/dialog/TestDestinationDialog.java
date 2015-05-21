@@ -45,7 +45,7 @@ public class TestDestinationDialog extends TitleAreaDialog {
 	 */
 	public TestDestinationDialog(Shell parentShell, String destinationName) {
 		super(parentShell);
-		setShellStyle(SWT.DIALOG_TRIM);
+		setShellStyle(SWT.DIALOG_TRIM | SWT.RESIZE);
 		this.destinationName = destinationName;
 	}
 	
@@ -110,7 +110,9 @@ public class TestDestinationDialog extends TitleAreaDialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(550, 335);
+		Point minimumSize = getShell().computeSize(550, 335, true);
+		getShell().setMinimumSize(minimumSize);
+		return minimumSize;
 	}
 	
 	private void closePressed() {
