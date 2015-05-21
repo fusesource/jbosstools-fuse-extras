@@ -154,7 +154,9 @@ public class DestinationDialog extends TitleAreaDialog {
 	 */
 	@Override
 	protected Point getInitialSize() {
-		return new Point(550, 189);
+		Point minimumSize = getShell().computeSize(550, 190, true);
+		getShell().setMinimumSize(minimumSize);
+		return minimumSize;
 	}
 	
 	protected DataBindingContext initDataBindings() {
