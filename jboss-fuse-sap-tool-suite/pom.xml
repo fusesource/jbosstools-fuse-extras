@@ -17,11 +17,11 @@
 
 	<properties>
 		<!-- JBoss Tools Integration Stack version -->
-		<jbtis.version>4.3.0.Alpha2b</jbtis.version>
+		<jbtis.version>4.3.0.Beta1b-SNAPSHOT</jbtis.version>
 
 		<!-- Tycho versions -->
 		<jboss-tycho-version>0.22.1-SNAPSHOT</jboss-tycho-version>
-		<tychoVersion>0.22.0</tychoVersion>
+		<tychoVersion>0.23.0</tychoVersion>
 		<tychoExtrasVersion>${tychoVersion}</tychoExtrasVersion>
 
 		<!-- fuse tooling related versions -->
@@ -30,11 +30,18 @@
 		<ide-version>${project.version}</ide-version>
 		<fuse-tooling-url>http://download.jboss.org/jbosstools/updates/development/luna/integration-stack/fuse-tooling/7.3.0.Beta5/all/repo/</fuse-tooling-url>
 
-		<!-- dependency versions -->
-                <fabric.version>1.2.0.redhat-129</fabric.version>
-                <camel.version>2.15.1.redhat-620129</camel.version>
-                <activemq.version>5.11.0.redhat-620129</activemq.version>
-                <servicemix-nmr.version>1.6.1</servicemix-nmr.version>
+    		<!-- camel version -->
+    		<camel.version>2.15.1.redhat-620133</camel.version>
+
+    		<!-- AMQ JMX plugin -->
+    		<activemq.version>5.11.0.redhat-620133</activemq.version>
+    		<geronimo.jms.version>1.1.1</geronimo.jms.version>
+
+    		<!-- SMX JMX plugin -->
+    		<servicemix-nmr.version>1.6.1</servicemix-nmr.version>
+
+    		<!-- codegen/buildtools fabric8 versions (only build time deps) -->
+    		<fabric.version>1.2.0.redhat-133</fabric.version>
 
 		<spring.version>4.1.5.RELEASE</spring.version>
 		<jclouds.version>1.8.0</jclouds.version>
