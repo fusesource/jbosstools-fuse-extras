@@ -12,12 +12,12 @@
 	<parent>
 		<groupId>org.jboss.tools</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.2.3.Final-SNAPSHOT</version>
+		<version>4.3.0.CR1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
 		<!-- JBoss Tools Integration Stack version -->
-		<jbtis.version>4.3.0.Beta1b-SNAPSHOT</jbtis.version>
+		<jbtis.version>4.3.0.Beta1e</jbtis.version>
 
 		<!-- Tycho versions -->
 		<jboss-tycho-version>0.22.1-SNAPSHOT</jboss-tycho-version>
@@ -28,7 +28,7 @@
 		<tycho.scmUrl>scm:git:https://github.com/fusesource/fuseide.git</tycho.scmUrl>
 		<forge-project-id>ide</forge-project-id>
 		<ide-version>${project.version}</ide-version>
-		<fuse-tooling-url>http://download.jboss.org/jbosstools/updates/development/luna/integration-stack/fuse-tooling/7.3.0.Beta5/all/repo/</fuse-tooling-url>
+		<fuse-tooling-url>http://download.jboss.org/jbosstools/updates/integration/mars/integration-stack/fuse-tooling/8.0.0/all/repo/</fuse-tooling-url>
 
     		<!-- camel version -->
     		<camel.version>2.15.1.redhat-620133</camel.version>
