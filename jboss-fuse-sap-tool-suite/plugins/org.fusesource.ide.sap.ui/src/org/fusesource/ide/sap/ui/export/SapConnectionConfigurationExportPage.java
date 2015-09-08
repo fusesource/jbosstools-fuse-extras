@@ -18,6 +18,9 @@ import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.beans.BeansObservables;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.core.databinding.validation.IValidator;
+import org.eclipse.core.databinding.validation.ValidationStatus;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
@@ -44,6 +47,33 @@ public class SapConnectionConfigurationExportPage extends WizardPage {
 	
 	private static final String BLANK_STRING = ""; //$NON-NLS-1$
 
+	private class ExportLocationDirectoryNameValidator implements IValidator {
+
+		@Override
+		public IStatus validate(Object value) {
+			if (value instanceof String) {
+				String directoryname = (String) value;
+				directoryname = directoryname.trim();
+	            if (directoryname.length() > 0) {
+	    			// Check that directory is writable
+	    			File exportDirectory = new File(directoryname);
+	    			if (exportDirectory.canWrite()) {
+	    	            setMessage(null);
+	    	            setErrorMessage(null);
+	    				setPageComplete(true);
+	    				return ValidationStatus.ok();
+	    			}
+				} else {
+					setMessage(Messages.SapConnectionConfigurationExportPage_SelectExportLocationAndFileType, WizardPage.INFORMATION);
+					return ValidationStatus.info(getMessage());
+				}
+			} 
+			setPageComplete(false);
+			setErrorMessage(Messages.SapConnectionConfigurationExportPage_CanNotWriteToThisLocation);
+			return ValidationStatus.error(getErrorMessage());
+		}
+	}
+	
 	private SapConnectionConfigurationExportSettings exportSettings;
 
 	private DataBindingContext context; 
@@ -86,10 +116,13 @@ public class SapConnectionConfigurationExportPage extends WizardPage {
 		lblSelectExportLocation.setLayoutData(gd_lblSelectExportLocation);
 		lblSelectExportLocation.setText(Messages.SapConnectionConfigurationExportPage_ExportLocation);
 		
-		textSelectExportLocation = new Text(top, SWT.BORDER | SWT.READ_ONLY);
+		textSelectExportLocation = new Text(top, SWT.BORDER);
 		textSelectExportLocation.setMessage(Messages.SapConnectionConfigurationExportPage_ExportLocation);
 		textSelectExportLocation.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-		binding = context.bindValue(SWTObservables.observeText(textSelectExportLocation, SWT.Modify), BeansObservables.observeValue(exportSettings, "exportLocation"), new UpdateValueStrategy()	, new UpdateValueStrategy()); //$NON-NLS-1$
+		// create UpdateValueStrategy and assign to the binding
+        UpdateValueStrategy strategy = new UpdateValueStrategy();
+        strategy.setBeforeSetValidator(new ExportLocationDirectoryNameValidator());
+        binding = context.bindValue(SWTObservables.observeText(textSelectExportLocation, SWT.Modify), BeansObservables.observeValue(exportSettings, "exportLocation"), strategy, null); //$NON-NLS-1$
 		ControlDecorationSupport.create(binding, SWT.TOP | SWT.LEFT);
 		
 		
@@ -128,19 +161,7 @@ public class SapConnectionConfigurationExportPage extends WizardPage {
 	protected void getExportDirectory() {
 		String directoryName = getDirectory(textSelectExportLocation.getText());
 		if (directoryName != null) {
-			directoryName.trim();
-			
-			// Check that directory is writable
-			File exportDirectory = new File(directoryName);
-			if (exportDirectory.canWrite()) {
-				exportSettings.setExportLocation(directoryName);
-				textSelectExportLocation.setText(directoryName);
-				setPageComplete(true);
-			} else {
-				setPageComplete(false);
-				clearInput();
-				setErrorMessage(Messages.SapConnectionConfigurationExportPage_CanNotWriteToThisLocation);
-			}
+			textSelectExportLocation.setText(directoryName);
 		}
 	}
 	
