@@ -32,7 +32,7 @@
 
 		<!-- dependency versions -->
                 <fabric.version>1.2.0.redhat-133</fabric.version>
-                <camel.version>2.15.1.redhat-620133</camel.version>
+                <camel.version>2.15.1.redhat-621031</camel.version>
                 <activemq.version>5.11.0.redhat-620133</activemq.version>
                 <servicemix-nmr.version>1.6.1</servicemix-nmr.version>
 
