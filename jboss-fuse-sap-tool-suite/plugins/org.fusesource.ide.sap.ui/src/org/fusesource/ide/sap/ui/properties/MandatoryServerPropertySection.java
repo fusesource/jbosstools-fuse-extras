@@ -98,23 +98,23 @@ public class MandatoryServerPropertySection extends ServerDataPropertySection {
 		
 		DataBindingContext bindingContext = super.initDataBindings();
 		//
-		IObservableValue observeTextAshostTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(gwhostText);
+		IObservableValue observeTextAshostTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(gwhostText);
 		IObservableValue destinationAshostObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__GWHOST)).observe(serverDataStoreEntry);
 		bindingContext.bindValue(observeTextAshostTextObserveWidget, destinationAshostObserveValue, null, null);
 		//
-		IObservableValue observeTextSysnrTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(gwservText);
+		IObservableValue observeTextSysnrTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(gwservText);
 		IObservableValue destinationSysnrObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__GWSERV)).observe(serverDataStoreEntry);
 		bindingContext.bindValue(observeTextSysnrTextObserveWidget, destinationSysnrObserveValue, null, null);
 		//
-		IObservableValue observeTextClientTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(progidText);
+		IObservableValue observeTextClientTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(progidText);
 		IObservableValue destinationClientObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__PROGID)).observe(serverDataStoreEntry);
 		bindingContext.bindValue(observeTextClientTextObserveWidget, destinationClientObserveValue, null, null);
 		//
-		IObservableValue observeRepositoryDestinationTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(repositoryDestinationText);
+		IObservableValue observeRepositoryDestinationTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(repositoryDestinationText);
 		IObservableValue serverRepositoryDestinationObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__REPOSITORY_DESTINATION)).observe(serverDataStoreEntry);
 		bindingContext.bindValue(observeRepositoryDestinationTextObserveWidget, serverRepositoryDestinationObserveValue, null, null);
 		//
-		IObservableValue observeTextLanguageTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(connectionCountText);
+		IObservableValue observeTextLanguageTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(connectionCountText);
 		IObservableValue destinationLangObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__CONNECTION_COUNT)).observe(serverDataStoreEntry);
 		UpdateValueStrategy connectionCountStrategy = new UpdateValueStrategy();
 		connectionCountStrategy.setBeforeSetValidator(new NonNegativeIntegerValidator(Messages.MandatoryServerPropertySection_ConnectionCountValidator));

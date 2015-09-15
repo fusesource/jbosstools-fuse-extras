@@ -83,15 +83,15 @@ public class RepositoryPropertySection extends DestinationDataPropertySection {
 		DataBindingContext bindingContext = super.initDataBindings();
 		
 		//
-		IObservableValue observeTextRepositoryDestinationTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(repositoryDestinationText);
+		IObservableValue observeTextRepositoryDestinationTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(repositoryDestinationText);
 		IObservableValue managedConnectionFactoryRepositoryDestObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__REPOSITORY_DEST)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextRepositoryDestinationTextObserveWidget, managedConnectionFactoryRepositoryDestObserveValue, null, null);
 		//
-		IObservableValue observeTextRepositoryUserTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(repositoryUserText);
+		IObservableValue observeTextRepositoryUserTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(repositoryUserText);
 		IObservableValue managedConnectionFactoryRepositoryUserObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__REPOSITORY_USER)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextRepositoryUserTextObserveWidget, managedConnectionFactoryRepositoryUserObserveValue, null, null);
 		//
-		IObservableValue observeTextRepositoryPasswordTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(repositoryPasswordText);
+		IObservableValue observeTextRepositoryPasswordTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(repositoryPasswordText);
 		IObservableValue managedConnectionFactoryRepositoryPasswdObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__REPOSITORY_PASSWD)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextRepositoryPasswordTextObserveWidget, managedConnectionFactoryRepositoryPasswdObserveValue, null, null);
 		//

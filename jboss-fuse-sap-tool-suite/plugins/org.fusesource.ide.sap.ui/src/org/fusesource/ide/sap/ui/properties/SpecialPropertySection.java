@@ -114,7 +114,7 @@ public class SpecialPropertySection extends DestinationDataPropertySection {
 		lcheckModelStrategy.setConverter(new String2BooleanConverter());
 		bindingContext.bindValue(observeSelectionLcheckBtnObserveWidget, managedConnectionFactoryLcheckObserveValue, strategy_5, lcheckModelStrategy);
 		//
-		IObservableValue observeTextCodepageTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(codepageText);
+		IObservableValue observeTextCodepageTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(codepageText);
 		IObservableValue managedConnectionFactoryCodepageObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__CODEPAGE)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextCodepageTextObserveWidget, managedConnectionFactoryCodepageObserveValue, null, null);
 		//

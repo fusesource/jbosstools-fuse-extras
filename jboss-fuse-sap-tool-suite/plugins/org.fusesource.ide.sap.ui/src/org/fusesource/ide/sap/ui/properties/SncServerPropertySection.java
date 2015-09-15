@@ -99,11 +99,11 @@ public class SncServerPropertySection extends ServerDataPropertySection {
 		sncQopModelStrategy.setConverter(new SncQos2SncQosComboSelectionConverter());
 		bindingContext.bindValue(observeSingleSelectionIndexSncQopComboObserveWidget, managedConnectionFactorySncQopObserveValue, sncQopStategy, sncQopModelStrategy);
 		//
-		IObservableValue observeTextSncMynameTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(sncMynameText);
+		IObservableValue observeTextSncMynameTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(sncMynameText);
 		IObservableValue managedConnectionFactorySncMynameObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__SNC_MYNAME)).observe(serverDataStoreEntry);
 		bindingContext.bindValue(observeTextSncMynameTextObserveWidget, managedConnectionFactorySncMynameObserveValue, null, null);
 		//
-		IObservableValue observeTextSncLibraryTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(sncLibraryText);
+		IObservableValue observeTextSncLibraryTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(sncLibraryText);
 		IObservableValue managedConnectionFactorySncLibraryObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__SNC_LIB)).observe(serverDataStoreEntry);
 		bindingContext.bindValue(observeTextSncLibraryTextObserveWidget, managedConnectionFactorySncLibraryObserveValue, null, null);
 

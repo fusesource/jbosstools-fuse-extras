@@ -120,31 +120,31 @@ public class OptionalServerPropertySection extends ServerDataPropertySection {
 		traceModelStrategy.setConverter(new String2BooleanConverter());
 		bindingContext.bindValue(observeSelectionTraceBtnObserveWidget, managedConnectionFactoryTraceObserveValue, traceStrategy, traceModelStrategy);
 		//
-		IObservableValue observeTextSapRouterTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(saprouterText);
+		IObservableValue observeTextSapRouterTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(saprouterText);
 		IObservableValue serverDataSapRouterObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__SAPROUTER)).observe(serverDataStoreEntry);
 		UpdateValueStrategy sapRouterStrategy = new UpdateValueStrategy();
 		sapRouterStrategy.setBeforeSetValidator(new SapRouterStringValidator());
 		saprouterBinding = bindingContext.bindValue(observeTextSapRouterTextObserveWidget, serverDataSapRouterObserveValue, sapRouterStrategy, null);
 		//
-		IObservableValue observeTextWorkerThreadCountTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(workerThreadCountText);
+		IObservableValue observeTextWorkerThreadCountTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(workerThreadCountText);
 		IObservableValue serverDataWorkerThreadCountObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__WORKER_THREAD_COUNT)).observe(serverDataStoreEntry);
 		UpdateValueStrategy workerThreadCountStrategy = new UpdateValueStrategy();
 		workerThreadCountStrategy.setBeforeSetValidator(new NonNegativeIntegerValidator(Messages.OptionalServerPropertySection_WorkerThreadCountValidator));
 		workerThreadCountBinding = bindingContext.bindValue(observeTextWorkerThreadCountTextObserveWidget, serverDataWorkerThreadCountObserveValue, workerThreadCountStrategy, null);
 		//
-		IObservableValue observeTextWorkerThreadMinCountTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(workerThreadMinCountText);
+		IObservableValue observeTextWorkerThreadMinCountTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(workerThreadMinCountText);
 		IObservableValue serverDataWorkerThreadMinCountObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__WORKER_THREAD_MIN_COUNT)).observe(serverDataStoreEntry);
 		UpdateValueStrategy workerThreadMinCountStrategy = new UpdateValueStrategy();
 		workerThreadMinCountStrategy.setBeforeSetValidator(new NonNegativeIntegerValidator(Messages.OptionalServerPropertySection_WorkerThreadMinCountValidator));
 		workerThreadMinCountBinding = bindingContext.bindValue(observeTextWorkerThreadMinCountTextObserveWidget, serverDataWorkerThreadMinCountObserveValue, workerThreadMinCountStrategy, null);
 		//
-		IObservableValue observeTextMaxStartupDelayTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(maxStartupDelayText);
+		IObservableValue observeTextMaxStartupDelayTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(maxStartupDelayText);
 		IObservableValue serverDataMaxStartupDelayObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__MAX_START_UP_DELAY)).observe(serverDataStoreEntry);
 		UpdateValueStrategy maxStartupDelayStrategy = new UpdateValueStrategy();
 		maxStartupDelayStrategy.setBeforeSetValidator(new NonNegativeIntegerValidator(Messages.OptionalServerPropertySection_MaxStartupDelayValidator));
 		maxStartupDelayBinding = bindingContext.bindValue(observeTextMaxStartupDelayTextObserveWidget, serverDataMaxStartupDelayObserveValue, maxStartupDelayStrategy, null);
 		//
-		IObservableValue observeRepositoryMapTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(repositoryMapText);
+		IObservableValue observeRepositoryMapTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(repositoryMapText);
 		IObservableValue serverRepositoryMapObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__REPOSITORY_MAP)).observe(serverDataStoreEntry);
 		bindingContext.bindValue(observeRepositoryMapTextObserveWidget, serverRepositoryMapObserveValue, null, null);
 

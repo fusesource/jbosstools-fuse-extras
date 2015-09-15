@@ -100,7 +100,7 @@ public class SncPropertySection extends DestinationDataPropertySection {
 		sncModeModelStrategy.setConverter(new String2BooleanConverter());
 		bindingContext.bindValue(observeSelectionSncModeBtnObserveWidget, managedConnectionFactorySncModeObserveValue, strategy_13, sncModeModelStrategy);
 		//
-		IObservableValue observeTextSncPartnernameTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(sncPartnernameText);
+		IObservableValue observeTextSncPartnernameTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(sncPartnernameText);
 		IObservableValue managedConnectionFactorySncPartnernameObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__SNC_PARTNERNAME)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextSncPartnernameTextObserveWidget, managedConnectionFactorySncPartnernameObserveValue, null, null);
 		//
@@ -112,11 +112,11 @@ public class SncPropertySection extends DestinationDataPropertySection {
 		sncQopModelStrategy.setConverter(new SncQos2SncQosComboSelectionConverter());
 		bindingContext.bindValue(observeSingleSelectionIndexSncQopComboObserveWidget, managedConnectionFactorySncQopObserveValue, strategy_14, sncQopModelStrategy);
 		//
-		IObservableValue observeTextSncMynameTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(sncMynameText);
+		IObservableValue observeTextSncMynameTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(sncMynameText);
 		IObservableValue managedConnectionFactorySncMynameObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__SNC_MYNAME)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextSncMynameTextObserveWidget, managedConnectionFactorySncMynameObserveValue, null, null);
 		//
-		IObservableValue observeTextSncLibraryTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(sncLibraryText);
+		IObservableValue observeTextSncLibraryTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(sncLibraryText);
 		IObservableValue managedConnectionFactorySncLibraryObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__SNC_LIBRARY)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextSncLibraryTextObserveWidget, managedConnectionFactorySncLibraryObserveValue, null, null);
 

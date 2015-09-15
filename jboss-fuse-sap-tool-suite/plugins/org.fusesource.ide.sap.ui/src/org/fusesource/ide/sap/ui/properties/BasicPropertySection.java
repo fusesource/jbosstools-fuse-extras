@@ -111,31 +111,31 @@ public class BasicPropertySection extends DestinationDataPropertySection {
 		DataBindingContext bindingContext = super.initDataBindings();
 
 		//
-		IObservableValue observeTextAshostTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(ashostText);
+		IObservableValue observeTextAshostTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(ashostText);
 		IObservableValue destinationAshostObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__ASHOST)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextAshostTextObserveWidget, destinationAshostObserveValue, null, null);
 		//
-		IObservableValue observeTextSysnrTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(sysnrText);
+		IObservableValue observeTextSysnrTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(sysnrText);
 		IObservableValue destinationSysnrObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__SYSNR)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy strategy_1 = new UpdateValueStrategy();
 		strategy_1.setBeforeSetValidator(new SystemNumberValidator());
 		sysnrBinding = bindingContext.bindValue(observeTextSysnrTextObserveWidget, destinationSysnrObserveValue, strategy_1, null);
 		//
-		IObservableValue observeTextClientTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(clientText);
+		IObservableValue observeTextClientTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(clientText);
 		IObservableValue destinationClientObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__CLIENT)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy strategy = new UpdateValueStrategy();
 		strategy.setBeforeSetValidator(new ClientNumberValidator());
 		clientBinding = bindingContext.bindValue(observeTextClientTextObserveWidget, destinationClientObserveValue, strategy, null);
 		//
-		IObservableValue observeTextUserTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(userText);
+		IObservableValue observeTextUserTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(userText);
 		IObservableValue destinationUserNameObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__USER_NAME)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextUserTextObserveWidget, destinationUserNameObserveValue, null, null);
 		//
-		IObservableValue observeTextPasswordTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(passwordText);
+		IObservableValue observeTextPasswordTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(passwordText);
 		IObservableValue destinationPasswordObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__PASSWORD)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextPasswordTextObserveWidget, destinationPasswordObserveValue, null, null);
 		//
-		IObservableValue observeTextLanguageTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(languageText);
+		IObservableValue observeTextLanguageTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(languageText);
 		IObservableValue destinationLangObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__LANG)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy langStrategy = new UpdateValueStrategy();
 		langStrategy.setBeforeSetValidator(new LanguageValidator());

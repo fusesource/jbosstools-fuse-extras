@@ -134,43 +134,43 @@ public class ConnectionPropertySection extends DestinationDataPropertySection {
 		DataBindingContext bindingContext = super.initDataBindings();
 
 		//
-		IObservableValue observeTextSysnrText2ObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(sysnrText2);
+		IObservableValue observeTextSysnrText2ObserveWidget = WidgetProperties.text(SWT.Modify).observe(sysnrText2);
 		IObservableValue managedConnectionFactorySysnrObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__SYSNR)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy strategy_2 = new UpdateValueStrategy();
 		strategy_2.setBeforeSetValidator(new SystemNumberValidator());
 		sysnrBinding2 = bindingContext.bindValue(observeTextSysnrText2ObserveWidget, managedConnectionFactorySysnrObserveValue, strategy_2, null);
 		//
-		IObservableValue observeTextSaprouterTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(saprouterText);
+		IObservableValue observeTextSaprouterTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(saprouterText);
 		IObservableValue managedConnectionFactorySaprouterObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__SAPROUTER)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy saprouterStrategy = new UpdateValueStrategy();
 		saprouterStrategy.setBeforeSetValidator(new SapRouterStringValidator());
 		saprouterBinding = bindingContext.bindValue(observeTextSaprouterTextObserveWidget, managedConnectionFactorySaprouterObserveValue, saprouterStrategy, null);
 		//
-		IObservableValue observeTextAshostText2ObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(ashostText2);
+		IObservableValue observeTextAshostText2ObserveWidget = WidgetProperties.text(SWT.Modify).observe(ashostText2);
 		IObservableValue managedConnectionFactoryAshostObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__ASHOST)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextAshostText2ObserveWidget, managedConnectionFactoryAshostObserveValue, null, null);
 		//
-		IObservableValue observeTextMshostTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(mshostText);
+		IObservableValue observeTextMshostTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(mshostText);
 		IObservableValue managedConnectionFactoryMshostObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__MSHOST)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextMshostTextObserveWidget, managedConnectionFactoryMshostObserveValue, null, null);
 		//
-		IObservableValue observeTextMsservTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(msservText);
+		IObservableValue observeTextMsservTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(msservText);
 		IObservableValue managedConnectionFactoryMsservObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__MSSERV)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextMsservTextObserveWidget, managedConnectionFactoryMsservObserveValue, null, null);
 		//
-		IObservableValue observeTextGwhostTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(gwhostText);
+		IObservableValue observeTextGwhostTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(gwhostText);
 		IObservableValue managedConnectionFactoryGwhostObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__GWHOST)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextGwhostTextObserveWidget, managedConnectionFactoryGwhostObserveValue, null, null);
 		//
-		IObservableValue observeTextGwservTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(gwservText);
+		IObservableValue observeTextGwservTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(gwservText);
 		IObservableValue managedConnectionFactoryGwservObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__GWSERV)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextGwservTextObserveWidget, managedConnectionFactoryGwservObserveValue, null, null);
 		//
-		IObservableValue observeTextR3nameTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(r3nameText);
+		IObservableValue observeTextR3nameTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(r3nameText);
 		IObservableValue managedConnectionFactoryR3nameObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__R3NAME)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextR3nameTextObserveWidget, managedConnectionFactoryR3nameObserveValue, null, null);
 		//
-		IObservableValue observeTextGroupTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(groupText);
+		IObservableValue observeTextGroupTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(groupText);
 		IObservableValue managedConnectionFactoryGroupObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__GROUP)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextGroupTextObserveWidget, managedConnectionFactoryGroupObserveValue, null, null);
 

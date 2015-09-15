@@ -103,31 +103,31 @@ public class PoolPropertySection extends DestinationDataPropertySection {
 		DataBindingContext bindingContext = super.initDataBindings();
 
 		//
-		IObservableValue observeTextPeakLimitTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(peakLimitText);
+		IObservableValue observeTextPeakLimitTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(peakLimitText);
 		IObservableValue managedConnectionFactoryPeakLimitObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__PEAK_LIMIT)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy strategy_8 = new UpdateValueStrategy();
 		strategy_8.setBeforeSetValidator(new NonNegativeIntegerValidator(Messages.PoolPropertySection_PeakLimitValidator));
 		peakLimitBinding = bindingContext.bindValue(observeTextPeakLimitTextObserveWidget, managedConnectionFactoryPeakLimitObserveValue, strategy_8, null);
 		//
-		IObservableValue observeTextPoolCapacityTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(poolCapacityText);
+		IObservableValue observeTextPoolCapacityTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(poolCapacityText);
 		IObservableValue managedConnectionFactoryPoolCapacityObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__POOL_CAPACITY)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy strategy_9 = new UpdateValueStrategy();
 		strategy_9.setBeforeSetValidator(new NonNegativeIntegerValidator(Messages.PoolPropertySection_PoolCapacityValidator));
 		poolCapacityBinding = bindingContext.bindValue(observeTextPoolCapacityTextObserveWidget, managedConnectionFactoryPoolCapacityObserveValue, strategy_9, null);
 		//
-		IObservableValue observeTextExpirationTimeTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(expirationTimeText);
+		IObservableValue observeTextExpirationTimeTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(expirationTimeText);
 		IObservableValue managedConnectionFactoryExpirationTimeObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__EXPIRATION_TIME)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy strategy_10 = new UpdateValueStrategy();
 		strategy_10.setBeforeSetValidator(new NonNegativeIntegerValidator(Messages.PoolPropertySection_ExpirationTimeValidator));
 		expirationTimeBinding = bindingContext.bindValue(observeTextExpirationTimeTextObserveWidget, managedConnectionFactoryExpirationTimeObserveValue, strategy_10, null);
 		//
-		IObservableValue observeTextExpirationCheckPeriodTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(expirationCheckPeriodText);
+		IObservableValue observeTextExpirationCheckPeriodTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(expirationCheckPeriodText);
 		IObservableValue managedConnectionFactoryExpirationPeriodObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__EXPIRATION_PERIOD)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy strategy_11 = new UpdateValueStrategy();
 		strategy_11.setBeforeSetValidator(new NonNegativeIntegerValidator(Messages.PoolPropertySection_ExpirationCheckPeriodValidator));
 		expirationPeriodBinding = bindingContext.bindValue(observeTextExpirationCheckPeriodTextObserveWidget, managedConnectionFactoryExpirationPeriodObserveValue, strategy_11, null);
 		//
-		IObservableValue observeTextMaxGetClientTimeTextObserveWidget = WidgetProperties.text(SWT.FocusOut).observe(maxGetClientTimeText);
+		IObservableValue observeTextMaxGetClientTimeTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(maxGetClientTimeText);
 		IObservableValue managedConnectionFactoryMaxGetTimeObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__MAX_GET_TIME)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy strategy_12 = new UpdateValueStrategy();
 		strategy_12.setBeforeSetValidator(new NonNegativeIntegerValidator(Messages.PoolPropertySection_MaxGetClientTimeValidator));

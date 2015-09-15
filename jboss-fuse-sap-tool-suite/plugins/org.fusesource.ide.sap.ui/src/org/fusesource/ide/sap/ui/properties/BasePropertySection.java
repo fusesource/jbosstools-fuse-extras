@@ -31,6 +31,7 @@ public abstract class BasePropertySection extends AbstractPropertySection {
 
 	protected DataBindingContext initDataBindings() {
 		if (bindingContext != null) {
+			bindingContext.updateTargets();
 			bindingContext.dispose();
 			bindingContext = null;
 		}
@@ -38,9 +39,4 @@ public abstract class BasePropertySection extends AbstractPropertySection {
 		return bindingContext = new DataBindingContext();
 	}
 		
-	@Override
-	public void refresh() {
-		bindingContext.updateTargets();
-	}
-	
 }
