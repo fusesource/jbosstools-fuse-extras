@@ -6,7 +6,7 @@
 	<groupId>org.fusesource.ide</groupId>
 	<artifactId>sap</artifactId>
 	<name>JBoss Fuse Tooling :: SAP</name>
-	<version>7.3.1-SNAPSHOT</version>
+	<version>7.3.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<parent>
@@ -28,7 +28,7 @@
 		<tycho.scmUrl>scm:git:https://github.com/fusesource/fuseide.git</tycho.scmUrl>
 		<forge-project-id>ide</forge-project-id>
 		<ide-version>${project.version}</ide-version>
-		<fuse-tooling-url>http://download.jboss.org/jbosstools/updates/stable/luna/integration-stack/fuse-tooling/7.3.1.Final/all/repo/</fuse-tooling-url>
+		<fuse-tooling-url>http://download.jboss.org/jbosstools/updates/development/luna/integration-stack/fuse-tooling/7.3.2.CR1/all/repo/</fuse-tooling-url>
 
 		<!-- dependency versions -->
                 <fabric.version>1.2.0.redhat-133</fabric.version>
