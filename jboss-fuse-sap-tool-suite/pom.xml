@@ -17,7 +17,7 @@
 
 	<properties>
 		<!-- JBoss Tools Integration Stack version -->
-		<jbtis.version>4.2.4.Final</jbtis.version>
+		<jbtis.version>4.2.8.Final</jbtis.version>
 
 		<!-- Tycho versions -->
 		<jboss-tycho-version>0.22.1-SNAPSHOT</jboss-tycho-version>
