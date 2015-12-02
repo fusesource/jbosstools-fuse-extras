@@ -31,9 +31,9 @@
 		<fuse-tooling-url>http://download.jboss.org/jbosstools/updates/development/luna/integration-stack/fuse-tooling/7.3.2.CR1/all/repo/</fuse-tooling-url>
 
 		<!-- dependency versions -->
-                <fabric.version>1.2.0.redhat-621073</fabric.version>
-                <camel.version>2.15.1.redhat-621073</camel.version>
-                <activemq.version>5.11.0.redhat-621073</activemq.version>
+                <fabric.version>1.2.0.redhat-621084</fabric.version>
+                <camel.version>2.15.1.redhat-621084</camel.version>
+                <activemq.version>5.11.0.redhat-621084</activemq.version>
                 <servicemix-nmr.version>1.6.1</servicemix-nmr.version>
 
 		<spring.version>4.1.5.RELEASE</spring.version>
