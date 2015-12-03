@@ -2,7 +2,7 @@
 <feature
       id="org.fusesource.ide.sap.feature"
       label="%featureName"
-      version="7.3.2.qualifier"
+      version="7.3.2.FINAL"
       provider-name="%providerName"
       plugin="org.fusesource.ide.tooling">
 
@@ -36,7 +36,7 @@
       <import plugin="org.apache.ant" version="1.9.2" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.launching" version="3.7.100" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.core" version="3.7.0" match="greaterOrEqual"/>
-      <import feature="org.fusesource.ide.core.feature" version="7.3.2" match="greaterOrEqual"/>
+      <import feature="org.fusesource.ide.core.feature" version="7.3.2.FINAL" match="greaterOrEqual"/>
    </requires>
 
    <plugin
