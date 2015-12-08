@@ -6,7 +6,7 @@
 	<groupId>org.fusesource.ide</groupId>
 	<artifactId>sap</artifactId>
 	<name>JBoss Fuse Tooling :: SAP</name>
-	<version>7.3.2.FINAL</version>
+	<version>7.3.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<parent>
@@ -156,7 +156,7 @@
 							<groupId>org.jboss.tools.integration-stack</groupId>
 							<artifactId>target-platform</artifactId>
 							<version>${jbtis.version}</version>
-							<classifier>base-ea</classifier>
+							<classifier>base</classifier>
 						</artifact>
 					</target>
 					<ignoreTychoRepositories>false</ignoreTychoRepositories>
