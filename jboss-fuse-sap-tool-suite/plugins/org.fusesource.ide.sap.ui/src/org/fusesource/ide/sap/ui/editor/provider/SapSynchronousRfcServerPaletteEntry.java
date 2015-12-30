@@ -11,8 +11,7 @@ import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.fusesource.ide.camel.editor.features.create.ext.CreateEndpointFigureFeature;
 import org.fusesource.ide.camel.editor.provider.ext.ICustomPaletteEntry;
-import org.fusesource.ide.camel.model.Endpoint;
-import org.fusesource.ide.camel.model.catalog.Dependency;
+import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
 
 public class SapSynchronousRfcServerPaletteEntry implements
 		ICustomPaletteEntry {
@@ -25,7 +24,7 @@ public class SapSynchronousRfcServerPaletteEntry implements
 
 	@Override
 	public ICreateFeature newCreateFeature(IFeatureProvider fp) {
-		return new CreateEndpointFigureFeature(fp, COMPONENT_NAME, COMPONENT_DESCRIPTION, new Endpoint(COMPONENT_URL), getRequiredDependencies()); 
+		return new CreateEndpointFigureFeature(fp, COMPONENT_NAME, COMPONENT_DESCRIPTION, COMPONENT_URL, getRequiredDependencies()); 
 	}
 
 	/* (non-Javadoc)
