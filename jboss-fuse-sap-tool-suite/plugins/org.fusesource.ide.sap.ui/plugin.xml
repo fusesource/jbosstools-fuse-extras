@@ -596,4 +596,19 @@
             class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListServerPaletteEntry">
       </PaletteContribution>
    </extension>
+   <extension
+         point="org.fusesource.ide.editor.globalConfigContributor">
+      <GlobalConfigCategory
+            icon="icons/sap_tool_suite_icon_16x16.png"
+            id="org.fusesource.ide.sap.globalconfig.category"
+            name="SAP">
+      </GlobalConfigCategory>
+      <GlobalConfigElement
+            category="org.fusesource.ide.sap.globalconfig.category"
+            class="org.fusesource.ide.sap.ui.editor.globalconf.provider.SAPServerContribution"
+            id="org.fusesource.ide.sap.ui.GlobalConfigElementSAPServerContribution"
+            icon="icons/sap_tool_suite_icon_16x16.png"
+            name="SAP Connection">
+      </GlobalConfigElement>
+   </extension>
 </plugin>

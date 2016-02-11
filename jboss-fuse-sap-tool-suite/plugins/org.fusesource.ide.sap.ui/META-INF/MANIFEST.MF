@@ -13,16 +13,16 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.databinding.property,
  org.eclipse.jface.databinding,
  org.eclipse.core.databinding.beans,
+ org.eclipse.core.expressions,
  org.eclipse.graphiti;bundle-version="0.13.0",
+ org.eclipse.ui.views.properties.tabbed,
  com.sap.conn.jco,
+ org.fusesource.ide.camel.model.service.core;bundle-version="8.0.0",
  org.fusesource.camel.component.sap;bundle-version="6.2.0",
  org.fusesource.camel.component.sap.model;bundle-version="6.2.0",
  org.fusesource.camel.component.sap.model.edit;bundle-version="6.2.0",
- org.fusesource.ide.camel.model.service.core;bundle-version="8.0.0",
- org.fusesource.ide.commons;bundle-version="8.0.0",
- org.eclipse.core.expressions,
- org.eclipse.ui.views.properties.tabbed,
- org.fusesource.ide.camel.editor;bundle-version="8.0.0"
+ org.fusesource.ide.camel.editor;bundle-version="8.0.0",
+ org.fusesource.ide.foundation.ui;bundle-version="8.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %Bundle-Vendor

@@ -17,9 +17,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.fusesource.ide.commons.logging.RiderLogFacade;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
+import org.fusesource.ide.foundation.ui.logging.RiderLogFacade;
 
 /**
  * The activator class controls the plug-in life cycle
