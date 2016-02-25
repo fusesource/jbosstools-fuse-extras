@@ -23,6 +23,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.IExportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
+import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard;
 import org.fusesource.ide.sap.ui.Messages;
 import org.fusesource.ide.sap.ui.jaxb.SapConnectionConfiguration;
 import org.fusesource.ide.sap.ui.jaxb.SapConnectionConfigurationBuilder;
@@ -30,8 +31,9 @@ import org.fusesource.ide.sap.ui.jaxb.blueprint.BlueprintFile;
 import org.fusesource.ide.sap.ui.jaxb.spring.SpringFile;
 import org.fusesource.ide.sap.ui.util.ModelUtil;
 import org.fusesource.ide.sap.ui.view.SapConnectionsView;
+import org.w3c.dom.Element;
 
-public class SapConnectionConfigurationExportWizard extends Wizard implements IExportWizard {
+public class SapConnectionConfigurationExportWizard extends Wizard implements IExportWizard, GlobalConfigurationTypeWizard {
 	
 	public static final String ID = "org.fusesource.ide.sap.ui.SapConnectionConfigurationExportWizard"; //$NON-NLS-1$
 	
@@ -42,7 +44,7 @@ public class SapConnectionConfigurationExportWizard extends Wizard implements IE
 	private DataBindingContext context;
 	private SapConnectionConfigurationExportSettings exportSettings;
 	private SapConnectionConfigurationExportPage exportPage;
-
+	private Element globalConfigElement;
 
 	public SapConnectionConfigurationExportWizard() {
 	}
@@ -141,5 +143,20 @@ public class SapConnectionConfigurationExportWizard extends Wizard implements IE
 		// SapConnectionsView is not active: retrieve stored configuration instead.
 		return ModelUtil.getModel(new ResourceSetImpl());
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard#getGlobalConfigrationElementNode()
+	 */
+	@Override
+	public Element getGlobalConfigrationElementNode() {
+		return this.globalConfigElement;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard#setGlobalConfigrationElementNode(org.w3c.dom.Element)
+	 */
+	@Override
+	public void setGlobalConfigrationElementNode(Element node) {
+		this.globalConfigElement = node;
+	}	
 }

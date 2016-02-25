@@ -21,6 +21,7 @@ import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigElementType;
 import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard;
 import org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementContribution;
 import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
+import org.fusesource.ide.sap.ui.export.SapConnectionConfigurationExportWizard;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -35,7 +36,7 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 */
 	@Override
 	public GlobalConfigurationTypeWizard createGlobalElement(Document document) {
-		return null;
+		return new SapConnectionConfigurationExportWizard();
 	}
 	
 	/*
@@ -44,7 +45,7 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 */
 	@Override
 	public GlobalConfigurationTypeWizard modifyGlobalElement(Document document) {
-		return null;
+		return new SapConnectionConfigurationExportWizard();
 	}
 
 	/* (non-Javadoc)
@@ -60,7 +61,7 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 */
 	@Override
 	public boolean canHandle(Node nodeToHandle) {
-		return ((Element)nodeToHandle).getAttribute("id").equals("mySAPBeanId");
+		return ((Element)nodeToHandle).getAttribute("class").equals("org.fusesource.camel.component.sap.SapConnectionConfiguration");
 	}	
 	
 	/* (non-Javadoc)

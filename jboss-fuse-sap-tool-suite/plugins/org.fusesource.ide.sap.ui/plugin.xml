@@ -538,6 +538,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcDestinationPaletteEntry"
+            diagramImage="icons/sap_tool_suite_icon_48x48.png"
             id="sap-srfc-destination"
             paletteIcon="icons/sap_tool_suite_icon_16x16.png">
       </PaletteContribution>
