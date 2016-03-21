@@ -15,6 +15,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+/**
+ * Utilities to manipulated DOM Document.
+ * 
+ * @author William Collins <punkhornsw@gmail.com>
+ *
+ */
 public class XMLUtils {
 
 	public static Element getFirstChildElement(Element parent) {

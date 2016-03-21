@@ -17,6 +17,7 @@ import static org.fusesource.ide.sap.ui.util.XMLUtils.getNextSiblingElementWithN
 import static org.fusesource.ide.sap.ui.util.XMLUtils.hasAttributeValue;
 import static org.fusesource.ide.sap.ui.util.XMLUtils.removeChildNodes;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,11 +26,15 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.fusesource.camel.component.sap.model.SAPEditPlugin;
 import org.fusesource.camel.component.sap.model.rfc.DestinationData;
+import org.fusesource.camel.component.sap.model.rfc.DestinationDataStore;
 import org.fusesource.camel.component.sap.model.rfc.RfcFactory;
 import org.fusesource.camel.component.sap.model.rfc.SapConnectionConfiguration;
 import org.fusesource.camel.component.sap.model.rfc.ServerData;
+import org.fusesource.camel.component.sap.model.rfc.ServerDataStore;
+import org.fusesource.camel.component.sap.util.Util;
 import org.fusesource.ide.sap.ui.Activator;
 import org.fusesource.ide.sap.ui.Messages;
 import org.w3c.dom.Document;
@@ -37,7 +42,18 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * Utilities to convert SAP Global Connection Configuration and SAP Connection Configuration Model. 
+ * 
+ * @author William Collins <punkhornsw@gmail.com>
+ *
+ */
 public class ModelUtil {
+
+	private static final String SERVER_DATA_STORE_NAME_ATTRIBUTE = "serverDataStore"; //$NON-NLS-1$
+	private static final String MAP_TAG = "map"; //$NON-NLS-1$
+	private static final String SAP_CONNECTION_CONFIGURATION_ID = "sap-configuration"; //$NON-NLS-1$
+	private static final String KEY_ATTRIBUTE = "key"; //$NON-NLS-1$
 
 	public static class EmptyNodeList implements NodeList {
 		@Override
@@ -50,28 +66,131 @@ public class ModelUtil {
 			return 0;
 		}
 	}
-
-	private static final String ID_ATTRIBUTE = "id";
-	private static final String VALUE_ATTRIBUTE = "value";
-	private static final String CLASS_ATTRIBUTE = "class";
-	private static final String SAP_CONNECTION_CONFIGURATION_CLASS = "org.fusesource.camel.component.sap.SapConnectionConfiguration";
-	private static final String PROPERTY_TAG = "property";
-	private static final String BEAN_TAG = "bean";
-	private static final String DESTINATION_DATA_STORE_NAME_ATTRIBUTE = "destinationDataStore";
-	private static final String NAME_ATTRIBUTE = "name";
-	private static final String ENTRY_TAG = "entry";
+	
+	private static final String ID_ATTRIBUTE = "id"; //$NON-NLS-1$
+	private static final String VALUE_ATTRIBUTE = "value"; //$NON-NLS-1$
+	private static final String CLASS_ATTRIBUTE = "class"; //$NON-NLS-1$
+	private static final String SAP_CONNECTION_CONFIGURATION_CLASS = "org.fusesource.camel.component.sap.SapConnectionConfiguration"; //$NON-NLS-1$
+	private static final String DESTINATION_DATA_CLASS = "org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataImpl"; //$NON-NLS-1$
+	private static final String SERVER_DATA_CLASS = "org.fusesource.camel.component.sap.model.rfc.impl.ServerDataImpl"; //$NON-NLS-1$
+	private static final String PROPERTY_TAG = "property"; //$NON-NLS-1$
+	private static final String BEAN_TAG = "bean"; //$NON-NLS-1$
+	private static final String DESTINATION_DATA_STORE_NAME_ATTRIBUTE = "destinationDataStore"; //$NON-NLS-1$
+	private static final String NAME_ATTRIBUTE = "name"; //$NON-NLS-1$
+	private static final String ENTRY_TAG = "entry"; //$NON-NLS-1$
 
 	//
 	// Model Conversion
 	//
+	
+	private static Resource getResource() throws IOException {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		File tmpFile = File.createTempFile("resource", ".spi"); //$NON-NLS-1$ //$NON-NLS-2$
+		URI resourceURI = URI.createFileURI(tmpFile.getAbsolutePath());
+		Resource resource;
+		try {
+			resource = resourceSet.getResource(resourceURI, true);
+		} catch (Exception e) {
+			resource = resourceSet.getResource(resourceURI, false);
+		}
+		return resource;
+	}
 
-	public static void extractDestinationData(DestinationData destinationDataModel, Element destinationDataConfig) {
+	public static SapConnectionConfiguration getSapConnectionConfigurationModelFromDocument(Document document) {
+		if (document == null) {
+			return null;
+		}
+		
+		Resource resource = null;
+		try {
+			resource = getResource();
+		} catch (IOException e) {
+			return null;
+		}
+		
+		Element sapConfiguration = getSapConfiguration(document);
+		Element destinationDataStore = getDestinationDataStore(sapConfiguration);
+		NodeList destinationDataEntries = getDestinationDataEntries(destinationDataStore);
+		Element serverDataStore = getServerDataStore(sapConfiguration);
+		NodeList serverDataEntries = getServerDataEntries(serverDataStore);
+		
+		
+		SapConnectionConfiguration sapConnectionConfigurationModel = RfcFactory.eINSTANCE.createSapConnectionConfiguration();
+		resource.getContents().add(sapConnectionConfigurationModel);
+		DestinationDataStore destinationDataStoreModel = sapConnectionConfigurationModel.getDestinationDataStore();
+		for (int i = 0; i < destinationDataEntries.getLength(); i++) {
+			Element destinationData = (Element) destinationDataEntries.item(i);
+			String key = getAttributeValue(destinationData, KEY_ATTRIBUTE);
+			if (key == null) {
+				continue;
+			}
+			DestinationData destinationDataModel = RfcFactory.eINSTANCE.createDestinationData();
+			populateDestinationDataConfigIntoModel(destinationDataModel, destinationData);
+			destinationDataStoreModel.getDestinationData().add(destinationDataModel);
+			destinationDataStoreModel.getEntries().put(key, destinationDataModel);
+		}
+		
+		ServerDataStore serverDataStoreModel = sapConnectionConfigurationModel.getServerDataStore();
+		for (int i = 0; i < serverDataEntries.getLength(); i++) {
+			Element serverData = (Element) serverDataEntries.item(i);
+			String key = getAttributeValue(serverData, KEY_ATTRIBUTE);
+			if (key == null) {
+				continue;
+			}
+			ServerData serverDataModel = RfcFactory.eINSTANCE.createServerData();
+			populateServerDataConfigIntoModel(serverDataModel, serverData);
+			serverDataStoreModel.getServerData().add(serverDataModel);
+			serverDataStoreModel.getEntries().put(key, serverDataModel);
+		}		
+		
+		return sapConnectionConfigurationModel;
+	}
+	
+	public static void setSapConnectionConfigurationModelIntoDocument(Document document, SapConnectionConfiguration sapConnectionConfigurationModel) {
+		if (document == null || sapConnectionConfigurationModel == null) {
+			return;
+		}
+		
+		
+		Element sapConfigurationConfig = getSapConfiguration(document);
+		Element destinationDataStoreConfig = getDestinationDataStore(sapConfigurationConfig);
+		Element serverDataStoreConfig = getServerDataStore(sapConfigurationConfig);
+		
+		DestinationDataStore destinationDataStoreModel = sapConnectionConfigurationModel.getDestinationDataStore();
+		populateDestinationDataStoreModelIntoConfig(destinationDataStoreModel, destinationDataStoreConfig);
+		
+		ServerDataStore serverDataStoreModel = sapConnectionConfigurationModel.getServerDataStore();
+		populateServerDataStoreModelIntoConfig(serverDataStoreModel, serverDataStoreConfig);
+	}
+	
+	public static void populateDestinationDataStoreModelIntoConfig(DestinationDataStore destinationDataStoreModel, Element destinationDataStoreConfig) {
+		if (destinationDataStoreModel == null || destinationDataStoreConfig == null) {
+			return;
+		}
+		
+		Element map = getFirstChildElementWithName(destinationDataStoreConfig, MAP_TAG);
+		if (map == null) {
+			map = destinationDataStoreConfig.getOwnerDocument().createElement(MAP_TAG);
+			destinationDataStoreConfig.appendChild(map);
+		}
+		
+		removeChildNodes(map);
+		for (Map.Entry<String,DestinationData> entry: destinationDataStoreModel.getEntries()) {
+			Element entryConfig = destinationDataStoreConfig.getOwnerDocument().createElement(ENTRY_TAG);
+			entryConfig.setAttribute(KEY_ATTRIBUTE, entry.getKey());
+			entryConfig.setAttribute(CLASS_ATTRIBUTE, DESTINATION_DATA_CLASS);
+			map.appendChild(entryConfig);
+			populateDestinationDataModelIntoConfig(entry.getValue(), entryConfig);
+		}
+	}
+	
+	public static void populateDestinationDataConfigIntoModel(DestinationData destinationDataModel, Element destinationDataConfig) {
 		if (destinationDataModel == null || destinationDataConfig == null) {
 			return;
 		}
 		
 		// Check if configuration entry is a reference to global bean config
-		String beanName = getAttributeValue(destinationDataConfig, "value-ref");
+		String beanName = getAttributeValue(destinationDataConfig, "value-ref"); //$NON-NLS-1$
 		if (beanName != null) {
 			destinationDataConfig = getGlobalConfigurationById(destinationDataConfig.getOwnerDocument(), beanName);
 		}
@@ -82,13 +201,13 @@ public class ModelUtil {
 		}
 	}
 	
-	public static void populateDestinationData(DestinationData destinationDataModel, Element destinationDataConfig) {
+	public static void populateDestinationDataModelIntoConfig(DestinationData destinationDataModel, Element destinationDataConfig) {
 		if (destinationDataModel == null || destinationDataConfig == null) {
 			return;
 		}
 		
 		// Check if configuration entry is a reference to global bean config
-		String beanName = getAttributeValue(destinationDataConfig, "value-ref");
+		String beanName = getAttributeValue(destinationDataConfig, "value-ref"); //$NON-NLS-1$
 		if (beanName != null) {
 			destinationDataConfig = getGlobalConfigurationById(destinationDataConfig.getOwnerDocument(), beanName);
 		}
@@ -98,13 +217,34 @@ public class ModelUtil {
 		setPropertyValues(destinationDataConfig, destinationDataProperties);
 	}
 
-	public static void extractServerData(ServerData serverDataModel, Element serverDataConfig) {
+	public static void populateServerDataStoreModelIntoConfig(ServerDataStore serverDataStoreModel, Element serverDataStoreConfig) {
+		if (serverDataStoreModel == null || serverDataStoreConfig == null) {
+			return;
+		}
+		
+		Element map = getFirstChildElementWithName(serverDataStoreConfig, MAP_TAG);
+		if (map == null) {
+			map = serverDataStoreConfig.getOwnerDocument().createElement(MAP_TAG);
+			serverDataStoreConfig.appendChild(map);
+		}
+		
+		removeChildNodes(map);
+		for (Map.Entry<String,ServerData> entry: serverDataStoreModel.getEntries()) {
+			Element entryConfig = serverDataStoreConfig.getOwnerDocument().createElement(ENTRY_TAG);
+			entryConfig.setAttribute(KEY_ATTRIBUTE, entry.getKey());
+			entryConfig.setAttribute(CLASS_ATTRIBUTE, SERVER_DATA_CLASS);
+			map.appendChild(entryConfig);
+			populateServerDataModelIntoConfig(entry.getValue(), entryConfig);
+		}
+	}
+	
+	public static void populateServerDataConfigIntoModel(ServerData serverDataModel, Element serverDataConfig) {
 		if (serverDataModel == null || serverDataConfig == null) {
 			return;
 		}
 		
 		// Check if configuration entry is a reference to global bean config
-		String beanName = getAttributeValue(serverDataConfig, "value-ref");
+		String beanName = getAttributeValue(serverDataConfig, "value-ref"); //$NON-NLS-1$
 		if (beanName != null) {
 			serverDataConfig = getGlobalConfigurationById(serverDataConfig.getOwnerDocument(), beanName);
 		}
@@ -115,13 +255,13 @@ public class ModelUtil {
 		}
 	}
 	
-	public static void populateServerData(ServerData serverDataModel, Element serverDataConfig) {
+	public static void populateServerDataModelIntoConfig(ServerData serverDataModel, Element serverDataConfig) {
 		if (serverDataModel == null || serverDataConfig == null) {
 			return;
 		}
 		
 		// Check if configuration entry is a reference to global bean config
-		String beanName = getAttributeValue(serverDataConfig, "value-ref");
+		String beanName = getAttributeValue(serverDataConfig, "value-ref"); //$NON-NLS-1$
 		if (beanName != null) {
 			serverDataConfig = getGlobalConfigurationById(serverDataConfig.getOwnerDocument(), beanName);
 		}
@@ -133,70 +273,70 @@ public class ModelUtil {
 
 	public static Map<String, String> extractServerDataProperties(ServerData serverDataModel) {
 		Map<String, String> serverDataProperties = new HashMap<String, String>();
-		serverDataProperties.put("connectionCount", serverDataModel.getConnectionCount());
-		serverDataProperties.put("gwhost", serverDataModel.getGwhost());
-		serverDataProperties.put("gwserv", serverDataModel.getGwserv());
-		serverDataProperties.put("maxStartUpDelay", serverDataModel.getMaxStartUpDelay());
-		serverDataProperties.put("progid", serverDataModel.getProgid());
-		serverDataProperties.put("repositoryDestination", serverDataModel.getRepositoryDestination());
-		serverDataProperties.put("repositoryMap", serverDataModel.getRepositoryMap());
-		serverDataProperties.put("saprouter", serverDataModel.getSaprouter());
-		serverDataProperties.put("sncLib", serverDataModel.getSncLib());
-		serverDataProperties.put("sncMode", serverDataModel.getSncMode());
-		serverDataProperties.put("sncMyname", serverDataModel.getSncMyname());
-		serverDataProperties.put("sncQop", serverDataModel.getSncQop());
-		serverDataProperties.put("trace", serverDataModel.getTrace());
-		serverDataProperties.put("workerThreadCount", serverDataModel.getWorkerThreadCount());
-		serverDataProperties.put("workerThreadMinCount", serverDataModel.getWorkerThreadMinCount());
+		serverDataProperties.put("connectionCount", serverDataModel.getConnectionCount()); //$NON-NLS-1$
+		serverDataProperties.put("gwhost", serverDataModel.getGwhost()); //$NON-NLS-1$
+		serverDataProperties.put("gwserv", serverDataModel.getGwserv()); //$NON-NLS-1$
+		serverDataProperties.put("maxStartUpDelay", serverDataModel.getMaxStartUpDelay()); //$NON-NLS-1$
+		serverDataProperties.put("progid", serverDataModel.getProgid()); //$NON-NLS-1$
+		serverDataProperties.put("repositoryDestination", serverDataModel.getRepositoryDestination()); //$NON-NLS-1$
+		serverDataProperties.put("repositoryMap", serverDataModel.getRepositoryMap()); //$NON-NLS-1$
+		serverDataProperties.put("saprouter", serverDataModel.getSaprouter()); //$NON-NLS-1$
+		serverDataProperties.put("sncLib", serverDataModel.getSncLib()); //$NON-NLS-1$
+		serverDataProperties.put("sncMode", serverDataModel.getSncMode()); //$NON-NLS-1$
+		serverDataProperties.put("sncMyname", serverDataModel.getSncMyname()); //$NON-NLS-1$
+		serverDataProperties.put("sncQop", serverDataModel.getSncQop()); //$NON-NLS-1$
+		serverDataProperties.put("trace", serverDataModel.getTrace()); //$NON-NLS-1$
+		serverDataProperties.put("workerThreadCount", serverDataModel.getWorkerThreadCount()); //$NON-NLS-1$
+		serverDataProperties.put("workerThreadMinCount", serverDataModel.getWorkerThreadMinCount()); //$NON-NLS-1$
 		return serverDataProperties;
 	}
 
 	public static void setServerDataProperty(ServerData serverData, String attributeName,
 			String attributeValue) {
 		switch (attributeName) {
-		case "gwhost":
+		case "gwhost": //$NON-NLS-1$
 			serverData.setGwhost(attributeValue);
 			break;
-		case "gwserv":
+		case "gwserv": //$NON-NLS-1$
 			serverData.setGwserv(attributeValue);
 			break;
-		case "progid":
+		case "progid": //$NON-NLS-1$
 			serverData.setProgid(attributeValue);
 			break;
-		case "connectionCount":
+		case "connectionCount": //$NON-NLS-1$
 			serverData.setConnectionCount(attributeValue);
 			break;
-		case "saprouter":
+		case "saprouter": //$NON-NLS-1$
 			serverData.setSaprouter(attributeValue);
 			break;
-		case "maxStartUpDelay":
+		case "maxStartUpDelay": //$NON-NLS-1$
 			serverData.setMaxStartUpDelay(attributeValue);
 			break;
-		case "repositoryDestination":
+		case "repositoryDestination": //$NON-NLS-1$
 			serverData.setRepositoryDestination(attributeValue);
 			break;
-		case "repositoryMap":
+		case "repositoryMap": //$NON-NLS-1$
 			serverData.setRepositoryMap(attributeValue);
 			break;
-		case "trace":
+		case "trace": //$NON-NLS-1$
 			serverData.setTrace(attributeValue);
 			break;
-		case "workerThreadCount":
+		case "workerThreadCount": //$NON-NLS-1$
 			serverData.setWorkerThreadCount(attributeValue);
 			break;
-		case "workerThreadMinCount":
+		case "workerThreadMinCount": //$NON-NLS-1$
 			serverData.setWorkerThreadMinCount(attributeValue);
 			break;
-		case "sncMode":
+		case "sncMode": //$NON-NLS-1$
 			serverData.setSncMode(attributeValue);
 			break;
-		case "sncQop":
+		case "sncQop": //$NON-NLS-1$
 			serverData.setSncQop(attributeValue);
 			break;
-		case "sncMyname":
+		case "sncMyname": //$NON-NLS-1$
 			serverData.setSncMyname(attributeValue);
 			break;
-		case "sncLib":
+		case "sncLib": //$NON-NLS-1$
 			serverData.setSncLib(attributeValue);
 			break;
 		default:
@@ -206,198 +346,198 @@ public class ModelUtil {
 	
 	public static Map<String,String> extractDestinationDataProperties(DestinationData destinationDataModel) {
 		Map<String,String> destinationDataProperties = new HashMap<String,String>();
-		destinationDataProperties.put("aliasUser", destinationDataModel.getAliasUser());
-		destinationDataProperties.put("ashost", destinationDataModel.getAshost());
-		destinationDataProperties.put("authType", destinationDataModel.getAuthType());
-		destinationDataProperties.put("client", destinationDataModel.getClient());
-		destinationDataProperties.put("codepage", destinationDataModel.getCodepage());
-		destinationDataProperties.put("cpicTrace", destinationDataModel.getCpicTrace());
-		destinationDataProperties.put("denyInitialPassword", destinationDataModel.getDenyInitialPassword());
-		destinationDataProperties.put("expirationPeriod", destinationDataModel.getExpirationPeriod());
-		destinationDataProperties.put("expirationTime", destinationDataModel.getExpirationTime());
-		destinationDataProperties.put("getsso2", destinationDataModel.getGetsso2());
-		destinationDataProperties.put("group", destinationDataModel.getGroup());
-		destinationDataProperties.put("gwhost", destinationDataModel.getGwhost());
-		destinationDataProperties.put("gwserv", destinationDataModel.getGwserv());
-		destinationDataProperties.put("lang", destinationDataModel.getLang());
-		destinationDataProperties.put("lcheck", destinationDataModel.getLcheck());
-		destinationDataProperties.put("maxGetTime", destinationDataModel.getMaxGetTime());
-		destinationDataProperties.put("mshost", destinationDataModel.getMshost());
-		destinationDataProperties.put("msserv", destinationDataModel.getMsserv());
-		destinationDataProperties.put("mysapsso2", destinationDataModel.getMysapsso2());
-		destinationDataProperties.put("password", destinationDataModel.getPassword());
-		destinationDataProperties.put("passwd", destinationDataModel.getPasswd());
-		destinationDataProperties.put("pcs", destinationDataModel.getPcs());
-		destinationDataProperties.put("peakLimit", destinationDataModel.getPeakLimit());
-		destinationDataProperties.put("pingOnCreate", destinationDataModel.getPingOnCreate());
-		destinationDataProperties.put("poolCapacity", destinationDataModel.getPoolCapacity());
-		destinationDataProperties.put("r3name", destinationDataModel.getR3name());
-		destinationDataProperties.put("repositoryDest", destinationDataModel.getRepositoryDest());
-		destinationDataProperties.put("repositoryPasswd", destinationDataModel.getRepositoryPasswd());
-		destinationDataProperties.put("repositoryRoundtripOptimization", destinationDataModel.getRepositoryRoundtripOptimization());
-		destinationDataProperties.put("repositorySnc", destinationDataModel.getRepositorySnc());
-		destinationDataProperties.put("repositoryUser", destinationDataModel.getRepositoryUser());
-		destinationDataProperties.put("saprouter", destinationDataModel.getSaprouter());
-		destinationDataProperties.put("sncLibrary", destinationDataModel.getSncLibrary());
-		destinationDataProperties.put("sncMode", destinationDataModel.getSncMode());
-		destinationDataProperties.put("sncMyname", destinationDataModel.getSncMyname());
-		destinationDataProperties.put("sncPartnername", destinationDataModel.getSncPartnername());
-		destinationDataProperties.put("sncQop", destinationDataModel.getSncQop());
-		destinationDataProperties.put("sysnr", destinationDataModel.getSysnr());
-		destinationDataProperties.put("tphost", destinationDataModel.getTphost());
-		destinationDataProperties.put("tpname", destinationDataModel.getTpname());
-		destinationDataProperties.put("trace", destinationDataModel.getTrace());
-		destinationDataProperties.put("type", destinationDataModel.getType());
-		destinationDataProperties.put("userName", destinationDataModel.getUserName());
-		destinationDataProperties.put("user", destinationDataModel.getUser());
-		destinationDataProperties.put("userId", destinationDataModel.getUserId());
-		destinationDataProperties.put("useSapgui", destinationDataModel.getUseSapgui());
-		destinationDataProperties.put("x509cert", destinationDataModel.getX509cert());
+		destinationDataProperties.put("aliasUser", destinationDataModel.getAliasUser()); //$NON-NLS-1$
+		destinationDataProperties.put("ashost", destinationDataModel.getAshost()); //$NON-NLS-1$
+		destinationDataProperties.put("authType", destinationDataModel.getAuthType()); //$NON-NLS-1$
+		destinationDataProperties.put("client", destinationDataModel.getClient()); //$NON-NLS-1$
+		destinationDataProperties.put("codepage", destinationDataModel.getCodepage()); //$NON-NLS-1$
+		destinationDataProperties.put("cpicTrace", destinationDataModel.getCpicTrace()); //$NON-NLS-1$
+		destinationDataProperties.put("denyInitialPassword", destinationDataModel.getDenyInitialPassword()); //$NON-NLS-1$
+		destinationDataProperties.put("expirationPeriod", destinationDataModel.getExpirationPeriod()); //$NON-NLS-1$
+		destinationDataProperties.put("expirationTime", destinationDataModel.getExpirationTime()); //$NON-NLS-1$
+		destinationDataProperties.put("getsso2", destinationDataModel.getGetsso2()); //$NON-NLS-1$
+		destinationDataProperties.put("group", destinationDataModel.getGroup()); //$NON-NLS-1$
+		destinationDataProperties.put("gwhost", destinationDataModel.getGwhost()); //$NON-NLS-1$
+		destinationDataProperties.put("gwserv", destinationDataModel.getGwserv()); //$NON-NLS-1$
+		destinationDataProperties.put("lang", destinationDataModel.getLang()); //$NON-NLS-1$
+		destinationDataProperties.put("lcheck", destinationDataModel.getLcheck()); //$NON-NLS-1$
+		destinationDataProperties.put("maxGetTime", destinationDataModel.getMaxGetTime()); //$NON-NLS-1$
+		destinationDataProperties.put("mshost", destinationDataModel.getMshost()); //$NON-NLS-1$
+		destinationDataProperties.put("msserv", destinationDataModel.getMsserv()); //$NON-NLS-1$
+		destinationDataProperties.put("mysapsso2", destinationDataModel.getMysapsso2()); //$NON-NLS-1$
+		destinationDataProperties.put("password", destinationDataModel.getPassword()); //$NON-NLS-1$
+		destinationDataProperties.put("passwd", destinationDataModel.getPasswd()); //$NON-NLS-1$
+		destinationDataProperties.put("pcs", destinationDataModel.getPcs()); //$NON-NLS-1$
+		destinationDataProperties.put("peakLimit", destinationDataModel.getPeakLimit()); //$NON-NLS-1$
+		destinationDataProperties.put("pingOnCreate", destinationDataModel.getPingOnCreate()); //$NON-NLS-1$
+		destinationDataProperties.put("poolCapacity", destinationDataModel.getPoolCapacity()); //$NON-NLS-1$
+		destinationDataProperties.put("r3name", destinationDataModel.getR3name()); //$NON-NLS-1$
+		destinationDataProperties.put("repositoryDest", destinationDataModel.getRepositoryDest()); //$NON-NLS-1$
+		destinationDataProperties.put("repositoryPasswd", destinationDataModel.getRepositoryPasswd()); //$NON-NLS-1$
+		destinationDataProperties.put("repositoryRoundtripOptimization", destinationDataModel.getRepositoryRoundtripOptimization()); //$NON-NLS-1$
+		destinationDataProperties.put("repositorySnc", destinationDataModel.getRepositorySnc()); //$NON-NLS-1$
+		destinationDataProperties.put("repositoryUser", destinationDataModel.getRepositoryUser()); //$NON-NLS-1$
+		destinationDataProperties.put("saprouter", destinationDataModel.getSaprouter()); //$NON-NLS-1$
+		destinationDataProperties.put("sncLibrary", destinationDataModel.getSncLibrary()); //$NON-NLS-1$
+		destinationDataProperties.put("sncMode", destinationDataModel.getSncMode()); //$NON-NLS-1$
+		destinationDataProperties.put("sncMyname", destinationDataModel.getSncMyname()); //$NON-NLS-1$
+		destinationDataProperties.put("sncPartnername", destinationDataModel.getSncPartnername()); //$NON-NLS-1$
+		destinationDataProperties.put("sncQop", destinationDataModel.getSncQop()); //$NON-NLS-1$
+		destinationDataProperties.put("sysnr", destinationDataModel.getSysnr()); //$NON-NLS-1$
+		destinationDataProperties.put("tphost", destinationDataModel.getTphost()); //$NON-NLS-1$
+		destinationDataProperties.put("tpname", destinationDataModel.getTpname()); //$NON-NLS-1$
+		destinationDataProperties.put("trace", destinationDataModel.getTrace()); //$NON-NLS-1$
+		destinationDataProperties.put("type", destinationDataModel.getType()); //$NON-NLS-1$
+		destinationDataProperties.put("userName", destinationDataModel.getUserName()); //$NON-NLS-1$
+		destinationDataProperties.put("user", destinationDataModel.getUser()); //$NON-NLS-1$
+		destinationDataProperties.put("userId", destinationDataModel.getUserId()); //$NON-NLS-1$
+		destinationDataProperties.put("useSapgui", destinationDataModel.getUseSapgui()); //$NON-NLS-1$
+		destinationDataProperties.put("x509cert", destinationDataModel.getX509cert()); //$NON-NLS-1$
 		return destinationDataProperties;
 	}
 
 	public static void setDestinationDataProperty(DestinationData destinationData, String attributeName,
 			String attributeValue) {
 		switch (attributeName) {
-		case "aliasValue":
+		case "aliasValue": //$NON-NLS-1$
 			destinationData.setAliasUser(attributeValue);
 			break;
-		case "ashost":
+		case "ashost": //$NON-NLS-1$
 			destinationData.setAshost(attributeValue);
 			break;
-		case "authType":
+		case "authType": //$NON-NLS-1$
 			destinationData.setAuthType(attributeValue);
 			break;
-		case "client":
+		case "client": //$NON-NLS-1$
 			destinationData.setClient(attributeValue);
 			break;
-		case "codepage":
+		case "codepage": //$NON-NLS-1$
 			destinationData.setCodepage(attributeValue);
 			break;
-		case "cpicTrace":
+		case "cpicTrace": //$NON-NLS-1$
 			destinationData.setCpicTrace(attributeValue);
 			break;
-		case "denyInitialPassword":
+		case "denyInitialPassword": //$NON-NLS-1$
 			destinationData.setDenyInitialPassword(attributeValue);
 			break;
-		case "expirationPeriod":
+		case "expirationPeriod": //$NON-NLS-1$
 			destinationData.setExpirationPeriod(attributeValue);
 			break;
-		case "expirationTime":
+		case "expirationTime": //$NON-NLS-1$
 			destinationData.setExpirationTime(attributeValue);
 			break;
-		case "getsso2":
+		case "getsso2": //$NON-NLS-1$
 			destinationData.setGetsso2(attributeValue);
 			break;
-		case "group":
+		case "group": //$NON-NLS-1$
 			destinationData.setGroup(attributeValue);
 			break;
-		case "gwhost":
+		case "gwhost": //$NON-NLS-1$
 			destinationData.setGwhost(attributeValue);
 			break;
-		case "gwserv":
+		case "gwserv": //$NON-NLS-1$
 			destinationData.setGwserv(attributeValue);
 			break;
-		case "lang":
+		case "lang": //$NON-NLS-1$
 			destinationData.setLang(attributeValue);
 			break;
-		case "lcheck":
+		case "lcheck": //$NON-NLS-1$
 			destinationData.setLcheck(attributeValue);
 			break;
-		case "maxGetTime":
+		case "maxGetTime": //$NON-NLS-1$
 			destinationData.setMaxGetTime(attributeValue);
 			break;
-		case "mshost":
+		case "mshost": //$NON-NLS-1$
 			destinationData.setMshost(attributeValue);
 			break;
-		case "msserv":
+		case "msserv": //$NON-NLS-1$
 			destinationData.setMsserv(attributeValue);
 			break;
-		case "mysapsso2":
+		case "mysapsso2": //$NON-NLS-1$
 			destinationData.setMysapsso2(attributeValue);
 			break;
-		case "passwd":
+		case "passwd": //$NON-NLS-1$
 			destinationData.setPasswd(attributeValue);
 			break;
-		case "password":
+		case "password": //$NON-NLS-1$
 			destinationData.setPassword(attributeValue);
 			break;
-		case "pcs":
+		case "pcs": //$NON-NLS-1$
 			destinationData.setPcs(attributeValue);
 			break;
-		case "peakLimit":
+		case "peakLimit": //$NON-NLS-1$
 			destinationData.setPeakLimit(attributeValue);
 			break;
-		case "pingOnCreate":
+		case "pingOnCreate": //$NON-NLS-1$
 			destinationData.setPingOnCreate(attributeValue);
 			break;
-		case "poolCapacity":
+		case "poolCapacity": //$NON-NLS-1$
 			destinationData.setPoolCapacity(attributeValue);
 			break;
-		case "r3name":
+		case "r3name": //$NON-NLS-1$
 			destinationData.setR3name(attributeValue);
 			break;
-		case "repositoryDest":
+		case "repositoryDest": //$NON-NLS-1$
 			destinationData.setRepositoryDest(attributeValue);
 			break;
-		case "repositoryPasswd":
+		case "repositoryPasswd": //$NON-NLS-1$
 			destinationData.setRepositoryPasswd(attributeValue);
 			break;
-		case "repositoryRoundtripOptimization":
+		case "repositoryRoundtripOptimization": //$NON-NLS-1$
 			destinationData.setRepositoryRoundtripOptimization(attributeValue);
 			break;
-		case "repositorySnc":
+		case "repositorySnc": //$NON-NLS-1$
 			destinationData.setRepositorySnc(attributeValue);
 			break;
-		case "repositoryUser":
+		case "repositoryUser": //$NON-NLS-1$
 			destinationData.setRepositoryUser(attributeValue);
 			break;
-		case "saprouter":
+		case "saprouter": //$NON-NLS-1$
 			destinationData.setSaprouter(attributeValue);
 			break;
-		case "sncLibrary":
+		case "sncLibrary": //$NON-NLS-1$
 			destinationData.setSncLibrary(attributeValue);
 			break;
-		case "sncMode":
+		case "sncMode": //$NON-NLS-1$
 			destinationData.setSncMode(attributeValue);
 			break;
-		case "sncMyname":
+		case "sncMyname": //$NON-NLS-1$
 			destinationData.setSncMyname(attributeValue);
 			break;
-		case "sncPartnername":
+		case "sncPartnername": //$NON-NLS-1$
 			destinationData.setSncPartnername(attributeValue);
 			break;
-		case "sncQop":
+		case "sncQop": //$NON-NLS-1$
 			destinationData.setSncQop(attributeValue);
 			break;
-		case "sysnr":
+		case "sysnr": //$NON-NLS-1$
 			destinationData.setSysnr(attributeValue);
 			break;
-		case "tphost":
+		case "tphost": //$NON-NLS-1$
 			destinationData.setTphost(attributeValue);
 			break;
-		case "tpname":
+		case "tpname": //$NON-NLS-1$
 			destinationData.setTpname(attributeValue);
 			break;
-		case "trace":
+		case "trace": //$NON-NLS-1$
 			destinationData.setTrace(attributeValue);
 			break;
-		case "type":
+		case "type": //$NON-NLS-1$
 			destinationData.setType(attributeValue);
 			break;
-		case "userName":
+		case "userName": //$NON-NLS-1$
 			destinationData.setUserName(attributeValue);
 			break;
-		case "user":
+		case "user": //$NON-NLS-1$
 			destinationData.setUser(attributeValue);
 			break;
-		case "userId":
+		case "userId": //$NON-NLS-1$
 			destinationData.setUserId(attributeValue);
 			break;
-		case "useSapgui":
+		case "useSapgui": //$NON-NLS-1$
 			destinationData.setUseSapgui(attributeValue);
 			break;
-		case "x509cert":
+		case "x509cert": //$NON-NLS-1$
 			destinationData.setX509cert(attributeValue);
 			break;
 		default:
@@ -456,7 +596,21 @@ public class ModelUtil {
 	//
 
 	public static Element getSapConfiguration(Document document) {
-		return getGlobalConfigurationByClass(document, SAP_CONNECTION_CONFIGURATION_CLASS);
+		
+		if (document == null) {
+			return null;
+		}
+		
+		Element sapConfigurationElement = getGlobalConfigurationByClass(document, SAP_CONNECTION_CONFIGURATION_CLASS);
+		
+		if (sapConfigurationElement == null) {
+			sapConfigurationElement = document.createElement(BEAN_TAG);
+			sapConfigurationElement.setAttribute(ID_ATTRIBUTE, SAP_CONNECTION_CONFIGURATION_ID);
+			sapConfigurationElement.setAttribute(CLASS_ATTRIBUTE, SAP_CONNECTION_CONFIGURATION_CLASS);
+			document.appendChild(sapConfigurationElement);
+		}
+		
+		return sapConfigurationElement;
 	}
 
 	public static Element getDestinationDataStore(Element sapConfiguration) {
@@ -471,7 +625,14 @@ public class ModelUtil {
 			}
 		}
 
-		return null;
+		Element destinationDataStore = sapConfiguration.getOwnerDocument().createElement(PROPERTY_TAG);
+		destinationDataStore.setAttribute(NAME_ATTRIBUTE, DESTINATION_DATA_STORE_NAME_ATTRIBUTE);
+		sapConfiguration.appendChild(destinationDataStore);
+		
+		Element map = sapConfiguration.getOwnerDocument().createElement(MAP_TAG);
+		destinationDataStore.appendChild(map);
+		
+		return destinationDataStore;
 	}
 
 	public static NodeList getDestinationDataEntries(Element destinationDataStore) {
@@ -488,12 +649,19 @@ public class ModelUtil {
 
 		for (Element e = getFirstChildElementWithName(sapConfiguration,
 				PROPERTY_TAG); e != null; e = getNextSiblingElementWithName(e, PROPERTY_TAG)) {
-			if (hasAttributeValue(e, NAME_ATTRIBUTE, "serverDataStore")) {
+			if (hasAttributeValue(e, NAME_ATTRIBUTE, SERVER_DATA_STORE_NAME_ATTRIBUTE)) {
 				return e;
 			}
 		}
 
-		return null;
+		Element serverDataStore = sapConfiguration.getOwnerDocument().createElement(PROPERTY_TAG);
+		serverDataStore.setAttribute(NAME_ATTRIBUTE, SERVER_DATA_STORE_NAME_ATTRIBUTE);
+		sapConfiguration.appendChild(serverDataStore);
+		
+		Element map = sapConfiguration.getOwnerDocument().createElement(MAP_TAG);
+		serverDataStore.appendChild(map);
+		
+		return serverDataStore;
 	}
 
 	public static NodeList getServerDataEntries(Element destinationDataStore) {
@@ -555,10 +723,32 @@ public class ModelUtil {
 		Document document = configElement.getOwnerDocument();
 		removeChildNodes(configElement);
 		for (String propertyName: properties.keySet()) {
-			Element property = document.createElement(PROPERTY_TAG);
-			property.setAttribute(NAME_ATTRIBUTE, propertyName);
-			property.setAttribute(VALUE_ATTRIBUTE, properties.get(propertyName));
-			configElement.appendChild(property);
+			String propertyValue = properties.get(propertyName);
+			if (propertyValue != null && propertyValue.length() != 0) {
+				Element property = document.createElement(PROPERTY_TAG);
+				property.setAttribute(NAME_ATTRIBUTE, propertyName);
+				property.setAttribute(VALUE_ATTRIBUTE, properties.get(propertyName));
+				configElement.appendChild(property);
+			}
 		}
+	}
+	
+	public static void print(SapConnectionConfiguration sapConnectionConfiguration) throws IOException {
+		System.out.println("<sapConnectionConfiguration>"); //$NON-NLS-1$
+		System.out.println("  <destinationDataStore>"); //$NON-NLS-1$
+		for (Map.Entry<String, DestinationData> entry: sapConnectionConfiguration.getDestinationDataStore().getEntries()) {
+			System.out.println("    <entry key=\"" + entry.getKey() + "\">"); //$NON-NLS-1$ //$NON-NLS-2$
+			Util.print(entry.getValue());
+			System.out.println("    </entry>"); //$NON-NLS-1$
+		}
+		System.out.println("  </destinationDataStore>"); //$NON-NLS-1$
+		System.out.println("  <serverDataStore>"); //$NON-NLS-1$
+		for (Map.Entry<String,ServerData> entry: sapConnectionConfiguration.getServerDataStore().getEntries()) {
+			System.out.println("    <entry key=\"" + entry.getKey() + "\">"); //$NON-NLS-1$ //$NON-NLS-2$
+			Util.print(entry.getValue());
+			System.out.println("    </entry>"); //$NON-NLS-1$
+		}
+		System.out.println("  </serverDataStore>"); //$NON-NLS-1$
+		System.out.println("</sapConnectionConfiguration>"); //$NON-NLS-1$
 	}
 }

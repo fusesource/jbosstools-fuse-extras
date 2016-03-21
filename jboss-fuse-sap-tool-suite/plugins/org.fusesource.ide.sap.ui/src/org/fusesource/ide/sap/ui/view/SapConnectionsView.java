@@ -168,6 +168,7 @@ public class SapConnectionsView extends ViewPart implements ISelectionChangedLis
 		getSite().setSelectionProvider(viewer);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class adapter) {
 		if (adapter.equals(IPropertySheetPage.class)) {

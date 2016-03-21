@@ -159,4 +159,5 @@ public class SapConnectionConfigurationExportWizard extends Wizard implements IE
 	public void setGlobalConfigurationElementNode(Element node) {
 		this.globalConfigElement = node;
 	}
+
 }

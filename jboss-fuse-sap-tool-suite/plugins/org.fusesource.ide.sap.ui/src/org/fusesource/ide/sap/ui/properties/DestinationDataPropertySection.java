@@ -8,7 +8,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchPart;
 import org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataStoreEntryImpl;
 
-public class DestinationDataPropertySection extends BasePropertySection {
+public abstract class DestinationDataPropertySection extends BasePropertySection {
 
 	protected DestinationDataStoreEntryImpl destinationDataStoreEntry;
 	protected EditingDomain editingDomain;

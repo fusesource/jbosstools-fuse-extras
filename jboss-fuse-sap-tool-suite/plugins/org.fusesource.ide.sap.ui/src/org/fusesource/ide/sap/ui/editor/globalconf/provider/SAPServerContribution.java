@@ -17,18 +17,25 @@ import static org.fusesource.ide.sap.ui.Activator.CAMEL_SAP_VERSION;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchWizard;
+import org.eclipse.ui.PlatformUI;
 import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigElementType;
 import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard;
 import org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementContribution;
 import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
-import org.fusesource.ide.camel.model.service.core.model.CamelFile;
-import org.fusesource.ide.sap.ui.export.SapConnectionConfigurationExportWizard;
+import org.fusesource.ide.sap.ui.export.SapGlobalConnectionConfigurationWizard;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * @author lhein
+ * SAP Server Contribution - Provides wizard to edit SAP Global Connection Configuration.
+ * 
+ * @author William Collins <punkhornsw@gmail.com>
  */
 public class SAPServerContribution implements ICustomGlobalConfigElementContribution {
 
@@ -36,8 +43,8 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 * @see org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementContribution#createGlobalElement(org.fusesource.ide.camel.model.service.core.model.CamelFile)
 	 */
 	@Override
-	public GlobalConfigurationTypeWizard createGlobalElement(CamelFile camelFile) {
-		return new SapConnectionConfigurationExportWizard();
+	public GlobalConfigurationTypeWizard createGlobalElement(Document document) {
+		return createWizard(document);
 	}
 	
 	/*
@@ -46,7 +53,7 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 */
 	@Override
 	public GlobalConfigurationTypeWizard modifyGlobalElement(Document document) {
-		return new SapConnectionConfigurationExportWizard();
+		return createWizard(document);
 	}
 
 	/* (non-Javadoc)
@@ -54,7 +61,6 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 */
 	@Override
 	public void onGlobalElementDeleted(Node node) {
-		System.err.println("received info that node has been deleted!");
 	}
 
 	/* (non-Javadoc)
@@ -88,4 +94,22 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 		
 		return deps;
 	}
+
+	/**
+	 * Creates SAP Global Connection Configuration Wizard
+	 * 
+	 * @param document - document edited by wizard
+	 * @return SAP Global Connection Configuration Wizard
+	 */
+	private GlobalConfigurationTypeWizard createWizard(Document document) {
+		IWorkbenchWizard wizard = new SapGlobalConnectionConfigurationWizard(document);
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		ISelection selection = window.getSelectionService().getSelection();
+		if (!(selection instanceof IStructuredSelection)) {
+			selection = StructuredSelection.EMPTY;
+		}
+		wizard.init(PlatformUI.getWorkbench(), (StructuredSelection) selection);
+		return (GlobalConfigurationTypeWizard) wizard;
+	}
+	
 }
