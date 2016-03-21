@@ -145,18 +145,18 @@ public class SapConnectionConfigurationExportWizard extends Wizard implements IE
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard#getGlobalConfigrationElementNode()
+	 * @see org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard#getGlobalConfigurationElementNode()
 	 */
 	@Override
-	public Element getGlobalConfigrationElementNode() {
+	public Element getGlobalConfigurationElementNode() {
 		return this.globalConfigElement;
 	}
-
+	
 	/* (non-Javadoc)
-	 * @see org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard#setGlobalConfigrationElementNode(org.w3c.dom.Element)
+	 * @see org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard#setGlobalConfigurationElementNode(org.w3c.dom.Element)
 	 */
 	@Override
-	public void setGlobalConfigrationElementNode(Element node) {
+	public void setGlobalConfigurationElementNode(Element node) {
 		this.globalConfigElement = node;
-	}	
+	}
 }

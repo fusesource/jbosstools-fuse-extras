@@ -17,9 +17,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.fusesource.ide.foundation.ui.logging.RiderLogFacade;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
-import org.fusesource.ide.foundation.ui.logging.RiderLogFacade;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -37,8 +37,8 @@ public class Activator extends AbstractUIPlugin {
 	public static final String SAP_CONNECTION_CONFIGURATION = "icons/full/obj16/SapConnectionConfiguration.gif"; //$NON-NLS-1$
 	public static final String SERVER_DATA_STORE_IMAGE = "icons/full/obj16/ServerDataStore.gif"; //$NON-NLS-1$
 	public static final String SERVER_DATA_STORE_ENTRY_IMAGE = "icons/full/obj16/ServerDataStoreEntry.gif"; //$NON-NLS-1$
-	public static final String SAP_TOOL_SUITE_16_IMAGE = "icons/sap_tool_suite_icon_16x16.png"; //$NON-NLS-1$
-	public static final String SAP_TOOL_SUITE_48_IMAGE = "icons/sap_tool_suite_icon_48x48.png"; //$NON-NLS-1$
+	public static final String SAP_TOOL_SUITE_16_IMAGE = "icons/sap16.png"; //$NON-NLS-1$
+	public static final String SAP_TOOL_SUITE_48_IMAGE = "icons/sap.png"; //$NON-NLS-1$
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.fusesource.ide.sap.ui"; //$NON-NLS-1$

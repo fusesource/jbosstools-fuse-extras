@@ -64,7 +64,7 @@
             allowMultiple="false"
             category="org.fusesource.ide.sap"
             class="org.fusesource.ide.sap.ui.view.SapConnectionsView"
-            icon="icons/sap_tool_suite_icon_16x16.png"
+            icon="icons/sap16.png"
             id="org.fusesource.ide.sap.ui.view.SapConnectionsView"
             name="%view.name"
             restorable="true">
@@ -526,7 +526,7 @@
          	id="org.fusesource.ide.sap.ui.SapConnectionConfigurationExportWizard"
             category="org.fusesource.ide.JBossFuseCategory"
          	name="%wizard.name"
-            icon="icons/sap_tool_suite_icon_16x16.png"
+            icon="icons/sap16.png"
          	class="org.fusesource.ide.sap.ui.export.SapConnectionConfigurationExportWizard">
          	<description>
          		%wizard.description
@@ -538,69 +538,78 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcDestinationPaletteEntry"
-            diagramImage="icons/sap_tool_suite_icon_48x48.png"
+            diagramImage="icons/sap.png"
             id="sap-srfc-destination"
-            paletteIcon="icons/sap_tool_suite_icon_16x16.png">
+            paletteIcon="icons/sap.png">
       </PaletteContribution>
       <PaletteContribution
             categoryName="COMPONENTS"
+            class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcServerPaletteEntry"
+            diagramImage="icons/sap.png"
             id="sap-srfc-server"
-            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
-            class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcServerPaletteEntry">
+            paletteIcon="icons/sap.png">
       </PaletteContribution>
       <PaletteContribution
+            categoryName="COMPONENTS"
+            class="org.fusesource.ide.sap.ui.editor.provider.SapTransactionalRfcDestinationPaletteEntry"
+            diagramImage="icons/sap.png"
             id="sap-trfc-destination"
-            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
-            categoryName="COMPONENTS"
-            class="org.fusesource.ide.sap.ui.editor.provider.SapTransactionalRfcDestinationPaletteEntry">
+            paletteIcon="icons/sap.png">
       </PaletteContribution>
       <PaletteContribution
+            categoryName="COMPONENTS"
+            class="org.fusesource.ide.sap.ui.editor.provider.SapTransactionalRfcServerPaletteEntry"
+            diagramImage="icons/sap.png"
             id="sap-trfc-server"
-            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
-            categoryName="COMPONENTS"
-            class="org.fusesource.ide.sap.ui.editor.provider.SapTransactionalRfcServerPaletteEntry">
+            paletteIcon="icons/sap.png">
       </PaletteContribution>
       <PaletteContribution
+            categoryName="COMPONENTS"
+            class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedRfcDestinationPaletteEntry"
+            diagramImage="icons/sap.png"
             id="sap-qrfc-destination"
-            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
-            categoryName="COMPONENTS"
-            class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedRfcDestinationPaletteEntry">
+            paletteIcon="icons/sap.png">
       </PaletteContribution>
       <PaletteContribution
+            categoryName="COMPONENTS"
+            class="org.fusesource.ide.sap.ui.editor.provider.SapIDocDestinationPaletteEntry"
+            diagramImage="icons/sap.png"
             id="sap-idoc-destination"
-            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
-            categoryName="COMPONENTS"
-            class="org.fusesource.ide.sap.ui.editor.provider.SapIDocDestinationPaletteEntry">
+            paletteIcon="icons/sap.png">
       </PaletteContribution>
       <PaletteContribution
+            categoryName="COMPONENTS"
+            class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListDestinationPaletteEntry"
+            diagramImage="icons/sap.png"
             id="sap-idoclist-destination"
-            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
-            categoryName="COMPONENTS"
-            class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListDestinationPaletteEntry">
+            paletteIcon="icons/sap.png">
       </PaletteContribution>
       <PaletteContribution
+            categoryName="COMPONENTS"
+            class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedIDocDestinationPaletteEntry"
+            diagramImage="icons/sap.png"
             id="sap-qidoc-destination"
-            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
-            categoryName="COMPONENTS"
-            class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedIDocDestinationPaletteEntry">
+            paletteIcon="icons/sap.png">
       </PaletteContribution>
       <PaletteContribution
+            categoryName="COMPONENTS"
+            class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedIDocListDestinationPaletteEntry"
+            diagramImage="icons/sap.png"
             id="sap-qidoclist-destination"
-            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
-            categoryName="COMPONENTS"
-            class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedIDocListDestinationPaletteEntry">
+            paletteIcon="icons/sap.png">
       </PaletteContribution>
       <PaletteContribution
-            id="sap-idoclist-server"
-            paletteIcon="icons/sap_tool_suite_icon_16x16.png"
             categoryName="COMPONENTS"
-            class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListServerPaletteEntry">
+            class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListServerPaletteEntry"
+            diagramImage="icons/sap.png"
+            id="sap-idoclist-server"
+            paletteIcon="icons/sap.png">
       </PaletteContribution>
    </extension>
    <extension
          point="org.fusesource.ide.editor.globalConfigContributor">
       <GlobalConfigCategory
-            icon="icons/sap_tool_suite_icon_16x16.png"
+            icon="icons/sap16.png"
             id="org.fusesource.ide.sap.globalconfig.category"
             name="SAP">
       </GlobalConfigCategory>
@@ -608,7 +617,7 @@
             category="org.fusesource.ide.sap.globalconfig.category"
             class="org.fusesource.ide.sap.ui.editor.globalconf.provider.SAPServerContribution"
             id="org.fusesource.ide.sap.ui.GlobalConfigElementSAPServerContribution"
-            icon="icons/sap_tool_suite_icon_16x16.png"
+            icon="icons/sap16.png"
             name="SAP Connection">
       </GlobalConfigElement>
    </extension>
