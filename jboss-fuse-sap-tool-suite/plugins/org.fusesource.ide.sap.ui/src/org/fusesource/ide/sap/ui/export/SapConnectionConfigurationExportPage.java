@@ -43,6 +43,7 @@ import org.fusesource.ide.sap.ui.converter.ExportFileType2ExportFileTypeComboSel
 import org.fusesource.ide.sap.ui.converter.ExportFileTypeComboSelection2ExportFileTypeConverter;
 import org.fusesource.ide.sap.ui.export.SapConnectionConfigurationExportSettings.ExportFileType;
 
+@SuppressWarnings("deprecation")
 public class SapConnectionConfigurationExportPage extends WizardPage {
 	
 	private static final String BLANK_STRING = ""; //$NON-NLS-1$

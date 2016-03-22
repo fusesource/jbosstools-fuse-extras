@@ -12,7 +12,6 @@
 package org.fusesource.ide.sap.ui;
 
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;

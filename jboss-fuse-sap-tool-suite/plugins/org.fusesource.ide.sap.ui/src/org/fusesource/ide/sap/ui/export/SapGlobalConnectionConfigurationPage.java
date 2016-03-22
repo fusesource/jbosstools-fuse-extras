@@ -49,13 +49,19 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.wb.swt.SWTResourceManager;
 import org.fusesource.camel.component.sap.model.rfc.DestinationData;
 import org.fusesource.camel.component.sap.model.rfc.DestinationDataStore;
 import org.fusesource.camel.component.sap.model.rfc.RfcPackage;
@@ -282,6 +288,20 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	
 	protected ISharedImages sharedImages;
 
+	private Composite properties;
+
+	private StackLayout stackLayout;
+
+	private CTabFolder sapConnectionConfigurationTabFolder;
+
+	private CTabFolder destinationDataStoreTabFolder;
+
+	private CTabFolder serverDataStoreTabFolder;
+
+	private CTabFolder destinationDataTabFolder;
+
+	private CTabFolder serverDataTabFolder;
+
 	public SapGlobalConnectionConfigurationPage(DataBindingContext context,
 			SapConnectionConfiguration sapConnectionConfiguration) {
 		super(Messages.SapGlobalConnectionConfigurationPage_EditSapConnectionConfigurations,
@@ -320,6 +340,81 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		viewer.addSelectionChangedListener(this);
 		viewer.expandAll();
 		
+		properties = new Composite(sashForm, SWT.NONE);
+		stackLayout = new StackLayout();
+		properties.setLayout(stackLayout);
+		
+		sapConnectionConfigurationTabFolder = new CTabFolder(properties, SWT.BORDER);
+		sapConnectionConfigurationTabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+		
+		CTabItem sapConnectionConfigurationDescriptionItem = new CTabItem(sapConnectionConfigurationTabFolder, SWT.NONE);
+		sapConnectionConfigurationDescriptionItem.setText(Messages.SapGlobalConnectionConfigurationPage_tbtmNewItem_text);
+		sapConnectionConfigurationTabFolder.setSelection(sapConnectionConfigurationDescriptionItem);
+		
+		Label lblContainsStoresFor = new Label(sapConnectionConfigurationTabFolder, SWT.WRAP);
+		sapConnectionConfigurationDescriptionItem.setControl(lblContainsStoresFor);
+		lblContainsStoresFor.setText(Messages.SapGlobalConnectionConfigurationPage_lblContainsStoresFor_text);
+		
+		destinationDataStoreTabFolder = new CTabFolder(properties, SWT.BORDER);
+		destinationDataStoreTabFolder.setSelectionBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+		
+		CTabItem destinationDataStoreDescriptionItem = new CTabItem(destinationDataStoreTabFolder, SWT.NONE);
+		destinationDataStoreDescriptionItem.setText(Messages.SapGlobalConnectionConfigurationPage_DestinationDataStoreDescritionItemTitle);
+		destinationDataStoreTabFolder.setSelection(destinationDataStoreDescriptionItem);
+		
+		Label lblContainsSapConnection_1 = new Label(destinationDataStoreTabFolder, SWT.WRAP);
+		lblContainsSapConnection_1.setText(Messages.SapGlobalConnectionConfigurationPage_lblContainsSapConnection_1_text);
+		destinationDataStoreDescriptionItem.setControl(lblContainsSapConnection_1);
+		
+		serverDataStoreTabFolder = new CTabFolder(properties, SWT.BORDER);
+		serverDataStoreTabFolder.setSelectionBackground(SWTResourceManager.getColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+		
+		CTabItem tabItem_1 = new CTabItem(serverDataStoreTabFolder, SWT.NONE);
+		tabItem_1.setText(Messages.SapGlobalConnectionConfigurationPage_ServerDataStoreDescriptionItemTitle);
+		serverDataStoreTabFolder.setSelection(tabItem_1);
+		
+		Label serverDataStoreDescriptionItem = new Label(serverDataStoreTabFolder, SWT.WRAP);
+		serverDataStoreDescriptionItem.setText(Messages.SapGlobalConnectionConfigurationPage_lblContainsSapConnection_text_1);
+		tabItem_1.setControl(serverDataStoreDescriptionItem);
+		
+		destinationDataTabFolder = new CTabFolder(properties, SWT.BORDER);
+		destinationDataTabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+		
+		CTabItem destinationDataBasicItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
+		destinationDataBasicItem.setText(Messages.SapGlobalConnectionConfigurationPage_DestinationDataBasicItemTitle);
+		destinationDataTabFolder.setSelection(destinationDataBasicItem);
+		
+		CTabItem destinationDataConnectionItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
+		destinationDataConnectionItem.setText(Messages.SapGlobalConnectionConfigurationPage_DestinationDataConnectionItemTitle);
+		
+		CTabItem destinationDataAuthenticationItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
+		destinationDataAuthenticationItem.setText(Messages.SapGlobalConnectionConfigurationPage_DestinationDataAuthenticationItemTitle);
+		
+		CTabItem destinationDataSpecialItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
+		destinationDataSpecialItem.setText(Messages.SapGlobalConnectionConfigurationPage_DestinationDataSpecialItemTitle);
+		
+		CTabItem destinationDataPoolItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
+		destinationDataPoolItem.setText(Messages.SapGlobalConnectionConfigurationPage_DestinationDataPoolItemTitle);
+		
+		CTabItem destinationDataSncItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
+		destinationDataSncItem.setText(Messages.SapGlobalConnectionConfigurationPage_DestinationDataSncItemTitle);
+		
+		CTabItem destinationDataRepositoryItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
+		destinationDataRepositoryItem.setText(Messages.SapGlobalConnectionConfigurationPage_DestinationDataRepositoryItemTitle);
+		
+		serverDataTabFolder = new CTabFolder(properties, SWT.BORDER);
+		serverDataTabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
+		
+		CTabItem serverDataMandatoryItem = new CTabItem(serverDataTabFolder, SWT.NONE);
+		serverDataMandatoryItem.setText(Messages.SapGlobalConnectionConfigurationPage_ServerDataMandatoryItemTitle);
+		serverDataTabFolder.setSelection(serverDataMandatoryItem);
+
+		CTabItem serverDataOptionalItem = new CTabItem(serverDataTabFolder, SWT.NONE);
+		serverDataOptionalItem.setText(Messages.SapGlobalConnectionConfigurationPage_ServerDataOptionalItemTitle);
+
+		CTabItem serverDataSncItem = new CTabItem(serverDataTabFolder, SWT.NONE);
+		serverDataSncItem.setText(Messages.SapGlobalConnectionConfigurationPage_ServerDataSncItemTitle);
+
 		initActions();
 		
 		// Create Context Menu
@@ -377,6 +472,23 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
 		selection = event.getSelection() instanceof IStructuredSelection ? (IStructuredSelection) event.getSelection() : StructuredSelection.EMPTY;
+		updateProperties();
+	}
+	
+	private void updateProperties() {
+		Object obj = selection.getFirstElement();
+		if (obj instanceof SapConnectionConfiguration) {
+			stackLayout.topControl = sapConnectionConfigurationTabFolder;
+		} else if (obj instanceof DestinationDataStore) {
+			stackLayout.topControl = destinationDataStoreTabFolder;
+		} else if (obj instanceof ServerDataStore) {
+			stackLayout.topControl = serverDataStoreTabFolder;
+		} else if (obj instanceof DestinationDataStoreEntryImpl) {
+			stackLayout.topControl = destinationDataTabFolder;
+		} else if (obj instanceof ServerDataStoreEntryImpl) {
+			stackLayout.topControl = serverDataTabFolder;
+		}
+		properties.layout();
 	}
 
 	/**
@@ -433,5 +545,4 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	    newServerAction = new NewServerAction();
 	    
 	}
-
 }
