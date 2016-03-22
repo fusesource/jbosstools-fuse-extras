@@ -83,26 +83,20 @@ public class SapGlobalConnectionConfigurationWizard extends Wizard implements IE
 		return true;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard#getGlobalConfigrationElementNode()
-	 */
-	@Override
-	public Element getGlobalConfigrationElementNode() {
-		return null;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard#setGlobalConfigrationElementNode(org.w3c.dom.Element)
-	 */
-	@Override
-	public void setGlobalConfigrationElementNode(Element node) {
-		// NOOP
-	}	
-
 	private void unregisterDataStores() {
 		// Unregister data stores
 		ComponentDestinationDataProvider.INSTANCE.removeDestinationDataStore(sapConnectionConfigurationModel.getDestinationDataStore());
 		ComponentServerDataProvider.INSTANCE.removeServerDataStore(sapConnectionConfigurationModel.getServerDataStore());
+	}
+
+	@Override
+	public Element getGlobalConfigurationElementNode() {
+		return null;
+	}
+
+	@Override
+	public void setGlobalConfigurationElementNode(Element node) {
+		// NOOP
 	}
 	
 }

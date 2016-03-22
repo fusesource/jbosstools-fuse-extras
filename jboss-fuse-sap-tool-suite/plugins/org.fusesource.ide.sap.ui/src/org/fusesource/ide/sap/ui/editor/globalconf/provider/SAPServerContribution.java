@@ -27,6 +27,7 @@ import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigElementType;
 import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard;
 import org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementContribution;
 import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
+import org.fusesource.ide.camel.model.service.core.model.CamelFile;
 import org.fusesource.ide.sap.ui.export.SapGlobalConnectionConfigurationWizard;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -43,8 +44,8 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 * @see org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementContribution#createGlobalElement(org.fusesource.ide.camel.model.service.core.model.CamelFile)
 	 */
 	@Override
-	public GlobalConfigurationTypeWizard createGlobalElement(Document document) {
-		return createWizard(document);
+	public GlobalConfigurationTypeWizard createGlobalElement(CamelFile camelFile) {
+		return createWizard(camelFile.getDocument());
 	}
 	
 	/*
@@ -111,5 +112,5 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 		wizard.init(PlatformUI.getWorkbench(), (StructuredSelection) selection);
 		return (GlobalConfigurationTypeWizard) wizard;
 	}
-	
+
 }
