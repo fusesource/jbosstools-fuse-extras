@@ -585,7 +585,7 @@ public class ModelUtil {
 		try {
 			resource.save(null);
 		} catch (IOException e) {
-			Activator.getLogger().warning(Messages.ModelUtil_ErrorWhenSavingSapConnectionConfiguration, e);
+			Activator.logWarning(Messages.ModelUtil_ErrorWhenSavingSapConnectionConfiguration, e);
 		}
 
 		return sapConnectionConfiguration;
@@ -607,7 +607,7 @@ public class ModelUtil {
 			sapConfigurationElement = document.createElement(BEAN_TAG);
 			sapConfigurationElement.setAttribute(ID_ATTRIBUTE, SAP_CONNECTION_CONFIGURATION_ID);
 			sapConfigurationElement.setAttribute(CLASS_ATTRIBUTE, SAP_CONNECTION_CONFIGURATION_CLASS);
-			document.appendChild(sapConfigurationElement);
+			document.getDocumentElement().appendChild(sapConfigurationElement);
 		}
 		
 		return sapConfigurationElement;

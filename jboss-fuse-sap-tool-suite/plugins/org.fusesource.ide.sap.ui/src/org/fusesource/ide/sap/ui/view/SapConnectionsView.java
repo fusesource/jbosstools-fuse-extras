@@ -185,7 +185,7 @@ public class SapConnectionsView extends ViewPart implements ISelectionChangedLis
 			try {
 				resource.save(null);
 			} catch (IOException e) {
-				Activator.getLogger().warning(Messages.SapConnectionsView_ErrorWhenSavingViewState, e);
+				Activator.logWarning(Messages.SapConnectionsView_ErrorWhenSavingViewState, e);
 			}
 		}
 

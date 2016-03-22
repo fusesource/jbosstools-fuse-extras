@@ -12,12 +12,14 @@
 package org.fusesource.ide.sap.ui;
 
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.fusesource.ide.foundation.ui.logging.RiderLogFacade;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
@@ -70,8 +72,9 @@ public class Activator extends AbstractUIPlugin {
 		super.stop(context);
 	}
 	
-	public static RiderLogFacade getLogger() {
-		return RiderLogFacade.getLog(getDefault().getLog());
+	public static void logWarning(String message, Exception e) {
+		IStatus status = new Status(IStatus.WARNING, PLUGIN_ID, message, e);
+		getDefault().getLog().log(status);
 	}
 
 	/**
