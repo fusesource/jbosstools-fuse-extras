@@ -14,11 +14,20 @@ package org.fusesource.ide.sap.ui.util;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 
 public class LayoutUtil {
+	
+	public static FormLayout compositeFormLayout() {
+		FormLayout layout = new FormLayout();
+		layout.marginWidth = ITabbedPropertyConstants.HSPACE + 2;
+		layout.marginHeight = ITabbedPropertyConstants.VSPACE;
+        layout.spacing = ITabbedPropertyConstants.VMARGIN + 1;
+		return layout;
+	}
 
 	public static FormData descriptionLayoutData() {
 		FormData data = new FormData();

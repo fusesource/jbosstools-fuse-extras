@@ -26,7 +26,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.fusesource.camel.component.sap.model.SAPEditPlugin;
 import org.fusesource.camel.component.sap.model.rfc.DestinationData;
 import org.fusesource.camel.component.sap.model.rfc.DestinationDataStore;
@@ -83,8 +83,8 @@ public class ModelUtil {
 	// Model Conversion
 	//
 	
-	private static Resource getResource() throws IOException {
-		ResourceSet resourceSet = new ResourceSetImpl();
+	private static Resource getResource(EditingDomain editingDomain) throws IOException {
+		ResourceSet resourceSet = editingDomain.getResourceSet();
 		File tmpFile = File.createTempFile("resource", ".spi"); //$NON-NLS-1$ //$NON-NLS-2$
 		URI resourceURI = URI.createFileURI(tmpFile.getAbsolutePath());
 		Resource resource;
@@ -96,14 +96,14 @@ public class ModelUtil {
 		return resource;
 	}
 
-	public static SapConnectionConfiguration getSapConnectionConfigurationModelFromDocument(Document document) {
+	public static SapConnectionConfiguration getSapConnectionConfigurationModelFromDocument(Document document, EditingDomain editingDomain) {
 		if (document == null) {
 			return null;
 		}
 		
 		Resource resource = null;
 		try {
-			resource = getResource();
+			resource = getResource(editingDomain);
 		} catch (IOException e) {
 			return null;
 		}
