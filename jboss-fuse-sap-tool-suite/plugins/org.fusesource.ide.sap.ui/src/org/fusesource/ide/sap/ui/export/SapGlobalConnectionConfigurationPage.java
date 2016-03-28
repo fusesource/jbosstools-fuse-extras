@@ -64,6 +64,7 @@ import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -268,7 +269,6 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		
 		protected ServerDataStoreEntryImpl serverDataStoreEntry;
 		protected EditingDomain editingDomain;
-		private ISelection selection;
 
 		private Text gwhostText;
 		private Text gwservText;
@@ -294,14 +294,8 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		private Binding maxStartupDelayBinding;
 		private Binding saprouterBinding;
 
-		protected ControlDecorationSupport connectionCountDecorator;
-		protected ControlDecorationSupport saprouterDecorator;
-		protected ControlDecorationSupport workerThreadCountDecorator;
-		protected ControlDecorationSupport workerThreadMinCountDecorator;
-		protected ControlDecorationSupport maxStartupDelayDecorator;
-
 		public void createControl() {
-			
+
 			serverDataTabFolder = new CTabFolder(properties, SWT.BORDER);
 			serverDataTabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 			
@@ -482,7 +476,6 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		}
 		
 		public void setInput(ISelection selection) {
-			this.selection = selection;
 			Assert.isTrue(selection instanceof IStructuredSelection);
 			Object input = ((IStructuredSelection)selection).getFirstElement();
 			Assert.isTrue(input instanceof ServerDataStoreEntryImpl);
@@ -491,10 +484,6 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			initDataBindings();
 		}
 		
-		public void refresh() {
-			bindingContext.updateTargets();
-		}
-
 		protected DataBindingContext initDataBindings() {
 			if (bindingContext != null) {
 				bindingContext.dispose();
@@ -528,7 +517,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			connectionCountStrategy.setBeforeSetValidator(new NonNegativeIntegerValidator(Messages.MandatoryServerPropertySection_ConnectionCountValidator));
 			connectionCountBinding = bindingContext.bindValue(observeTextLanguageTextObserveWidget, destinationLangObserveValue, connectionCountStrategy, null);
 			
-			connectionCountDecorator = ControlDecorationSupport.create(connectionCountBinding, SWT.TOP | SWT.LEFT);
+			ControlDecorationSupport.create(connectionCountBinding, SWT.TOP | SWT.LEFT);
 			//
 			////
 
@@ -572,10 +561,10 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			IObservableValue serverRepositoryMapObserveValue = EMFEditProperties.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__REPOSITORY_MAP)).observe(serverDataStoreEntry);
 			bindingContext.bindValue(observeRepositoryMapTextObserveWidget, serverRepositoryMapObserveValue, null, null);
 
-			saprouterDecorator = ControlDecorationSupport.create(saprouterBinding, SWT.TOP | SWT.LEFT);		
-			workerThreadCountDecorator = ControlDecorationSupport.create(workerThreadCountBinding, SWT.TOP | SWT.LEFT);
-			workerThreadMinCountDecorator = ControlDecorationSupport.create(workerThreadMinCountBinding, SWT.TOP | SWT.LEFT);
-			maxStartupDelayDecorator = ControlDecorationSupport.create(maxStartupDelayBinding, SWT.TOP | SWT.LEFT);
+			ControlDecorationSupport.create(saprouterBinding, SWT.TOP | SWT.LEFT);		
+			ControlDecorationSupport.create(workerThreadCountBinding, SWT.TOP | SWT.LEFT);
+			ControlDecorationSupport.create(workerThreadMinCountBinding, SWT.TOP | SWT.LEFT);
+			ControlDecorationSupport.create(maxStartupDelayBinding, SWT.TOP | SWT.LEFT);
 			//
 			////
 			
@@ -716,8 +705,10 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		viewer.setInput(sapConnectionConfiguration.eResource());
 		viewer.addSelectionChangedListener(this);
 		viewer.expandAll();
+
+		ScrolledComposite sc = new ScrolledComposite(sashForm, SWT.H_SCROLL | SWT.V_SCROLL);
 		
-		properties = new Composite(sashForm, SWT.NONE);
+		properties = new Composite(sc, SWT.NONE);
 		stackLayout = new StackLayout();
 		properties.setLayout(stackLayout);
 		
@@ -780,6 +771,11 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		serverDataProperties = new ServerDataProperties();
 		serverDataProperties.createControl();
 
+		sc.setContent(properties);
+		sc.setExpandHorizontal(true);
+		sc.setExpandVertical(true);
+		sc.setMinSize(properties.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+		
 		initActions();
 		
 		// Create Context Menu
