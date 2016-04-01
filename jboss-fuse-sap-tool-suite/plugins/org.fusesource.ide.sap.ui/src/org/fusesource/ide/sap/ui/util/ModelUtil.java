@@ -399,7 +399,7 @@ public class ModelUtil {
 	public static void setDestinationDataProperty(DestinationData destinationData, String attributeName,
 			String attributeValue) {
 		switch (attributeName) {
-		case "aliasValue": //$NON-NLS-1$
+		case "aliasUser": //$NON-NLS-1$
 			destinationData.setAliasUser(attributeValue);
 			break;
 		case "ashost": //$NON-NLS-1$
