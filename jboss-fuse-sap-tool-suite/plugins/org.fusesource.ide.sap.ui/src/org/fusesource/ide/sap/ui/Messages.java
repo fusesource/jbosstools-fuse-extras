@@ -142,6 +142,9 @@ public class Messages extends NLS {
 	public static String SapConnectionConfigurationExportWizard_WindowTitle;
 	public static String SapConnectionConfigurationSection_DescriptionLabel;
 	public static String SapConnectionsView_ErrorWhenSavingViewState;
+	public static String SapGlobalConnectionConfigurationPage_Authentication;
+	public static String SapGlobalConnectionConfigurationPage_Basic;
+	public static String SapGlobalConnectionConfigurationPage_Connection;
 	public static String SapGlobalConnectionConfigurationPage_CreateEditDeleteDestinationAndServerConnectionConfigurations;
 	public static String SapGlobalConnectionConfigurationPage_Delete;
 	public static String SapGlobalConnectionConfigurationPage_DestinationDataAuthenticationItemTitle;
@@ -213,15 +216,21 @@ public class Messages extends NLS {
 	public static String TestDestinationDialog_7;
 	public static String TestDestinationDialog_Clear;
 	public static String TestDestinationDialog_dialogTitle;
+	public static String TestDestinationDialog_PingJCoDestination;
+	public static String TestDestinationDialog_PingJCoDestinationThread;
 	public static String TestDestinationDialog_shellTitle;
 	public static String TestDestinationDialog_Test;
 	public static String TestServerDialog_Clear;
+	public static String TestServerDialog_CreateJCoServer;
+	public static String TestServerDialog_CreatingJCoServer;
 	public static String TestServerDialog_ErrorOccuredOnConnection;
 	public static String TestServerDialog_ErrorStartingServer;
 	public static String TestServerDialog_ErrorStoppingServer;
 	public static String TestServerDialog_ExceptionOccuredOnConnection;
+	public static String TestServerDialog_FailedToCreateJCoServer;
 	public static String TestServerDialog_FailedToCreateServer;
 	public static String TestServerDialog_FailedToGetServer;
+	public static String TestServerDialog_GetJCoServerThread;
 	public static String TestServerDialog_ServerState;
 	public static String TestServerDialog_ServerStateChanged;
 	public static String TestServerDialog_Start;
@@ -232,10 +241,15 @@ public class Messages extends NLS {
 	public static String SapGlobalConnectionConfigurationPage_lblContainsSapConnection_text;
 	public static String SapGlobalConnectionConfigurationPage_lblContainsSapConnection_text_1;
 	public static String SapGlobalConnectionConfigurationPage_lblContainsSapConnection_1_text;
+	public static String SapGlobalConnectionConfigurationPage_Pool;
+	public static String SapGlobalConnectionConfigurationPage_Repository;
+	public static String SapGlobalConnectionConfigurationPage_Run;
 	public static String SapGlobalConnectionConfigurationPage_ServerDataMandatoryItemTitle;
 	public static String SapGlobalConnectionConfigurationPage_ServerDataOptionalItemTitle;
 	public static String SapGlobalConnectionConfigurationPage_ServerDataSncItemTitle;
 	public static String SapGlobalConnectionConfigurationPage_ServerDataStoreDescriptionItemTitle;
+	public static String SapGlobalConnectionConfigurationPage_SNC;
+	public static String SapGlobalConnectionConfigurationPage_Special;
 	public static String SapGlobalConnectionConfigurationPage_tbtmNewItem_text_1;
 	static {
 		// initialize resource bundle

@@ -11,8 +11,13 @@
 ******************************************************************************/ 
 package org.fusesource.ide.sap.ui.dialog;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -39,6 +44,9 @@ public class TestDestinationDialog extends TitleAreaDialog {
 
 	private Text text;
 
+	private JCoException jcoException;
+	private boolean isCancelled;
+	
 	/**
 	 * Create the dialog.
 	 * @param parentShell
@@ -125,11 +133,67 @@ public class TestDestinationDialog extends TitleAreaDialog {
 	}
 	
 	private void testDestination() {
+
+		IRunnableWithProgress runnableWithProgress = new IRunnableWithProgress() {
+			
+			private int worked;
+			
+			@Override
+			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+				// Run these calls in separate thread to make them cancellable:
+				// these calls can block for a significant amount of time when destination configuration is invalid!
+				Thread pingDestinationThread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							JCoDestination jcoDestination = JCoDestinationManager.getDestination(destinationName);
+							jcoDestination.ping();
+						} catch (JCoException e) {
+							jcoException = e;
+						}
+					}
+				});
+				pingDestinationThread.setName(Messages.TestDestinationDialog_PingJCoDestinationThread);
+				pingDestinationThread.setDaemon(true);
+				pingDestinationThread.start();
+				monitor.beginTask(Messages.TestDestinationDialog_PingJCoDestination, 100);
+				while (pingDestinationThread.isAlive()) {
+					try {
+						pingDestinationThread.join(1000);
+						if (monitor.isCanceled()) {
+							isCancelled = true;
+							return;
+						}
+						worked += 10;
+						if (worked > 100) {
+							monitor.beginTask(Messages.TestDestinationDialog_PingJCoDestination, 100);
+							worked = 0;
+						} else {
+							monitor.worked(10);
+						}
+					} catch (InterruptedException e) {
+						isCancelled = true;
+						return;
+					}
+				}
+			}
+		};
+		ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
+		isCancelled = false;
+		jcoException = null;
 		try {
-			JCoDestination jcoDestination = JCoDestinationManager.getDestination(destinationName);
-			jcoDestination.ping();
+			dialog.run(true, true, runnableWithProgress);
+
+			if (isCancelled) {
+				return;
+			}
+			
+			if (jcoException != null) {
+				append2Console("\n" + jcoException.getMessage()); //$NON-NLS-1$
+				return;
+			}
 			append2Console(NLS.bind(Messages.TestDestinationDialog_7, destinationName));
-		} catch (JCoException e) {
+		} catch (Exception e) {
 			append2Console("\n" + e.getMessage()); //$NON-NLS-1$
 		}
 	}

@@ -14,14 +14,10 @@ package org.fusesource.ide.sap.ui.export;
 import static org.fusesource.ide.sap.ui.util.ModelUtil.getSapConnectionConfigurationModelFromDocument;
 import static org.fusesource.ide.sap.ui.util.ModelUtil.setSapConnectionConfigurationModelIntoDocument;
 
-import java.util.EventObject;
 import java.util.HashMap;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.emf.common.command.BasicCommandStack;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.command.CommandStack;
-import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;

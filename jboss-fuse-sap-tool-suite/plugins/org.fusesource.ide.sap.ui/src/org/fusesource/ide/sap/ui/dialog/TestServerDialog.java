@@ -11,8 +11,18 @@
 ******************************************************************************/ 
 package org.fusesource.ide.sap.ui.dialog;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.OperationCanceledException;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -27,6 +37,7 @@ import org.fusesource.ide.sap.ui.Messages;
 
 import com.sap.conn.jco.AbapClassException;
 import com.sap.conn.jco.AbapException;
+import com.sap.conn.jco.JCoException;
 import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.server.JCoServer;
 import com.sap.conn.jco.server.JCoServerContext;
@@ -44,6 +55,72 @@ public class TestServerDialog extends TitleAreaDialog {
 	private static final int START_ID = IDialogConstants.CLIENT_ID + 1;
 	
 	private static final int CLEAR_ID = IDialogConstants.CLIENT_ID + 2;
+	
+	public class CreateJCoServerJob extends Job {
+
+		JCoServer jcoServer;
+		JCoException jcoException;
+		
+		public CreateJCoServerJob() {
+			super(Messages.TestServerDialog_CreateJCoServer);
+			setSystem(true);
+		}
+
+		@Override
+		protected IStatus run(IProgressMonitor monitor) {
+			monitor.beginTask(Messages.TestServerDialog_CreatingJCoServer, 100);
+			try {
+				// Run call to JCoServerFactory.getServer() in separate thread to make cancellable:
+				// this call can block for a significant amount of time when server configuration is invalid!
+				Thread getServerThread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							jcoServer = JCoServerFactory.getServer(serverName);
+						} catch (JCoException e) {
+							jcoException = e;
+						}
+					}
+				});
+				getServerThread.setName(Messages.TestServerDialog_GetJCoServerThread);
+				getServerThread.setDaemon(true);
+				getServerThread.start();
+				while (getServerThread.isAlive()) {
+					try {
+						getServerThread.join(1000);
+						if (monitor.isCanceled()) {
+							return Status.CANCEL_STATUS;
+						}
+					} catch (InterruptedException e) {
+						return Status.CANCEL_STATUS;
+					}
+				}
+				if (jcoException != null) {
+					return new Status(Status.ERROR, Activator.PLUGIN_ID, Messages.TestServerDialog_FailedToCreateJCoServer, jcoException);
+				}
+				
+				ServerErrorAndExceptionListener serverErrorAndExceptionListener = new ServerErrorAndExceptionListener();
+				ServerStateChangedListener serverStateChangedListener = new ServerStateChangedListener();
+				jcoServer.setCallHandlerFactory(new FunctionHandlerFactory());
+				jcoServer.addServerErrorListener(serverErrorAndExceptionListener);
+				jcoServer.addServerExceptionListener(serverErrorAndExceptionListener);
+				jcoServer.addServerStateChangedListener(serverStateChangedListener);
+
+				if (monitor.isCanceled()) {
+					jcoServer.stop();
+					jcoServer.release();
+					isServerInitialize = false;
+					return Status.CANCEL_STATUS;
+				}
+				
+				isServerInitialize = true;
+			} finally {
+				monitor.done();
+			}
+			return Status.OK_STATUS;
+		}
+		
+	}
 	
 	public class FunctionHandlerFactory implements JCoServerFunctionHandlerFactory {
 		
@@ -177,7 +254,7 @@ public class TestServerDialog extends TitleAreaDialog {
 		text = new Text(container, SWT.READ_ONLY | SWT.H_SCROLL | SWT.V_SCROLL | SWT.CANCEL | SWT.MULTI);
 		text.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
-		createJCoServer();
+//		createJCoServer();
 		
 		return container;
 	}
@@ -228,28 +305,61 @@ public class TestServerDialog extends TitleAreaDialog {
 		setReturnCode(OK);
 		close();
 	}
-	
-	private void createJCoServer() {
+		
+	private boolean createJCoServer() {
+		IRunnableWithProgress runnableWithProgress = new IRunnableWithProgress() {
+
+			private int worked;
+			
+			@Override
+			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+				monitor.beginTask(Messages.TestServerDialog_CreatingJCoServer, 100);
+				try {
+					CreateJCoServerJob job = new CreateJCoServerJob();
+					job.schedule();
+					while (!monitor.isCanceled()) {
+						try {
+							if (job.join(1000, monitor)) {
+								return;
+							}
+							worked += 10;
+							if (worked > 100) {
+								monitor.beginTask(Messages.TestServerDialog_CreatingJCoServer, 100);
+								worked = 0;
+							} else {
+								monitor.worked(10);
+							}
+						} catch (OperationCanceledException e) {
+							job.cancel();
+							return;
+						}
+					}
+				} finally {
+					monitor.done();
+				}
+			}
+
+		};
+		ProgressMonitorDialog dialog = new ProgressMonitorDialog(getShell());
 		try {
-			JCoServer jcoServer = JCoServerFactory.getServer(serverName);
-			ServerErrorAndExceptionListener serverErrorAndExceptionListener = new ServerErrorAndExceptionListener();
-			ServerStateChangedListener serverStateChangedListener = new ServerStateChangedListener();
-			jcoServer.setCallHandlerFactory(new FunctionHandlerFactory());
-			jcoServer.addServerErrorListener(serverErrorAndExceptionListener);
-			jcoServer.addServerExceptionListener(serverErrorAndExceptionListener);
-			jcoServer.addServerStateChangedListener(serverStateChangedListener);
-			isServerInitialize = true;
+			dialog.run(true, true, runnableWithProgress);
+			if (dialog.getReturnCode() == Window.CANCEL) {
+				return false;
+			}
 		} catch (Exception e) {
 			append2Console(NLS.bind(Messages.TestServerDialog_FailedToCreateServer, e.getMessage()));
-			isServerInitialize = false;
+			e.printStackTrace();
+			return false;
 		}
-		
+		return true;
 	}
 	
 	private JCoServer getJCoServer() {
 		try {
 			if (!isServerInitialize) {
-				createJCoServer();
+				if (!createJCoServer()) {
+					return null;
+				}
 			}
 			JCoServer jcoServer = JCoServerFactory.getServer(serverName);
 			jcoServer.setCallHandlerFactory(new FunctionHandlerFactory());
@@ -296,6 +406,10 @@ public class TestServerDialog extends TitleAreaDialog {
 	}
 	
 	private void stopServer() {
+		if (!isServerInitialize) {
+			return;
+		}
+
 		JCoServer jcoServer = getJCoServer();
 		if (jcoServer != null) {
 			try {
@@ -307,10 +421,15 @@ public class TestServerDialog extends TitleAreaDialog {
 		}
 	}
 		
-	private void append2Console(String str) {
-		String log = text.getText();
-		log = log + str;
-		text.setText(log);
+	private void append2Console(final String str) {
+		getShell().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				String log = text.getText();
+				log = log + str;
+				text.setText(log);
+			}
+		});
 	}
 
 	private void clearConsole() {

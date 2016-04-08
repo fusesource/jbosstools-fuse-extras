@@ -101,6 +101,8 @@ import org.fusesource.ide.sap.ui.converter.String2BooleanConverter;
 import org.fusesource.ide.sap.ui.converter.TraceLevel2CpicTraceComboSelectionConverter;
 import org.fusesource.ide.sap.ui.dialog.DestinationDialog;
 import org.fusesource.ide.sap.ui.dialog.ServerDialog;
+import org.fusesource.ide.sap.ui.dialog.TestDestinationDialog;
+import org.fusesource.ide.sap.ui.dialog.TestServerDialog;
 import org.fusesource.ide.sap.ui.edit.command.TransactionalCommandStack;
 import org.fusesource.ide.sap.ui.edit.idoc.IdocItemProviderAdapterFactory;
 import org.fusesource.ide.sap.ui.edit.rfc.RfcItemProviderAdapterFactory;
@@ -270,6 +272,28 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		}
 	}
 	
+	private class TestAction extends Action {
+		public TestAction() {
+			super(Messages.SapGlobalConnectionConfigurationPage_Run, Activator.getDefault().getImageRegistry().getDescriptor(Activator.TEST_IMAGE));
+		}
+		
+		@Override
+		public void run() {
+			if (selection.size() == 1) {
+				Object obj = selection.getFirstElement();
+				if (obj instanceof DestinationDataStoreEntryImpl) {
+					String name = ((DestinationDataStoreEntryImpl) obj).getKey();
+					TestDestinationDialog testDestinationDialog = new TestDestinationDialog(getShell(), name);
+					testDestinationDialog.open();
+				} else if (obj instanceof ServerDataStoreEntryImpl) {
+					String name = ((ServerDataStoreEntryImpl) obj).getKey();
+					TestServerDialog testServerDialog = new TestServerDialog(getShell(), name);
+					testServerDialog.open();
+				}
+			}
+		}
+	}
+	
 	private class DestinationDataProperties {
 		
 		protected DestinationDataStoreEntryImpl destinationDataStoreEntry;
@@ -343,7 +367,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			//  Destination Data Basic Properties Tab
 			//
 			CTabItem destinationDataBasicItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
-			destinationDataBasicItem.setText("Basic");
+			destinationDataBasicItem.setText(Messages.SapGlobalConnectionConfigurationPage_Basic);
 			destinationDataTabFolder.setSelection(destinationDataBasicItem);
 			
 			Composite basicContainer = new Composite(destinationDataTabFolder, SWT.NONE);
@@ -386,7 +410,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			userLbl.setLayoutData(labelLayoutData(userText));
 			userLbl.setAlignment(SWT.RIGHT);
 			
-			passwordText = new Text(basicContainer, SWT.BORDER);
+			passwordText = new Text(basicContainer, SWT.BORDER | SWT.PASSWORD);
 			passwordText.setToolTipText(Messages.BasicPropertySection_PasswordToolTip);
 			passwordText.setLayoutData(entryLayoutData(userText));
 			
@@ -413,7 +437,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			//  Destination Data Connection Properties Tab
 			//
 			CTabItem destinationDataConnectionItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
-			destinationDataConnectionItem.setText("Connection");
+			destinationDataConnectionItem.setText(Messages.SapGlobalConnectionConfigurationPage_Connection);
 			destinationDataTabFolder.setSelection(destinationDataConnectionItem);
 			
 			Composite connectionContainer = new Composite(destinationDataTabFolder, SWT.NONE);
@@ -507,7 +531,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			//  Destination Data Authentication Properties Tab
 			//
 			CTabItem destinationDataAuthenticationItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
-			destinationDataAuthenticationItem.setText("Authentication");
+			destinationDataAuthenticationItem.setText(Messages.SapGlobalConnectionConfigurationPage_Authentication);
 			destinationDataTabFolder.setSelection(destinationDataAuthenticationItem);
 			
 			Composite authenticationContainer = new Composite(destinationDataTabFolder, SWT.NONE);
@@ -553,7 +577,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			userAliasLbl.setLayoutData(labelLayoutData(userAlias));
 			userAliasLbl.setAlignment(SWT.RIGHT);
 
-			passwordText2 = new Text(authenticationContainer, SWT.BORDER);
+			passwordText2 = new Text(authenticationContainer, SWT.BORDER | SWT.PASSWORD);
 			passwordText2.setToolTipText(Messages.AuthenticationPropertySection_PasswordToolTip);
 			passwordText2.setLayoutData(entryLayoutData(userAlias));
 			
@@ -596,7 +620,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			//  Destination Data Special Properties Tab
 			//
 			CTabItem destinationDataSpecialItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
-			destinationDataSpecialItem.setText("Special");
+			destinationDataSpecialItem.setText(Messages.SapGlobalConnectionConfigurationPage_Special);
 			destinationDataTabFolder.setSelection(destinationDataSpecialItem);
 			
 			Composite specialContainer = new Composite(destinationDataTabFolder, SWT.NONE);
@@ -650,7 +674,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			//  Destination Data Pool Properties Tab
 			//
 			CTabItem destinationDataPoolItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
-			destinationDataPoolItem.setText("Pool");
+			destinationDataPoolItem.setText(Messages.SapGlobalConnectionConfigurationPage_Pool);
 			destinationDataTabFolder.setSelection(destinationDataPoolItem);
 			
 			Composite poolContainer = new Composite(destinationDataTabFolder, SWT.NONE);
@@ -708,7 +732,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			//  Destination Data SNC Properties Tab
 			//
 			CTabItem destinationDataSncItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
-			destinationDataSncItem.setText("SNC");
+			destinationDataSncItem.setText(Messages.SapGlobalConnectionConfigurationPage_SNC);
 			destinationDataTabFolder.setSelection(destinationDataSncItem);
 			
 			Composite sncContainer = new Composite(destinationDataTabFolder, SWT.NONE);
@@ -764,7 +788,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			//  Destination Data SNC Properties Tab
 			//
 			CTabItem destinationDataRepositoryItem = new CTabItem(destinationDataTabFolder, SWT.NONE);
-			destinationDataRepositoryItem.setText("Repository");
+			destinationDataRepositoryItem.setText(Messages.SapGlobalConnectionConfigurationPage_Repository);
 			destinationDataTabFolder.setSelection(destinationDataRepositoryItem);
 			
 			Composite repositoryContainer = new Composite(destinationDataTabFolder, SWT.NONE);
@@ -789,7 +813,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			repositoryUserLbl.setLayoutData(labelLayoutData(repositoryUserText));
 			repositoryUserLbl.setAlignment(SWT.RIGHT);
 
-			repositoryPasswordText = new Text(repositoryContainer, SWT.BORDER);
+			repositoryPasswordText = new Text(repositoryContainer, SWT.BORDER | SWT.PASSWORD);
 			repositoryPasswordText.setToolTipText(Messages.RepositoryPropertySection_RepositoryPasswordToolTip);
 			repositoryPasswordText.setLayoutData(entryLayoutData(repositoryUserText));
 			
@@ -1485,6 +1509,11 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	protected NewServerAction newServerAction;
 
 	/**
+	 * This is the action used to implement delete.
+	 */
+	protected TestAction testAction;
+
+	/**
 	 * The current Selection in the viewer.
 	 */
 	protected IStructuredSelection selection;
@@ -1651,8 +1680,10 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			menuManager.add(newServerAction);
 		} else if (obj instanceof DestinationDataStoreEntryImpl) {
 			menuManager.add(deleteAction);
+			menuManager.add(testAction);
 		} else if (obj instanceof ServerDataStoreEntryImpl) {
 			menuManager.add(deleteAction);
+			menuManager.add(testAction);
 		}
 
 
@@ -1752,6 +1783,8 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	    newDestinationAction = new NewDestinationAction();
 	    
 	    newServerAction = new NewServerAction();
+	    
+	    testAction = new TestAction();
 	    
 	}
 	
