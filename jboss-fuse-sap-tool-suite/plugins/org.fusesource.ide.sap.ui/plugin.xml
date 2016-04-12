@@ -535,7 +535,7 @@
          <wizard
                category="org.fusesource.ide.JBossFuseCategory"
                class="org.fusesource.ide.sap.ui.export.SapGlobalConnectionConfigurationWizard"
-               icon="icons/sap_tool_suite_icon_16x16.png"
+               icon="icons/sap16.png"
                id="org.fusesource.ide.sap.ui.SapGlobalConnectionConfigurationWizard"
                name="%wizard.name">
             <description>

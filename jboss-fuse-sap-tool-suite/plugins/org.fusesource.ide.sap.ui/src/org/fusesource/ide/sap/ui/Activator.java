@@ -39,7 +39,7 @@ public class Activator extends AbstractUIPlugin {
 	public static final String SERVER_DATA_STORE_IMAGE = "icons/full/obj16/ServerDataStore.gif"; //$NON-NLS-1$
 	public static final String SERVER_DATA_STORE_ENTRY_IMAGE = "icons/full/obj16/ServerDataStoreEntry.gif"; //$NON-NLS-1$
 	public static final String SAP_TOOL_SUITE_16_IMAGE = "icons/sap16.png"; //$NON-NLS-1$
-	public static final String SAP_TOOL_SUITE_48_IMAGE = "icons/sap.png"; //$NON-NLS-1$
+	public static final String SAP_TOOL_SUITE_48_IMAGE = "icons/sap48.png"; //$NON-NLS-1$
 	public static final String TEST_IMAGE = "icons/full/etool16/test.gif"; //$NON-NLS-1$
 
 	// The plug-in ID
