@@ -1570,7 +1570,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		sashForm.setSashWidth(50);
 		sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
-		viewer = new TreeViewer(sashForm, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
+		viewer = new TreeViewer(sashForm, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
 			        	
 		viewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
 		viewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
