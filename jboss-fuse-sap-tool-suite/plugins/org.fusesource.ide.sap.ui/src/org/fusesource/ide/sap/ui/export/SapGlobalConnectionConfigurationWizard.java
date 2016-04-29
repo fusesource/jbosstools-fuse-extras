@@ -87,23 +87,17 @@ public class SapGlobalConnectionConfigurationWizard extends Wizard implements IE
 		super.addPages();
 		addPage(exportPage);
 	}
-	
-	@Override
-	public boolean canFinish() {
-		return true;
-	}
 
 	@Override
 	public boolean performFinish() {
 		setSapConnectionConfigurationModelIntoDocument(this.document, this.sapConnectionConfigurationModel);
-		unregisterDataStores();
 		return true;
 	}
-	
+
 	@Override
-	public boolean performCancel() {
+	public void dispose() {
 		unregisterDataStores();
-		return true;
+		super.dispose();
 	}
 	
 	protected void initializeEditingDomain() {

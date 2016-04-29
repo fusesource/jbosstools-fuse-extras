@@ -1548,7 +1548,6 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		setDescription(Messages.SapGlobalConnectionConfigurationPage_CreateEditDeleteDestinationAndServerConnectionConfigurations);
 		this.context = context;
 		this.sapConnectionConfiguration = sapConnectionConfiguration;
-		setPageComplete(false);
 
 		initializeEditingDomain();
 	}

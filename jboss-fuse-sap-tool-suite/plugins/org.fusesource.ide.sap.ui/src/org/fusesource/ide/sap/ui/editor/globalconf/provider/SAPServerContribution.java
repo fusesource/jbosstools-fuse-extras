@@ -21,7 +21,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWizard;
 import org.eclipse.ui.PlatformUI;
 import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigElementType;
 import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard;
@@ -103,14 +102,14 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 * @return SAP Global Connection Configuration Wizard
 	 */
 	private GlobalConfigurationTypeWizard createWizard(Document document) {
-		IWorkbenchWizard wizard = new SapGlobalConnectionConfigurationWizard(document);
+		SapGlobalConnectionConfigurationWizard wizard = new SapGlobalConnectionConfigurationWizard(document);
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		ISelection selection = window.getSelectionService().getSelection();
 		if (!(selection instanceof IStructuredSelection)) {
 			selection = StructuredSelection.EMPTY;
 		}
-		wizard.init(PlatformUI.getWorkbench(), (StructuredSelection) selection);
-		return (GlobalConfigurationTypeWizard) wizard;
+		wizard.init(PlatformUI.getWorkbench(), (IStructuredSelection) selection);
+		return wizard;
 	}
 
 }
