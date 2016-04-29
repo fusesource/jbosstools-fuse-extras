@@ -16,13 +16,12 @@ import java.io.File;
 import org.eclipse.core.databinding.Binding;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
-import org.eclipse.core.databinding.beans.BeansObservables;
+import org.eclipse.core.databinding.beans.BeanProperties;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.validation.IValidator;
 import org.eclipse.core.databinding.validation.ValidationStatus;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
-import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.wizard.WizardPage;
@@ -43,7 +42,6 @@ import org.fusesource.ide.sap.ui.converter.ExportFileType2ExportFileTypeComboSel
 import org.fusesource.ide.sap.ui.converter.ExportFileTypeComboSelection2ExportFileTypeConverter;
 import org.fusesource.ide.sap.ui.export.SapConnectionConfigurationExportSettings.ExportFileType;
 
-@SuppressWarnings("deprecation")
 public class SapConnectionConfigurationExportPage extends WizardPage {
 	
 	private static final String BLANK_STRING = ""; //$NON-NLS-1$
@@ -123,7 +121,8 @@ public class SapConnectionConfigurationExportPage extends WizardPage {
 		// create UpdateValueStrategy and assign to the binding
         UpdateValueStrategy strategy = new UpdateValueStrategy();
         strategy.setBeforeSetValidator(new ExportLocationDirectoryNameValidator());
-        binding = context.bindValue(SWTObservables.observeText(textSelectExportLocation, SWT.Modify), BeansObservables.observeValue(exportSettings, "exportLocation"), strategy, null); //$NON-NLS-1$
+		binding = context.bindValue(WidgetProperties.text(SWT.Modify).observe(textSelectExportLocation), BeanProperties.value("exportLocation").observe(exportSettings), strategy, //$NON-NLS-1$
+				null);
 		ControlDecorationSupport.create(binding, SWT.TOP | SWT.LEFT);
 		
 		
@@ -150,7 +149,7 @@ public class SapConnectionConfigurationExportPage extends WizardPage {
 		exportFileTypeCombo.select(0);
 
 		IObservableValue observeSingleSelectionExportFileTypeComboObserveWidget = WidgetProperties.singleSelectionIndex().observe(exportFileTypeCombo);
-		IObservableValue exportFileTypeObserveValue = BeansObservables.observeValue(exportSettings, "exportFileType"); //$NON-NLS-1$
+		IObservableValue exportFileTypeObserveValue = BeanProperties.value("exportFileType").observe(exportSettings); //$NON-NLS-1$
 		UpdateValueStrategy combo2ExportFileTypeStrategy = new UpdateValueStrategy();
 		combo2ExportFileTypeStrategy.setConverter(new ExportFileTypeComboSelection2ExportFileTypeConverter());
 		UpdateValueStrategy exportFileType2ComboStrategy = new UpdateValueStrategy();
