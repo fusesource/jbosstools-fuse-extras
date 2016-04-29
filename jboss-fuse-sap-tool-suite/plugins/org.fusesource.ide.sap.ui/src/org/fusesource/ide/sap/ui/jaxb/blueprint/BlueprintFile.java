@@ -42,7 +42,8 @@ public class BlueprintFile {
 			JAXBContext context = JAXBContext.newInstance(BlueprintFile.class);
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd");
+			m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
+					"http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd");
 			m.marshal(this, os);
 		}
 	}
