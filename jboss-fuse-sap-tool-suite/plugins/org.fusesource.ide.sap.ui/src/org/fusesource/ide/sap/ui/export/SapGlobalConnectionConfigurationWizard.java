@@ -12,9 +12,11 @@
 package org.fusesource.ide.sap.ui.export;
 
 import static org.fusesource.ide.sap.ui.util.ModelUtil.getSapConnectionConfigurationModelFromDocument;
-import static org.fusesource.ide.sap.ui.util.ModelUtil.setSapConnectionConfigurationModelIntoDocument;
 
 import java.util.HashMap;
+
+import javax.xml.bind.JAXBException;
+import javax.xml.transform.dom.DOMResult;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.emf.common.command.BasicCommandStack;
@@ -30,11 +32,13 @@ import org.eclipse.ui.IWorkbench;
 import org.fusesource.camel.component.sap.util.ComponentDestinationDataProvider;
 import org.fusesource.camel.component.sap.util.ComponentServerDataProvider;
 import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard;
+import org.fusesource.ide.camel.model.service.core.model.CamelFile;
 import org.fusesource.ide.sap.ui.Messages;
 import org.fusesource.ide.sap.ui.edit.command.TransactionalCommandStack;
 import org.fusesource.ide.sap.ui.edit.idoc.IdocItemProviderAdapterFactory;
 import org.fusesource.ide.sap.ui.edit.rfc.RfcItemProviderAdapterFactory;
-import org.w3c.dom.Document;
+import org.fusesource.ide.sap.ui.jaxb.SapConnectionConfiguration;
+import org.fusesource.ide.sap.ui.jaxb.SapConnectionConfigurationBuilder;
 import org.w3c.dom.Element;
 
 /**
@@ -61,13 +65,15 @@ public class SapGlobalConnectionConfigurationWizard extends Wizard implements IE
 	private DataBindingContext context;
 	private SapGlobalConnectionConfigurationPage exportPage;
 	
-	private Document document;
+	private CamelFile camelFile;
 	private org.fusesource.camel.component.sap.model.rfc.SapConnectionConfiguration sapConnectionConfigurationModel;
+
+	private Element globalConfigurationElementNode;
 	
-	public SapGlobalConnectionConfigurationWizard(Document document) {
-		this.document = document;
+	public SapGlobalConnectionConfigurationWizard(CamelFile camelFile) {
+		this.camelFile = camelFile;
 		initializeEditingDomain();
-		this.sapConnectionConfigurationModel = getSapConnectionConfigurationModelFromDocument(this.document, editingDomain);
+		this.sapConnectionConfigurationModel = getSapConnectionConfigurationModelFromDocument(camelFile.getDocument(), editingDomain);
 	}
 
 	@Override
@@ -90,7 +96,17 @@ public class SapGlobalConnectionConfigurationWizard extends Wizard implements IE
 
 	@Override
 	public boolean performFinish() {
-		setSapConnectionConfigurationModelIntoDocument(this.document, this.sapConnectionConfigurationModel);
+		SapConnectionConfiguration sapConnectionConfiguration = new SapConnectionConfiguration();
+		SapConnectionConfigurationBuilder.populateSapConnectionConfiguration(sapConnectionConfigurationModel, sapConnectionConfiguration);
+		try {
+			DOMResult result = sapConnectionConfiguration.marshal();
+			final Element beanNode = (Element) result.getNode().getFirstChild();
+			final Element importedBeanNode = (Element) camelFile.getDocument().importNode(beanNode, true);
+			setGlobalConfigurationElementNode(importedBeanNode);
+		} catch (JAXBException e) {
+			e.printStackTrace();
+			return false;
+		}
 		return true;
 	}
 
@@ -128,12 +144,22 @@ public class SapGlobalConnectionConfigurationWizard extends Wizard implements IE
 
 	@Override
 	public Element getGlobalConfigurationElementNode() {
-		return null;
+		return globalConfigurationElementNode;
 	}
 
 	@Override
 	public void setGlobalConfigurationElementNode(Element node) {
-		// NOOP
+		this.globalConfigurationElementNode = node;
+	}
+
+	/**
+	 * /!\ Public for test purpose only
+	 * 
+	 * @param sapConnectionConfigurationModel
+	 *            the sapConnectionConfigurationModel to set
+	 */
+	public void setSapConnectionConfigurationModel(org.fusesource.camel.component.sap.model.rfc.SapConnectionConfiguration sapConnectionConfigurationModel) {
+		this.sapConnectionConfigurationModel = sapConnectionConfigurationModel;
 	}
 	
 }

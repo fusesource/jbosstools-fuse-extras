@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <bean
+        class="org.fusesource.camel.component.sap.SapConnectionConfiguration" id="sap-configuration">
+        <property name="destinationDataStore">
+            <map>
+                <entry key="destinationDataStoreEntry">
+                    <bean class="org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataImpl">
+                    	<property name="aliasUser" value="myAliasUser"/>
+                        <property name="authType" value="CONFIGURED_USER"/>
+                        <property name="denyInitialPassword" value="0"/>
+                        <property name="pingOnCreate" value="false"/>
+                        <property name="poolCapacity" value="1"/>
+                    </bean>
+                </entry>
+            </map>
+        </property>
+        <property name="serverDataStore">
+            <map/>
+        </property>
+    </bean>

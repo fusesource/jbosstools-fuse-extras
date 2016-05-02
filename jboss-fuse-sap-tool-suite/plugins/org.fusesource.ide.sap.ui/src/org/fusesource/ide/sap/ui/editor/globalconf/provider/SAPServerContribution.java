@@ -28,7 +28,6 @@ import org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementCo
 import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
 import org.fusesource.ide.camel.model.service.core.model.CamelFile;
 import org.fusesource.ide.sap.ui.export.SapGlobalConnectionConfigurationWizard;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -44,7 +43,7 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 */
 	@Override
 	public GlobalConfigurationTypeWizard createGlobalElement(CamelFile camelFile) {
-		return createWizard(camelFile.getDocument());
+		return createWizard(camelFile);
 	}
 	
 	/*
@@ -52,8 +51,8 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 * @see org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementContribution#modifyGlobalElement(org.w3c.dom.Document, org.w3c.dom.Node)
 	 */
 	@Override
-	public GlobalConfigurationTypeWizard modifyGlobalElement(Document document) {
-		return createWizard(document);
+	public GlobalConfigurationTypeWizard modifyGlobalElement(CamelFile camelFile) {
+		return createWizard(camelFile);
 	}
 
 	/* (non-Javadoc)
@@ -101,8 +100,8 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 * @param document - document edited by wizard
 	 * @return SAP Global Connection Configuration Wizard
 	 */
-	private GlobalConfigurationTypeWizard createWizard(Document document) {
-		SapGlobalConnectionConfigurationWizard wizard = new SapGlobalConnectionConfigurationWizard(document);
+	private GlobalConfigurationTypeWizard createWizard(CamelFile camelFile) {
+		SapGlobalConnectionConfigurationWizard wizard = new SapGlobalConnectionConfigurationWizard(camelFile);
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 		ISelection selection = window.getSelectionService().getSelection();
 		if (!(selection instanceof IStructuredSelection)) {

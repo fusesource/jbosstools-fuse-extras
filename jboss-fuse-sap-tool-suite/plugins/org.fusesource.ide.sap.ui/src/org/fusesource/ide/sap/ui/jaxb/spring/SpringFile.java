@@ -14,7 +14,9 @@ package org.fusesource.ide.sap.ui.jaxb.spring;
 import java.io.OutputStream;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -40,12 +42,23 @@ public class SpringFile {
 
 	public void marshal(OutputStream os) throws Exception {
 		if (sapConnectionConfiguration != null) {
-			JAXBContext context = JAXBContext.newInstance(SpringFile.class);
-			Marshaller m = context.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd");
+			Marshaller m = prepareMarshaller();
 			m.marshal(this, os);
 		}
+	}
+
+	/**
+	 * @return
+	 * @throws JAXBException
+	 * @throws PropertyException
+	 */
+	private Marshaller prepareMarshaller() throws JAXBException, PropertyException {
+		JAXBContext context = JAXBContext.newInstance(SpringFile.class);
+		Marshaller m = context.createMarshaller();
+		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
+				"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd");
+		return m;
 	}
 	
 }

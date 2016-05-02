@@ -14,7 +14,9 @@ package org.fusesource.ide.sap.ui.jaxb.blueprint;
 import java.io.OutputStream;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -37,15 +39,20 @@ public class BlueprintFile {
 		this.sapConnectionConfiguration = sapConnectionConfiguration;
 	}
 
-	public void marshal(OutputStream os) throws Exception {
+	public void marshal(OutputStream os) throws JAXBException, PropertyException {
 		if (sapConnectionConfiguration != null) {
-			JAXBContext context = JAXBContext.newInstance(BlueprintFile.class);
-			Marshaller m = context.createMarshaller();
-			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-			m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
-					"http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd");
+			Marshaller m = prepareMarshaller();
 			m.marshal(this, os);
 		}
+	}
+
+	private Marshaller prepareMarshaller() throws JAXBException, PropertyException {
+		JAXBContext context = JAXBContext.newInstance(BlueprintFile.class);
+		Marshaller m = context.createMarshaller();
+		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		m.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
+				"http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd");
+		return m;
 	}
 
 }

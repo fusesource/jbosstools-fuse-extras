@@ -28,3 +28,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %Bundle-Vendor
 Bundle-ClassPath: .
 Bundle-Localization: OSGI-INF/l10n/bundle
+Export-Package: org.fusesource.ide.sap.ui.export;x-friends:="org.fusesource.ide.sap.ui.tests.integration"
