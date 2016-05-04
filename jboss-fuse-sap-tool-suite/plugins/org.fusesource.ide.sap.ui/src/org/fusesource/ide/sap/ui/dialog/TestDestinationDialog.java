@@ -189,12 +189,12 @@ public class TestDestinationDialog extends TitleAreaDialog {
 			}
 			
 			if (jcoException != null) {
-				append2Console("\n" + jcoException.getMessage()); //$NON-NLS-1$
+				append2Console(jcoException.getMessage()); // $NON-NLS-1$
 				return;
 			}
 			append2Console(NLS.bind(Messages.TestDestinationDialog_7, destinationName));
 		} catch (Exception e) {
-			append2Console("\n" + e.getMessage()); //$NON-NLS-1$
+			append2Console(e.getMessage()); // $NON-NLS-1$
 		}
 	}
 	
@@ -204,7 +204,7 @@ public class TestDestinationDialog extends TitleAreaDialog {
 	
 	private void append2Console(String str) {
 		String log = text.getText();
-		log = log + str;
+		log += System.lineSeparator() + str;
 		text.setText(log);
 	}
 
