@@ -83,8 +83,8 @@ public class ServerDialog extends TitleAreaDialog {
 			setTitle(Messages.ServerDialog_dialogCreateTitle);
 		} else if (type == Type.PASTE) {
 			setTitle(Messages.ServerDialog_dialogPasteTitle);
-			setMessage(""); //$NON-NLS-1$
 		}
+		setMessage(Messages.ServerDialog_message);
 		setTitleImage(Activator.getDefault().getImageRegistry().get(Activator.SAP_TOOL_SUITE_48_IMAGE));
 
 		return contents;

@@ -83,8 +83,8 @@ public class DestinationDialog extends TitleAreaDialog {
 			setTitle(Messages.DestinationDialog_dialogCreateTitle);
 		} else if (type == Type.PASTE) {
 			setTitle(Messages.DestinationDialog_dialogPasteTitle);
-			setMessage(""); //$NON-NLS-1$
 		}
+		setMessage(Messages.DestinationDialog_message);
 		setTitleImage(Activator.getDefault().getImageRegistry().get(Activator.SAP_TOOL_SUITE_48_IMAGE));
 
 		return contents;
