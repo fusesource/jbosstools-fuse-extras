@@ -16,6 +16,7 @@
 	</parent>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- JBoss Tools Integration Stack version -->
 		<jbtis.version>4.4.0.Alpha1-SNAPSHOT</jbtis.version>
 
@@ -28,20 +29,20 @@
 		<tycho.scmUrl>scm:git:https://github.com/fusesource/fuseide.git</tycho.scmUrl>
 		<forge-project-id>ide</forge-project-id>
 		<ide-version>${project.version}</ide-version>
-   		<fuse-tooling-url>http://download.jboss.org/jbosstools/snapshots/builds/Fuse-Tooling/all/repo/</fuse-tooling-url>
+		<fuse-tooling-url>http://download.jboss.org/jbosstools/snapshots/builds/Fuse-Tooling/all/repo/</fuse-tooling-url>
 
-    		<!-- camel version -->
-    		<camel.version>2.15.1.redhat-620133</camel.version>
+		<!-- camel version -->
+		<camel.version>2.15.1.redhat-620133</camel.version>
 
-    		<!-- AMQ JMX plugin -->
-    		<activemq.version>5.11.0.redhat-620133</activemq.version>
-    		<geronimo.jms.version>1.1.1</geronimo.jms.version>
+		<!-- AMQ JMX plugin -->
+		<activemq.version>5.11.0.redhat-620133</activemq.version>
+		<geronimo.jms.version>1.1.1</geronimo.jms.version>
 
-    		<!-- SMX JMX plugin -->
-    		<servicemix-nmr.version>1.6.1</servicemix-nmr.version>
+		<!-- SMX JMX plugin -->
+		<servicemix-nmr.version>1.6.1</servicemix-nmr.version>
 
-    		<!-- codegen/buildtools fabric8 versions (only build time deps) -->
-    		<fabric.version>1.2.0.redhat-133</fabric.version>
+		<!-- codegen/buildtools fabric8 versions (only build time deps) -->
+		<fabric.version>1.2.0.redhat-133</fabric.version>
 
 		<spring.version>4.1.5.RELEASE</spring.version>
 		<jclouds.version>1.8.0</jclouds.version>
@@ -69,81 +70,81 @@
 			<layout>p2</layout>
 		</repository>
 
-   <repository>
-      <id>fusesource.ea.repo</id>
-      <name>JBoss Fuse Early Access Repository</name>
-      <url>https://repo.fusesource.com/nexus/content/groups/ea</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
+		<repository>
+			<id>fusesource.ea.repo</id>
+			<name>JBoss Fuse Early Access Repository</name>
+			<url>https://repo.fusesource.com/nexus/content/groups/ea</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
 
-    <repository>
-      <id>fusesource.release.repo</id>
-      <name>JBoss Fuse Release Repository</name>
-      <url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
+		<repository>
+			<id>fusesource.release.repo</id>
+			<name>JBoss Fuse Release Repository</name>
+			<url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
 
-    <repository>
-      <id>jboss.public.repo</id>
-      <name>JBoss Public Repository</name>
-      <url>http://repository.jboss.org/nexus/content/repositories/public</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
+		<repository>
+			<id>jboss.public.repo</id>
+			<name>JBoss Public Repository</name>
+			<url>http://repository.jboss.org/nexus/content/repositories/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
 
 	</repositories>
 
 	<pluginRepositories>
 
-    <pluginRepository>
-      <id>fusesource.ea.repo</id>
-      <name>JBoss Fuse Early Access Repository</name>
-      <url>https://repo.fusesource.com/nexus/content/groups/ea</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
+		<pluginRepository>
+			<id>fusesource.ea.repo</id>
+			<name>JBoss Fuse Early Access Repository</name>
+			<url>https://repo.fusesource.com/nexus/content/groups/ea</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
 
-    <pluginRepository>
-      <id>fusesource.release.repo</id>
-      <name>JBoss Fuse Release Repository</name>
-      <url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
+		<pluginRepository>
+			<id>fusesource.release.repo</id>
+			<name>JBoss Fuse Release Repository</name>
+			<url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
 
-    <pluginRepository>
-      <id>jboss.public.repo</id>
-      <name>JBoss Public Repository</name>
-      <url>http://repository.jboss.org/nexus/content/repositories/public</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
+		<pluginRepository>
+			<id>jboss.public.repo</id>
+			<name>JBoss Public Repository</name>
+			<url>http://repository.jboss.org/nexus/content/repositories/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
 
 	</pluginRepositories>
 
@@ -174,6 +175,11 @@
 							<arch>x86</arch>
 						</environment>
 						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
 							<os>linux</os>
 							<ws>gtk</ws>
 							<arch>x86_64</arch>
@@ -196,7 +202,65 @@
 					</environments>
 				</configuration>
 			</plugin>
-
+			<plugin>
+    		    <groupId>org.apache.maven.plugins</groupId>
+    		    <artifactId>maven-compiler-plugin</artifactId>
+    		    <version>3.5.1</version>
+     		   	<configuration>
+     		    	<source>${maven.compiler.source}</source>
+     		    	<target>${maven.compiler.target}</target>
+     		   	</configuration>
+				<executions>
+					<execution>
+						<id>compiletests</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<executions>
+					<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<configuration>
+							<systemProperties>
+								<osgi.nls.warnings>ignore</osgi.nls.warnings>
+							</systemProperties>
+						</configuration>
+						<goals>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-surefire-plugin</artifactId>
+				<version>${tychoVersion}</version>
+				<configuration>
+					<useUIThread>true</useUIThread>
+					<useUIHarness>true</useUIHarness>
+					<includes>
+						<include>**/*IT.class</include>
+					</includes>
+					<argLine>${tycho.testArgLine} -XX:+HeapDumpOnOutOfMemoryError -Dusage_reporting_enabled=false</argLine>
+					<osgiDataDirectory>${project.basedir}/target/work sp@cé</osgiDataDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -211,8 +275,7 @@
 			</activation>
 			<properties>
 				<!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-				<systemProperties combine.children="append"> -Dosgi.arch=x86
-					-XstartOnFirstThread </systemProperties>
+				<systemProperties combine.children="append"> -Dosgi.arch=x86 -XstartOnFirstThread </systemProperties>
 			</properties>
 		</profile>
 		<profile>
@@ -283,12 +346,12 @@
 			</build>
 		</profile>
 
-                <profile>
-                   <id>targetplatform</id>
-                      <modules>
-                         <module>targetplatform</module>
-                      </modules>
-                </profile>
+		<profile>
+			<id>targetplatform</id>
+			<modules>
+				<module>targetplatform</module>
+			</modules>
+		</profile>
 
 	</profiles>
 
@@ -298,6 +361,6 @@
 		<module>features</module>
 		<module>site</module>
 	</modules>
-	
+
 </project>
 	
