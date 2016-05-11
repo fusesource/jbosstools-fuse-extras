@@ -146,44 +146,6 @@ public class ModelUtil {
 		return sapConnectionConfigurationModel;
 	}
 	
-	public static void setSapConnectionConfigurationModelIntoDocument(Document document, SapConnectionConfiguration sapConnectionConfigurationModel) {
-		if (document == null || sapConnectionConfigurationModel == null) {
-			return;
-		}
-		
-		
-		Element sapConfigurationConfig = getSapConfiguration(document);
-		Element destinationDataStoreConfig = getDestinationDataStore(sapConfigurationConfig);
-		Element serverDataStoreConfig = getServerDataStore(sapConfigurationConfig);
-		
-		DestinationDataStore destinationDataStoreModel = sapConnectionConfigurationModel.getDestinationDataStore();
-		populateDestinationDataStoreModelIntoConfig(destinationDataStoreModel, destinationDataStoreConfig);
-		
-		ServerDataStore serverDataStoreModel = sapConnectionConfigurationModel.getServerDataStore();
-		populateServerDataStoreModelIntoConfig(serverDataStoreModel, serverDataStoreConfig);
-	}
-	
-	public static void populateDestinationDataStoreModelIntoConfig(DestinationDataStore destinationDataStoreModel, Element destinationDataStoreConfig) {
-		if (destinationDataStoreModel == null || destinationDataStoreConfig == null) {
-			return;
-		}
-		
-		Element map = getFirstChildElementWithName(destinationDataStoreConfig, MAP_TAG);
-		if (map == null) {
-			map = destinationDataStoreConfig.getOwnerDocument().createElement(MAP_TAG);
-			destinationDataStoreConfig.appendChild(map);
-		}
-		
-		removeChildNodes(map);
-		for (Map.Entry<String,DestinationData> entry: destinationDataStoreModel.getEntries()) {
-			Element entryConfig = destinationDataStoreConfig.getOwnerDocument().createElement(ENTRY_TAG);
-			entryConfig.setAttribute(KEY_ATTRIBUTE, entry.getKey());
-			entryConfig.setAttribute(CLASS_ATTRIBUTE, DESTINATION_DATA_CLASS);
-			map.appendChild(entryConfig);
-			populateDestinationDataModelIntoConfig(entry.getValue(), entryConfig);
-		}
-	}
-	
 	public static void populateDestinationDataConfigIntoModel(DestinationData destinationDataModel, Element destinationDataConfig) {
 		if (destinationDataModel == null || destinationDataConfig == null) {
 			return;
@@ -198,43 +160,6 @@ public class ModelUtil {
 		Map<String, String> properties = getPropertyValues(destinationDataConfig);
 		for (String property : properties.keySet()) {
 			setDestinationDataProperty(destinationDataModel, property, properties.get(property));
-		}
-	}
-	
-	public static void populateDestinationDataModelIntoConfig(DestinationData destinationDataModel, Element destinationDataConfig) {
-		if (destinationDataModel == null || destinationDataConfig == null) {
-			return;
-		}
-		
-		// Check if configuration entry is a reference to global bean config
-		String beanName = getAttributeValue(destinationDataConfig, "value-ref"); //$NON-NLS-1$
-		if (beanName != null) {
-			destinationDataConfig = getGlobalConfigurationById(destinationDataConfig.getOwnerDocument(), beanName);
-		}
-
-		Map<String,String> destinationDataProperties = extractDestinationDataProperties(destinationDataModel);
-		
-		setPropertyValues(destinationDataConfig, destinationDataProperties);
-	}
-
-	public static void populateServerDataStoreModelIntoConfig(ServerDataStore serverDataStoreModel, Element serverDataStoreConfig) {
-		if (serverDataStoreModel == null || serverDataStoreConfig == null) {
-			return;
-		}
-		
-		Element map = getFirstChildElementWithName(serverDataStoreConfig, MAP_TAG);
-		if (map == null) {
-			map = serverDataStoreConfig.getOwnerDocument().createElement(MAP_TAG);
-			serverDataStoreConfig.appendChild(map);
-		}
-		
-		removeChildNodes(map);
-		for (Map.Entry<String,ServerData> entry: serverDataStoreModel.getEntries()) {
-			Element entryConfig = serverDataStoreConfig.getOwnerDocument().createElement(ENTRY_TAG);
-			entryConfig.setAttribute(KEY_ATTRIBUTE, entry.getKey());
-			entryConfig.setAttribute(CLASS_ATTRIBUTE, SERVER_DATA_CLASS);
-			map.appendChild(entryConfig);
-			populateServerDataModelIntoConfig(entry.getValue(), entryConfig);
 		}
 	}
 	
@@ -607,7 +532,6 @@ public class ModelUtil {
 			sapConfigurationElement = document.createElement(BEAN_TAG);
 			sapConfigurationElement.setAttribute(ID_ATTRIBUTE, SAP_CONNECTION_CONFIGURATION_ID);
 			sapConfigurationElement.setAttribute(CLASS_ATTRIBUTE, SAP_CONNECTION_CONFIGURATION_CLASS);
-			document.getDocumentElement().appendChild(sapConfigurationElement);
 		}
 		
 		return sapConfigurationElement;

@@ -11,11 +11,16 @@
 ******************************************************************************/ 
 package org.fusesource.ide.sap.ui.jaxb;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.PropertyException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.transform.dom.DOMResult;
 
 @XmlRootElement(name="bean")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -39,6 +44,20 @@ public class SapConnectionConfiguration {
 
 	public ServerDataStore getServerDataStore() {
 		return serverDataStore;
+	}
+
+	public DOMResult marshal() throws JAXBException, PropertyException {
+		Marshaller m = prepareMarshaller();
+		DOMResult result = new DOMResult();
+		m.marshal(this, result);
+		return result;
+	}
+
+	private Marshaller prepareMarshaller() throws JAXBException, PropertyException {
+		JAXBContext context = JAXBContext.newInstance(SapConnectionConfiguration.class);
+		Marshaller m = context.createMarshaller();
+		m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+		return m;
 	}
 
 }
