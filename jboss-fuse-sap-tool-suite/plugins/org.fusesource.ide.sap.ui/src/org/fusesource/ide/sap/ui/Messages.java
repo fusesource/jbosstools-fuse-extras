@@ -67,6 +67,7 @@ public class Messages extends NLS {
 	public static String DestinationDialog_destinationLable;
 	public static String DestinationDialog_dialogCreateTitle;
 	public static String DestinationDialog_dialogPasteTitle;
+	public static String DestinationDialog_message;
 	public static String DestinationDialog_shellCreateTitle;
 	public static String DestinationDialog_shellPasteTitle;
 	public static String LanguageValidator_LogonLanguageMustBeATwoDigitSapLanguageCodeString;
@@ -165,6 +166,7 @@ public class Messages extends NLS {
 	public static String ServerDialog_destinationNameLabel;
 	public static String ServerDialog_dialogCreateTitle;
 	public static String ServerDialog_dialogPasteTitle;
+	public static String ServerDialog_message;
 	public static String ServerDialog_serverAlreadyExists;
 	public static String ServerDialog_shellCreateTitle;
 	public static String ServerDialog_shellPasteTitle;
