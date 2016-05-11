@@ -20,7 +20,7 @@
 		<jbtis.version>4.4.0.Alpha1-SNAPSHOT</jbtis.version>
 
 		<!-- Tycho versions -->
-		<jboss-tycho-version>0.24.0</jboss-tycho-version>
+		<jboss-tycho-version>0.23.3</jboss-tycho-version>
 		<tychoVersion>0.24.0</tychoVersion>
 		<tychoExtrasVersion>${tychoVersion}</tychoExtrasVersion>
 
