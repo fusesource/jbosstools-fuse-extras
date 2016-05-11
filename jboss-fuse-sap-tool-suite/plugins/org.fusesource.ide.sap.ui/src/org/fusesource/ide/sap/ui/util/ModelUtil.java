@@ -632,12 +632,14 @@ public class ModelUtil {
 			return properties;
 		}
 
-		for (Element e = XMLUtils.getFirstChildElementWithName(configElement,
-				PROPERTY_TAG); e != null; e = getNextSiblingElementWithName(e, PROPERTY_TAG)) {
-			String attributeName = getAttributeValue(e, NAME_ATTRIBUTE);
-			String attributeValue = getAttributeValue(e, VALUE_ATTRIBUTE);
-			if (attributeName != null && attributeValue != null) {
-				properties.put(attributeName, attributeValue);
+		Element beanOfEntry = XMLUtils.getFirstChildElementWithName(configElement, BEAN_TAG);
+		if (beanOfEntry != null) {
+			for (Element e = XMLUtils.getFirstChildElementWithName(beanOfEntry, PROPERTY_TAG); e != null; e = getNextSiblingElementWithName(e, PROPERTY_TAG)) {
+				String attributeName = getAttributeValue(e, NAME_ATTRIBUTE);
+				String attributeValue = getAttributeValue(e, VALUE_ATTRIBUTE);
+				if (attributeName != null && attributeValue != null) {
+					properties.put(attributeName, attributeValue);
+				}
 			}
 		}
 		return properties;

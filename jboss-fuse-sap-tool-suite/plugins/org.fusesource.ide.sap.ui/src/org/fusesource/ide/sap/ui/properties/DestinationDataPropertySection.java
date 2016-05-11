@@ -10,18 +10,32 @@
 ******************************************************************************/
 package org.fusesource.ide.sap.ui.properties;
 
+import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetPage;
 import org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataStoreEntryImpl;
+import org.fusesource.ide.sap.ui.properties.uicreator.IDestinationDataUICreator;
 
 public abstract class DestinationDataPropertySection extends BasePropertySection {
 
 	protected DestinationDataStoreEntryImpl destinationDataStoreEntry;
 	protected EditingDomain editingDomain;
+	private IDestinationDataUICreator uiCreator;
+
+	public DestinationDataPropertySection() {
+		uiCreator = createUICreator();
+	}
+
+	/**
+	 * @return
+	 */
+	protected abstract IDestinationDataUICreator createUICreator();
 
 	@Override
 	public void setInput(IWorkbenchPart part, ISelection selection) {
@@ -34,4 +48,17 @@ public abstract class DestinationDataPropertySection extends BasePropertySection
 		initDataBindings();
 	}
 	
+	@Override
+	public void createControls(Composite parent, TabbedPropertySheetPage aTabbedPropertySheetPage) {
+		super.createControls(parent, aTabbedPropertySheetPage);
+		Composite authContainer = getWidgetFactory().createFlatFormComposite(parent);
+		uiCreator.createControls(authContainer, getWidgetFactory());
+	}
+
+	protected DataBindingContext initDataBindings() {
+		DataBindingContext bindingContext = super.initDataBindings();
+		uiCreator.initDataBindings(bindingContext, editingDomain, destinationDataStoreEntry);
+		return bindingContext;
+	}
+
 }
