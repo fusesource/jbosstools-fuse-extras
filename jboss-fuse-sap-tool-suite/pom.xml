@@ -12,16 +12,16 @@
 	<parent>
 		<groupId>org.jboss.tools</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.3.0.CR1-SNAPSHOT</version>
+		<version>4.4.0.Alpha1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
 		<!-- JBoss Tools Integration Stack version -->
-		<jbtis.version>4.3.1.Final-SNAPSHOT</jbtis.version>
+		<jbtis.version>4.4.0.Alpha1-SNAPSHOT</jbtis.version>
 
 		<!-- Tycho versions -->
-		<jboss-tycho-version>0.23.1</jboss-tycho-version>
-		<tychoVersion>0.23.1</tychoVersion>
+		<jboss-tycho-version>0.24.0</jboss-tycho-version>
+		<tychoVersion>0.24.0</tychoVersion>
 		<tychoExtrasVersion>${tychoVersion}</tychoExtrasVersion>
 
 		<!-- fuse tooling related versions -->
