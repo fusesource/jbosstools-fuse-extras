@@ -12,7 +12,6 @@
 package org.fusesource.ide.sap.ui.export;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.EventObject;
 import java.util.HashMap;
 
@@ -22,14 +21,7 @@ import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
-import org.eclipse.emf.common.command.CompoundCommand;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.edit.command.CommandParameter;
-import org.eclipse.emf.edit.command.CreateChildCommand;
-import org.eclipse.emf.edit.command.DeleteCommand;
-import org.eclipse.emf.edit.command.RemoveCommand;
-import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -37,7 +29,6 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -49,7 +40,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -57,35 +47,24 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StackLayout;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
-import org.fusesource.camel.component.sap.model.rfc.DestinationData;
 import org.fusesource.camel.component.sap.model.rfc.DestinationDataStore;
-import org.fusesource.camel.component.sap.model.rfc.RfcPackage;
 import org.fusesource.camel.component.sap.model.rfc.SapConnectionConfiguration;
-import org.fusesource.camel.component.sap.model.rfc.ServerData;
 import org.fusesource.camel.component.sap.model.rfc.ServerDataStore;
 import org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataStoreEntryImpl;
 import org.fusesource.camel.component.sap.model.rfc.impl.ServerDataStoreEntryImpl;
 import org.fusesource.ide.sap.ui.Activator;
 import org.fusesource.ide.sap.ui.Messages;
-import org.fusesource.ide.sap.ui.dialog.DestinationDialog;
-import org.fusesource.ide.sap.ui.dialog.ServerDialog;
-import org.fusesource.ide.sap.ui.dialog.TestDestinationDialog;
-import org.fusesource.ide.sap.ui.dialog.TestServerDialog;
 import org.fusesource.ide.sap.ui.edit.command.TransactionalCommandStack;
 import org.fusesource.ide.sap.ui.edit.idoc.IdocItemProviderAdapterFactory;
 import org.fusesource.ide.sap.ui.edit.rfc.RfcItemProviderAdapterFactory;
@@ -111,179 +90,6 @@ import org.fusesource.ide.sap.ui.properties.uicreator.SpecialDestinationDataUICr
 public class SapGlobalConnectionConfigurationPage extends WizardPage implements ISelectionChangedListener {
 	
 
-	private class NewDestinationAction extends Action {
-		
-		public NewDestinationAction() {
-			super(Messages.SapGlobalConnectionConfigurationPage_NewDestination,Activator.getDefault().getImageRegistry().getDescriptor(Activator.DESTINATION_DATA_STORE_ENTRY_IMAGE));
-		}
-		
-		@Override
-		public void run() {
-			Command createDestinationDataStoreEntryCommand = null;
-			Command createDestinationDataCommand = null;
-			CompoundCommand command = null;
-			DestinationDataStore destinationDataStore;
-			DestinationDataStoreEntryImpl destinationDataStoreEntry = null;
-			DestinationData destinationData = null;
-
-			if (selection.size() == 1) {
-				Object obj = selection.getFirstElement();
-				if (obj instanceof DestinationDataStore) {
-					destinationDataStore = (DestinationDataStore) obj;
-					if (editingDomain != null) {
-						Collection<?> descriptors = editingDomain.getNewChildDescriptors(destinationDataStore, null);
-						for (Object descriptor : descriptors) {
-							CommandParameter parameter = (CommandParameter) descriptor;
-							if (parameter.getFeature() == RfcPackage.Literals.DESTINATION_DATA_STORE__ENTRIES) {
-								destinationDataStoreEntry = (DestinationDataStoreEntryImpl) parameter.getValue();
-								createDestinationDataStoreEntryCommand = CreateChildCommand.create(editingDomain,
-										destinationDataStore, descriptor,
-										Collections.singletonList(destinationDataStore));
-								continue;
-							} else if (parameter
-									.getFeature() == RfcPackage.Literals.DESTINATION_DATA_STORE__DESTINATION_DATA) {
-								destinationData = (DestinationData) parameter.getValue();
-								createDestinationDataCommand = CreateChildCommand.create(editingDomain,
-										destinationDataStore, descriptor,
-										Collections.singletonList(destinationDataStore));
-								continue;
-							}
-
-						}
-						command = new CompoundCommand();
-						command.append(createDestinationDataCommand);
-						command.append(SetCommand.create(editingDomain, destinationDataStoreEntry,
-								RfcPackage.Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, destinationData));
-						command.append(createDestinationDataStoreEntryCommand);
-						((TransactionalCommandStack)editingDomain.getCommandStack()).begin();
-						DestinationDialog newNameDialog = new DestinationDialog(getShell(), DestinationDialog.Type.CREATE, editingDomain, destinationDataStore, destinationDataStoreEntry);
-						int status = newNameDialog.open();
-						if (status != Window.OK) {
-					    	((TransactionalCommandStack)editingDomain.getCommandStack()).rollback();
-					    	return;
-						}
-						editingDomain.getCommandStack().execute(command);
-					    ((TransactionalCommandStack)editingDomain.getCommandStack()).commit();
-					}
-				}
-			}
-		}
-
-	}
-
-	private class NewServerAction extends Action {
-		public NewServerAction() {
-			super(Messages.SapGlobalConnectionConfigurationPage_NewServer,Activator.getDefault().getImageRegistry().getDescriptor(Activator.SERVER_DATA_STORE_ENTRY_IMAGE));
-		}
-		
-		@Override
-		public void run() {
-			Command createServerDataStoreEntryCommand = null;
-			Command createServerDataCommand = null;
-			CompoundCommand command = null;
-			ServerDataStore serverDataStore;
-			ServerDataStoreEntryImpl serverDataStoreEntry = null;
-			ServerData serverData = null;
-
-			if (selection.size() == 1) {
-				Object obj = selection.getFirstElement();
-				if (obj instanceof ServerDataStore) {
-					serverDataStore = (ServerDataStore) obj;
-					if (editingDomain != null) {
-						Collection<?> descriptors = editingDomain.getNewChildDescriptors(serverDataStore, null);
-						for (Object descriptor : descriptors) {
-							CommandParameter parameter = (CommandParameter) descriptor;
-							if (parameter.getFeature() == RfcPackage.Literals.SERVER_DATA_STORE__ENTRIES) {
-								serverDataStoreEntry = (ServerDataStoreEntryImpl) parameter.getValue();
-								createServerDataStoreEntryCommand = CreateChildCommand.create(editingDomain,
-										serverDataStore, descriptor,
-										Collections.singletonList(serverDataStore));
-								continue;
-							} else if (parameter
-									.getFeature() == RfcPackage.Literals.SERVER_DATA_STORE__SERVER_DATA) {
-								serverData = (ServerData) parameter.getValue();
-								createServerDataCommand = CreateChildCommand.create(editingDomain,
-										serverDataStore, descriptor,
-										Collections.singletonList(serverDataStore));
-								continue;
-							}
-
-						}
-						command = new CompoundCommand();
-						command.append(createServerDataCommand);
-						command.append(SetCommand.create(editingDomain, serverDataStoreEntry,
-								RfcPackage.Literals.SERVER_DATA_STORE_ENTRY__VALUE, serverData));
-						command.append(createServerDataStoreEntryCommand);
-						((TransactionalCommandStack)editingDomain.getCommandStack()).begin();
-						ServerDialog newNameDialog = new ServerDialog(getShell(), ServerDialog.Type.CREATE, editingDomain, serverDataStore, serverDataStoreEntry);
-						int status = newNameDialog.open();
-						if (status != Window.OK) {
-					    	((TransactionalCommandStack)editingDomain.getCommandStack()).rollback();
-					    	return;
-						}
-						editingDomain.getCommandStack().execute(command);
-					    ((TransactionalCommandStack)editingDomain.getCommandStack()).commit();
-					}
-				}
-			}
-		}
-		
-	}
-	
-	private class DeleteAction extends Action {
-		public DeleteAction() {
-			super(Messages.SapGlobalConnectionConfigurationPage_Delete, sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
-		}
-		
-		@Override
-		public void run() {
-			if (selection.size() == 1) {
-				Object obj = selection.getFirstElement();
-				if (obj instanceof EObject) {
-					EObject eObject = (EObject) obj;
-					if (editingDomain != null) {
-						CompoundCommand command;
-						Command removeValueCommand = null;
-						Command deleteEntryCommand = DeleteCommand.create(editingDomain, Collections.singletonList(eObject));
-						if (eObject instanceof DestinationDataStoreEntryImpl) {
-							DestinationData destinationData = ((DestinationDataStoreEntryImpl)eObject).getValue();
-							removeValueCommand = RemoveCommand.create(editingDomain, destinationData.eContainer(), RfcPackage.Literals.DESTINATION_DATA_STORE__DESTINATION_DATA, Collections.singletonList(destinationData));
-						} else if (eObject instanceof ServerDataStoreEntryImpl) {
-							ServerData serverData = ((ServerDataStoreEntryImpl)eObject).getValue();
-							removeValueCommand = RemoveCommand.create(editingDomain, serverData.eContainer(), RfcPackage.Literals.SERVER_DATA_STORE__SERVER_DATA, Collections.singletonList(serverData));
-						}
-						command = new CompoundCommand();
-						command.append(deleteEntryCommand);
-						command.append(removeValueCommand);
-						editingDomain.getCommandStack().execute(command);
-					}
-				}
-			}
-		}
-	}
-	
-	private class TestAction extends Action {
-		public TestAction() {
-			super(Messages.SapGlobalConnectionConfigurationPage_Run, Activator.getDefault().getImageRegistry().getDescriptor(Activator.TEST_IMAGE));
-		}
-		
-		@Override
-		public void run() {
-			if (selection.size() == 1) {
-				Object obj = selection.getFirstElement();
-				if (obj instanceof DestinationDataStoreEntryImpl) {
-					String name = ((DestinationDataStoreEntryImpl) obj).getKey();
-					TestDestinationDialog testDestinationDialog = new TestDestinationDialog(getShell(), name);
-					testDestinationDialog.open();
-				} else if (obj instanceof ServerDataStoreEntryImpl) {
-					String name = ((ServerDataStoreEntryImpl) obj).getKey();
-					TestServerDialog testServerDialog = new TestServerDialog(getShell(), name);
-					testServerDialog.open();
-				}
-			}
-		}
-	}
-	
 	private class DestinationDataProperties {
 		
 		protected DestinationDataStoreEntryImpl destinationDataStoreEntry;
@@ -423,7 +229,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	 * This keeps track of the editing domain that is used to track all changes
 	 * to the model.
 	 */
-	protected AdapterFactoryEditingDomain editingDomain;
+	private AdapterFactoryEditingDomain editingDomain;
 
 	/**
 	 * This is the one adapter factory used for providing views of the model.
@@ -711,14 +517,10 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	protected void initActions() {
 	    sharedImages = PlatformUI.getWorkbench().getSharedImages();
 
-	    deleteAction = new DeleteAction();
-	    
-	    newDestinationAction = new NewDestinationAction();
-	    
-	    newServerAction = new NewServerAction();
-	    
-	    testAction = new TestAction();
-	    
+		deleteAction = new DeleteAction(this, editingDomain);
+		newDestinationAction = new NewDestinationAction(this, editingDomain);
+		newServerAction = new NewServerAction(this, editingDomain);
+	    testAction = new TestAction(this);
 	}
 	
 	private FormLayout compositeFormLayout() {
@@ -729,28 +531,4 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		return layout;
 	}
 	
-	private FormData firstEntryLayoutData() {
-		FormData data = new FormData();
-		data.left = new FormAttachment(0, (int) 3 * AbstractPropertySection.STANDARD_LABEL_WIDTH);
-		data.right = new FormAttachment(100, 0);
-		data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
-		return data;
-	}
-	
-	private FormData labelLayoutData(Control referenceControl) {
-		FormData data = new FormData();
-		data.left = new FormAttachment(0, 0);
-		data.right = new FormAttachment(referenceControl, -ITabbedPropertyConstants.HSPACE);
-		data.top = new FormAttachment(referenceControl, 0, SWT.CENTER);
-		return data;
-	}
-	
-	private FormData entryLayoutData(Control referenceControl) {
-		FormData data = new FormData();
-		data = new FormData();
-		data.left = new FormAttachment(0, (int) 3 * AbstractPropertySection.STANDARD_LABEL_WIDTH);
-		data.right = new FormAttachment(100, 0);
-		data.top = new FormAttachment(referenceControl, 2 * ITabbedPropertyConstants.VSPACE);
-		return data;
-	}
 }

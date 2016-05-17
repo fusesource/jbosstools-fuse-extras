@@ -16,7 +16,6 @@ import java.util.Collections;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.commands.IHandler;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.ecore.EObject;
@@ -31,7 +30,7 @@ import org.fusesource.camel.component.sap.model.rfc.RfcPackage;
 import org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataStoreEntryImpl;
 import org.fusesource.camel.component.sap.model.rfc.impl.ServerDataStoreEntryImpl;
 
-public class CutHandler extends AbstractHandler implements IHandler {
+public class CutHandler extends AbstractHandler {
 
 	private EditingDomain editingDomain;
 	private CompoundCommand command;
@@ -44,7 +43,6 @@ public class CutHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public void setEnabled(Object evaluationContext) {
-		Command cutToClipboardCommand = null;
 		setBaseEnabled(false);
 		Object obj = HandlerUtil.getVariable(evaluationContext, ISources.ACTIVE_CURRENT_SELECTION_NAME);
 		if (obj instanceof IStructuredSelection) {
@@ -55,7 +53,7 @@ public class CutHandler extends AbstractHandler implements IHandler {
 					EObject eObject = (EObject) obj;
 					editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(eObject);
 					if (editingDomain != null) {
-						cutToClipboardCommand = CutToClipboardCommand.create(editingDomain, Collections.singletonList(eObject));
+						Command cutToClipboardCommand = CutToClipboardCommand.create(editingDomain, Collections.singletonList(eObject));
 						if (canCut(selection)) {
 							command = new CompoundCommand();
 							command.append(cutToClipboardCommand);
