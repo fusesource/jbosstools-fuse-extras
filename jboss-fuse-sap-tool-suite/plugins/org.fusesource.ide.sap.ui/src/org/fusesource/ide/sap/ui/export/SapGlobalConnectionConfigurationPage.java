@@ -381,9 +381,6 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		destinationDataStoreDescriptionItem.setControl(lblContainsSapConnection_1);
 	}
 
-	/**
-	 * 
-	 */
 	private void createServerDataStoreTabFolder() {
 		serverDataStoreTabFolder = new CTabFolder(properties, SWT.BORDER);
 		

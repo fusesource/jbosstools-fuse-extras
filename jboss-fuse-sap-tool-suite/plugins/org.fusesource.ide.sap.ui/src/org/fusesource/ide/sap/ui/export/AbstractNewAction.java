@@ -15,16 +15,17 @@ import java.util.Collections;
 
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.command.CommandParameter;
 import org.eclipse.emf.edit.command.CreateChildCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
-import org.fusesource.ide.sap.ui.edit.command.TransactionalCommandStack;
 
 /**
  * @author Aurelien Pupier
@@ -43,22 +44,21 @@ public abstract class AbstractNewAction<T> extends Action {
 
 	@Override
 	public void run() {
-		Command createDataStoreEntryCommand = null;
-		Command createDataCommand = null;
-		T dataStore;
-		Object dataStoreEntry = null;
-		Object data = null;
 
 		if (this.sapGlobalConnectionConfigurationPage.selection.size() == 1) {
 			Object obj = this.sapGlobalConnectionConfigurationPage.selection.getFirstElement();
 			if (isOfCorrectInstanceOf(obj)) {
-				dataStore = (T) obj;
+				T dataStore = (T) obj;
 				if (editingDomain != null) {
+					Command createDataStoreEntryCommand = null;
+					Command createDataCommand = null;
+					EObject dataStoreEntry = null;
+					Object data = null;
 					Collection<?> descriptors = editingDomain.getNewChildDescriptors(dataStore, null);
 					for (Object descriptor : descriptors) {
 						CommandParameter parameter = (CommandParameter) descriptor;
 						if (parameter.getFeature() == getStoreEntriesFeature()) {
-							dataStoreEntry = parameter.getValue();
+							dataStoreEntry = (EObject) parameter.getValue();
 							createDataStoreEntryCommand = CreateChildCommand.create(editingDomain, dataStore, descriptor,
 									Collections.singletonList(dataStore));
 							continue;
@@ -70,20 +70,22 @@ public abstract class AbstractNewAction<T> extends Action {
 						}
 
 					}
+					if (createDataStoreEntryCommand == null || createDataCommand == null) {
+						return;
+					}
+
 					CompoundCommand command = new CompoundCommand();
 					command.append(createDataCommand);
 					command.append(SetCommand.create(editingDomain, dataStoreEntry, getStoreDataValue(), data));
 					command.append(createDataStoreEntryCommand);
-					((TransactionalCommandStack) editingDomain.getCommandStack()).begin();
-					Dialog newNameDialog = createNewDialog(dataStore, dataStoreEntry);
+					InputDialog newNameDialog = createNewDialog(dataStore, dataStoreEntry);
 					int status = newNameDialog.open();
-					if (status != Window.OK) {
-						((TransactionalCommandStack) editingDomain.getCommandStack()).rollback();
-						return;
+					if (status == Window.OK) {
+						String newName = newNameDialog.getValue();
+						dataStoreEntry.eSet(getStoreDataEntry(), newName);
+						editingDomain.getCommandStack().execute(command);
+						sapGlobalConnectionConfigurationPage.setSelectionToViewer(Collections.singleton(dataStoreEntry));
 					}
-					editingDomain.getCommandStack().execute(command);
-					((TransactionalCommandStack) editingDomain.getCommandStack()).commit();
-					sapGlobalConnectionConfigurationPage.setSelectionToViewer(Collections.singleton(dataStoreEntry));
 				}
 			}
 		}
@@ -91,7 +93,9 @@ public abstract class AbstractNewAction<T> extends Action {
 
 	protected abstract boolean isOfCorrectInstanceOf(Object obj);
 
-	protected abstract Dialog createNewDialog(T dataStore, Object dataStoreEntry);
+	protected abstract InputDialog createNewDialog(T dataStore, Object dataStoreEntry);
+
+	protected abstract EAttribute getStoreDataEntry();
 
 	protected abstract EReference getStoreDataValue();
 

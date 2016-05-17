@@ -10,21 +10,26 @@
  ******************************************************************************/ 
 package org.fusesource.ide.sap.ui.export;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.fusesource.camel.component.sap.model.rfc.RfcPackage;
 import org.fusesource.camel.component.sap.model.rfc.ServerDataStore;
-import org.fusesource.camel.component.sap.model.rfc.impl.ServerDataStoreEntryImpl;
 import org.fusesource.ide.sap.ui.Activator;
 import org.fusesource.ide.sap.ui.Messages;
-import org.fusesource.ide.sap.ui.dialog.ServerDialog;
+import org.fusesource.ide.sap.ui.command.NewStoreValidator;
 
 class NewServerAction extends AbstractNewAction<ServerDataStore> {
 
 	public NewServerAction(SapGlobalConnectionConfigurationPage sapGlobalConnectionConfigurationPage, EditingDomain editingDomain) {
 		super(Messages.SapGlobalConnectionConfigurationPage_NewServer, Activator.getDefault().getImageRegistry().getDescriptor(Activator.SERVER_DATA_STORE_ENTRY_IMAGE),
 				sapGlobalConnectionConfigurationPage, editingDomain);
+	}
+
+	@Override
+	protected EAttribute getStoreDataEntry() {
+		return RfcPackage.Literals.SERVER_DATA_STORE_ENTRY__KEY;
 	}
 
 	@Override
@@ -48,9 +53,9 @@ class NewServerAction extends AbstractNewAction<ServerDataStore> {
 	 * @return
 	 */
 	@Override
-	protected Dialog createNewDialog(ServerDataStore serverDataStore, Object serverDataStoreEntry) {
-		return new ServerDialog(this.sapGlobalConnectionConfigurationPage.getShell(), ServerDialog.Type.CREATE, editingDomain, serverDataStore,
-				(ServerDataStoreEntryImpl) serverDataStoreEntry);
+	protected InputDialog createNewDialog(ServerDataStore serverDataStore, Object serverDataStoreEntry) {
+		return new InputDialog(sapGlobalConnectionConfigurationPage.getShell(), Messages.ServerDialog_shellCreateTitle, Messages.ServerDialog_message, "",
+				new NewStoreValidator(serverDataStore.getEntries().keySet(), Messages.ServerDialog_message, Messages.ServerDialog_serverAlreadyExists));
 	}
 
 	@Override

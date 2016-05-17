@@ -17,7 +17,6 @@ import java.util.Collections;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.commands.IHandler;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.edit.command.CommandParameter;
@@ -25,19 +24,19 @@ import org.eclipse.emf.edit.command.CreateChildCommand;
 import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.ISources;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.fusesource.camel.component.sap.model.rfc.RfcPackage;
 import org.fusesource.camel.component.sap.model.rfc.ServerData;
 import org.fusesource.camel.component.sap.model.rfc.ServerDataStore;
 import org.fusesource.camel.component.sap.model.rfc.impl.ServerDataStoreEntryImpl;
-import org.fusesource.ide.sap.ui.dialog.ServerDialog;
-import org.fusesource.ide.sap.ui.edit.command.TransactionalCommandStack;
+import org.fusesource.ide.sap.ui.Messages;
 
-public class NewServerHandler extends AbstractHandler implements IHandler {
+public class NewServerHandler extends AbstractHandler {
 
 	private EditingDomain editingDomain;
 	private CompoundCommand command;
@@ -47,19 +46,23 @@ public class NewServerHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
-		((TransactionalCommandStack)editingDomain.getCommandStack()).begin();
-		ServerDialog newNameDialog = new ServerDialog(window.getShell(), ServerDialog.Type.CREATE, editingDomain, serverDataStore, serverDataStoreEntry);
-		int status = newNameDialog.open();
-		if (status != Window.OK) {
-	    	((TransactionalCommandStack)editingDomain.getCommandStack()).rollback();
-	    	return null;
+		Shell shell = getShell(event);
+
+		InputDialog inputDialog = new InputDialog(shell, Messages.ServerDialog_shellCreateTitle, Messages.ServerDialog_message, "",
+				new NewStoreValidator(serverDataStore.getEntries().keySet(), Messages.ServerDialog_message, Messages.ServerDialog_serverAlreadyExists));
+
+		if (inputDialog.open() == Window.OK) {
+			String newName = inputDialog.getValue();
+			serverDataStoreEntry.setKey(newName);
+			editingDomain.getCommandStack().execute(command);
 		}
-		editingDomain.getCommandStack().execute(command);
-	    ((TransactionalCommandStack)editingDomain.getCommandStack()).commit();
 		return null;
 	}
 	
+	private Shell getShell(ExecutionEvent event) {
+		return HandlerUtil.getActiveWorkbenchWindow(event).getShell();
+	}
+
 	@Override
 	public void setEnabled(Object evaluationContext) {
 		Command createServerDataStoreEntryCommand = null;
@@ -86,7 +89,7 @@ public class NewServerHandler extends AbstractHandler implements IHandler {
 						}
 
 					}
-					if(createServerDataStoreEntryCommand != null && createServerDataCommand != null) {
+					if (createServerDataStoreEntryCommand != null && createServerDataCommand != null) {
 						command = new CompoundCommand();
 						command.append(createServerDataCommand);
 						command.append(SetCommand.create(editingDomain, serverDataStoreEntry, RfcPackage.Literals.SERVER_DATA_STORE_ENTRY__VALUE, serverData));

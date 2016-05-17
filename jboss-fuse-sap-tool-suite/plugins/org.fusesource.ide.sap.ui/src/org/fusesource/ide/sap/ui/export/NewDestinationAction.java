@@ -10,15 +10,15 @@
  ******************************************************************************/ 
 package org.fusesource.ide.sap.ui.export;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.fusesource.camel.component.sap.model.rfc.DestinationDataStore;
 import org.fusesource.camel.component.sap.model.rfc.RfcPackage;
-import org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataStoreEntryImpl;
 import org.fusesource.ide.sap.ui.Activator;
 import org.fusesource.ide.sap.ui.Messages;
-import org.fusesource.ide.sap.ui.dialog.DestinationDialog;
+import org.fusesource.ide.sap.ui.command.NewStoreValidator;
 
 class NewDestinationAction extends AbstractNewAction<DestinationDataStore> {
 	
@@ -48,14 +48,19 @@ class NewDestinationAction extends AbstractNewAction<DestinationDataStore> {
 	 * @return
 	 */
 	@Override
-	protected Dialog createNewDialog(DestinationDataStore destinationDataStore, Object destinationDataStoreEntry) {
-		return new DestinationDialog(this.sapGlobalConnectionConfigurationPage.getShell(), DestinationDialog.Type.CREATE, editingDomain,
-				(DestinationDataStore) destinationDataStore, (DestinationDataStoreEntryImpl) destinationDataStoreEntry);
+	protected InputDialog createNewDialog(DestinationDataStore destinationDataStore, Object destinationDataStoreEntry) {
+		return new InputDialog(sapGlobalConnectionConfigurationPage.getShell(), Messages.DestinationDialog_shellCreateTitle, Messages.DestinationDialog_message, "",
+				new NewStoreValidator(destinationDataStore.getEntries().keySet(), Messages.DestinationDialog_message, Messages.DestinationDialog_destinationAlreadyExists));
 	}
 
 	@Override
 	protected boolean isOfCorrectInstanceOf(Object obj) {
 		return obj instanceof DestinationDataStore;
+	}
+
+	@Override
+	protected EAttribute getStoreDataEntry() {
+		return RfcPackage.Literals.DESTINATION_DATA_STORE_ENTRY__KEY;
 	}
 
 }

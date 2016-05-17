@@ -22,11 +22,13 @@ Require-Bundle: org.eclipse.ui,
  org.fusesource.camel.component.sap.model;bundle-version="6.2.0",
  org.fusesource.camel.component.sap.model.edit;bundle-version="6.2.0",
  org.fusesource.ide.camel.editor;bundle-version="8.0.0",
- org.fusesource.ide.foundation.ui;bundle-version="8.0.0"
+ org.fusesource.ide.foundation.ui;bundle-version="8.0.0",
+ org.eclipse.emf.transaction
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %Bundle-Vendor
 Bundle-ClassPath: .
 Bundle-Localization: OSGI-INF/l10n/bundle
-Export-Package: org.fusesource.ide.sap.ui.export;x-friends:="org.fusesource.ide.sap.ui.tests.integration",
+Export-Package: org.fusesource.ide.sap.ui.command;x-friends:="org.fusesource.ide.sap.ui.tests",
+ org.fusesource.ide.sap.ui.export;x-friends:="org.fusesource.ide.sap.ui.tests.integration",
  org.fusesource.ide.sap.ui.properties.uicreator

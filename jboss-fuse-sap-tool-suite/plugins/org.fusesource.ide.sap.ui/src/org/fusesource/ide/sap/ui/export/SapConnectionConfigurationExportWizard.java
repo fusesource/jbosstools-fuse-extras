@@ -16,6 +16,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.PropertyException;
+
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -67,11 +70,6 @@ public class SapConnectionConfigurationExportWizard extends Wizard implements IE
 	}
 	
 	@Override
-	public boolean canFinish() {
-		return super.canFinish();
-	}
-
-	@Override
 	public boolean performFinish() {
 		try {
 			switch (exportSettings.getExportFileType()) {
@@ -100,10 +98,7 @@ public class SapConnectionConfigurationExportWizard extends Wizard implements IE
 			String[] files = directory.list(new FilenameFilter() {
 				@Override
 				public boolean accept(File dir, String name) {
-					if (name.equals(filename)) {
-						return true;
-					}
-					return false;
+					return name.equals(filename);
 				}
 			});
 			if (files.length == 0) {
@@ -112,12 +107,10 @@ public class SapConnectionConfigurationExportWizard extends Wizard implements IE
 			}
 		}
 		
-		FileOutputStream fos = new FileOutputStream(exportSettings.getExportLocation() + File.separator + exportFilename);
-		
-		return fos;
+		return new FileOutputStream(exportSettings.getExportLocation() + File.separator + exportFilename);
 	}
 	
-	protected void exportBlueprintFile() throws Exception {
+	protected void exportBlueprintFile() throws FileNotFoundException, PropertyException, JAXBException {
 		SapConnectionConfiguration sapConnectionConfiguration = new SapConnectionConfiguration();
 		SapConnectionConfigurationBuilder.populateSapConnectionConfiguration(getSapConnectionConfigurationModel(), sapConnectionConfiguration);
 		BlueprintFile blueprintFile = new BlueprintFile();
@@ -144,17 +137,11 @@ public class SapConnectionConfigurationExportWizard extends Wizard implements IE
 		return ModelUtil.getModel(new ResourceSetImpl());
 	}
 
-	/* (non-Javadoc)
-	 * @see org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard#getGlobalConfigurationElementNode()
-	 */
 	@Override
 	public Element getGlobalConfigurationElementNode() {
 		return this.globalConfigElement;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard#setGlobalConfigurationElementNode(org.w3c.dom.Element)
-	 */
 	@Override
 	public void setGlobalConfigurationElementNode(Element node) {
 		this.globalConfigElement = node;
