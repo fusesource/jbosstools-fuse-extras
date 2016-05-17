@@ -83,6 +83,7 @@ public abstract class AbstractNewAction<T> extends Action {
 					}
 					editingDomain.getCommandStack().execute(command);
 					((TransactionalCommandStack) editingDomain.getCommandStack()).commit();
+					sapGlobalConnectionConfigurationPage.setSelectionToViewer(Collections.singleton(dataStoreEntry));
 				}
 			}
 		}
