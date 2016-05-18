@@ -22,7 +22,7 @@ public class NewStoreValidatorTest {
 
 	@Test
 	public void testIsValid() throws Exception {
-		assertThat(new NewStoreValidator(Collections.emptySet(), "", "").isValid("Test1")).isNull();
+		assertThat(new NewStoreValidator(Collections.<String> emptySet(), "", "").isValid("Test1")).isNull();
 	}
 
 	@Test
@@ -33,12 +33,12 @@ public class NewStoreValidatorTest {
 
 	@Test
 	public void testIsNotValidEmpty() throws Exception {
-		assertThat(new NewStoreValidator(Collections.emptySet(), Messages.DestinationDialog_message, "").isValid("")).isEqualTo(Messages.DestinationDialog_message);
+		assertThat(new NewStoreValidator(Collections.<String> emptySet(), Messages.DestinationDialog_message, "").isValid("")).isEqualTo(Messages.DestinationDialog_message);
 	}
 
 	@Test
 	public void testIsNotValidNull() throws Exception {
-		assertThat(new NewStoreValidator(Collections.emptySet(), Messages.DestinationDialog_message, "").isValid(null)).isEqualTo(Messages.DestinationDialog_message);
+		assertThat(new NewStoreValidator(Collections.<String> emptySet(), Messages.DestinationDialog_message, "").isValid(null)).isEqualTo(Messages.DestinationDialog_message);
 	}
 
 }
