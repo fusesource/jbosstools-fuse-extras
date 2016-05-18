@@ -35,17 +35,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ServerUICreatorIT {
 
 	@Test
-	public void testMandatoryServerCreation() throws Exception {
+	public void testMandatoryServerCreation() {
 		testUICreator(new MandatoryServerDataUICreator());
 	}
 
 	@Test
-	public void testOptionalServerCreation() throws Exception {
+	public void testOptionalServerCreation() {
 		testUICreator(new OptionalServerDataUICreator());
 	}
 
 	@Test
-	public void testSncServerCreation() throws Exception {
+	public void testSncServerCreation() {
 		testUICreator(new SncServerDataUICreator());
 	}
 

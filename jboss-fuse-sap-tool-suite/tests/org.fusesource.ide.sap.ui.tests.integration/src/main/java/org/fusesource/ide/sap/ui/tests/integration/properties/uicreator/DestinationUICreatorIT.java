@@ -39,37 +39,37 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DestinationUICreatorIT {
 
 	@Test
-	public void testAuthenticationDestinationCreation() throws Exception {
+	public void testAuthenticationDestinationCreation() {
 		testUICreator(new AuthenticationDestinationDataUICreator());
 	}
 
 	@Test
-	public void testBasicDestinationCreation() throws Exception {
+	public void testBasicDestinationCreation() {
 		testUICreator(new BasicDestinationDataUICreator());
 	}
 
 	@Test
-	public void testConnectionDestinationCreation() throws Exception {
+	public void testConnectionDestinationCreation() {
 		testUICreator(new ConnectionDestinationDataUICreator());
 	}
 
 	@Test
-	public void testPoolDestinationCreation() throws Exception {
+	public void testPoolDestinationCreation() {
 		testUICreator(new PoolDestinationDataUICreator());
 	}
 
 	@Test
-	public void testRepositoryDestinationCreation() throws Exception {
+	public void testRepositoryDestinationCreation() {
 		testUICreator(new RepositoryDestinationDataUICreator());
 	}
 
 	@Test
-	public void testSncDestinationCreation() throws Exception {
+	public void testSncDestinationCreation() {
 		testUICreator(new SncDestinationDataUICreator());
 	}
 
 	@Test
-	public void testSpecialDestinationCreation() throws Exception {
+	public void testSpecialDestinationCreation() {
 		testUICreator(new SpecialDestinationDataUICreator());
 	}
 

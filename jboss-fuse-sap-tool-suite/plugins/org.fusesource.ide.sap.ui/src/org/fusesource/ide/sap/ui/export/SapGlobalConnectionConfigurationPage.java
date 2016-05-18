@@ -16,14 +16,12 @@ import java.util.EventObject;
 import java.util.HashMap;
 
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
@@ -34,7 +32,6 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -57,7 +54,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
-import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.fusesource.camel.component.sap.model.rfc.DestinationDataStore;
 import org.fusesource.camel.component.sap.model.rfc.SapConnectionConfiguration;
 import org.fusesource.camel.component.sap.model.rfc.ServerDataStore;
@@ -68,18 +64,6 @@ import org.fusesource.ide.sap.ui.Messages;
 import org.fusesource.ide.sap.ui.edit.command.TransactionalCommandStack;
 import org.fusesource.ide.sap.ui.edit.idoc.IdocItemProviderAdapterFactory;
 import org.fusesource.ide.sap.ui.edit.rfc.RfcItemProviderAdapterFactory;
-import org.fusesource.ide.sap.ui.properties.uicreator.AuthenticationDestinationDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.BasicDestinationDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.ConnectionDestinationDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.IDestinationDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.IServerDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.MandatoryServerDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.OptionalServerDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.PoolDestinationDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.RepositoryDestinationDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.SncDestinationDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.SncServerDataUICreator;
-import org.fusesource.ide.sap.ui.properties.uicreator.SpecialDestinationDataUICreator;
 
 /**
  * SAP Global Connection Configuration Page for editing SAP Global Configuration
@@ -89,141 +73,6 @@ import org.fusesource.ide.sap.ui.properties.uicreator.SpecialDestinationDataUICr
  */
 public class SapGlobalConnectionConfigurationPage extends WizardPage implements ISelectionChangedListener {
 	
-
-	private class DestinationDataProperties {
-		
-		protected DestinationDataStoreEntryImpl destinationDataStoreEntry;
-		protected EditingDomain editingDomain;
-		private DataBindingContext bindingContext;
-		
-		private IDestinationDataUICreator basicDestinationDataUICreator = new BasicDestinationDataUICreator();
-		private IDestinationDataUICreator connectionDestinationDataUICreator = new ConnectionDestinationDataUICreator();
-		private IDestinationDataUICreator authenticationDestinationDataUICreator = new AuthenticationDestinationDataUICreator();
-		private IDestinationDataUICreator specialDestinationDataUICreator = new SpecialDestinationDataUICreator();
-		private IDestinationDataUICreator poolDestinationDataUICreator = new PoolDestinationDataUICreator();
-		private IDestinationDataUICreator sncDestinationDataUICreator = new SncDestinationDataUICreator();
-		private IDestinationDataUICreator repositoryPoolDestinationDataUICreator = new RepositoryDestinationDataUICreator();
-		
-		public void createControl() {
-			TabbedPropertySheetWidgetFactory widgetFactory = new TabbedPropertySheetWidgetFactory();
-
-			destinationDataTabFolder = widgetFactory.createTabFolder(properties, SWT.BORDER);
-			destinationDataTabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
-
-			createTabItem(widgetFactory, Messages.SapGlobalConnectionConfigurationPage_Basic, basicDestinationDataUICreator);
-			createTabItem(widgetFactory, Messages.SapGlobalConnectionConfigurationPage_Connection, connectionDestinationDataUICreator);
-			createTabItem(widgetFactory, Messages.SapGlobalConnectionConfigurationPage_Authentication, authenticationDestinationDataUICreator);
-			createTabItem(widgetFactory, Messages.SapGlobalConnectionConfigurationPage_Special, specialDestinationDataUICreator);
-			createTabItem(widgetFactory, Messages.SapGlobalConnectionConfigurationPage_Pool, poolDestinationDataUICreator);
-			createTabItem(widgetFactory, Messages.SapGlobalConnectionConfigurationPage_SNC, sncDestinationDataUICreator);
-			createTabItem(widgetFactory, Messages.SapGlobalConnectionConfigurationPage_Repository, repositoryPoolDestinationDataUICreator);
-		}
-
-		/**
-		 * @param widgetFactory
-		 * @param tabItemName
-		 * @param uiCreator
-		 */
-		private void createTabItem(TabbedPropertySheetWidgetFactory widgetFactory, final String tabItemName, final IDestinationDataUICreator uiCreator) {
-			CTabItem destinationDataBasicItem = widgetFactory.createTabItem(destinationDataTabFolder, SWT.NONE);
-			destinationDataBasicItem.setText(tabItemName);
-			destinationDataTabFolder.setSelection(destinationDataBasicItem);
-
-			Composite basicContainer = widgetFactory.createFlatFormComposite(destinationDataTabFolder);
-			destinationDataBasicItem.setControl(basicContainer);
-			basicContainer.setLayout(compositeFormLayout());
-
-			uiCreator.createControls(basicContainer, new TabbedPropertySheetWidgetFactory());
-		}	
-
-		public void setInput(ISelection selection) {
-			Assert.isTrue(selection instanceof IStructuredSelection);
-			Object input = ((IStructuredSelection)selection).getFirstElement();
-			Assert.isTrue(input instanceof DestinationDataStoreEntryImpl);
-			destinationDataStoreEntry = (DestinationDataStoreEntryImpl) input;
-			editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(destinationDataStoreEntry);
-			initDataBindings();
-		}
-		
-		protected DataBindingContext initDataBindings() {
-			if (bindingContext != null) {
-				bindingContext.dispose();
-				bindingContext = null;
-			}
-			bindingContext = new DataBindingContext();
-			
-			basicDestinationDataUICreator.initDataBindings(bindingContext, editingDomain, destinationDataStoreEntry);
-			connectionDestinationDataUICreator.initDataBindings(bindingContext, editingDomain, destinationDataStoreEntry);
-			authenticationDestinationDataUICreator.initDataBindings(bindingContext, editingDomain, destinationDataStoreEntry);
-			specialDestinationDataUICreator.initDataBindings(bindingContext, editingDomain, destinationDataStoreEntry);
-			poolDestinationDataUICreator.initDataBindings(bindingContext, editingDomain, destinationDataStoreEntry);
-			sncDestinationDataUICreator.initDataBindings(bindingContext, editingDomain, destinationDataStoreEntry);
-			repositoryPoolDestinationDataUICreator.initDataBindings(bindingContext, editingDomain, destinationDataStoreEntry);
-
-			return bindingContext;
-		}		
-	}
-	
-	private class ServerDataProperties {
-		
-		protected ServerDataStoreEntryImpl serverDataStoreEntry;
-		protected EditingDomain editingDomain;
-		private DataBindingContext bindingContext;
-
-		private IServerDataUICreator mandatoryServerDataUICreator = new MandatoryServerDataUICreator();
-		private IServerDataUICreator optionalServerDataUICreator = new OptionalServerDataUICreator();
-		private IServerDataUICreator sncServerDataUICreator = new SncServerDataUICreator();
-
-		public void createControl() {
-			TabbedPropertySheetWidgetFactory widgetFactory = new TabbedPropertySheetWidgetFactory();
-			serverDataTabFolder = widgetFactory.createTabFolder(properties, SWT.BORDER);
-			serverDataTabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
-			
-			createTabItem(widgetFactory, Messages.SapGlobalConnectionConfigurationPage_ServerDataMandatoryItemTitle, mandatoryServerDataUICreator);
-			createTabItem(widgetFactory, Messages.SapGlobalConnectionConfigurationPage_ServerDataOptionalItemTitle, optionalServerDataUICreator);
-			createTabItem(widgetFactory, Messages.SapGlobalConnectionConfigurationPage_ServerDataSncItemTitle, sncServerDataUICreator);
-		}
-		
-		/**
-		 * @param widgetFactory
-		 * @param tabItemName
-		 * @param uiCreator
-		 */
-		private void createTabItem(TabbedPropertySheetWidgetFactory widgetFactory, final String tabItemName, final IServerDataUICreator uiCreator) {
-			CTabItem destinationDataBasicItem = widgetFactory.createTabItem(serverDataTabFolder, SWT.NONE);
-			destinationDataBasicItem.setText(tabItemName);
-			serverDataTabFolder.setSelection(destinationDataBasicItem);
-
-			Composite basicContainer = widgetFactory.createFlatFormComposite(serverDataTabFolder);
-			destinationDataBasicItem.setControl(basicContainer);
-			basicContainer.setLayout(compositeFormLayout());
-
-			uiCreator.createControls(basicContainer, new TabbedPropertySheetWidgetFactory());
-		}
-
-		public void setInput(ISelection selection) {
-			Assert.isTrue(selection instanceof IStructuredSelection);
-			Object input = ((IStructuredSelection)selection).getFirstElement();
-			Assert.isTrue(input instanceof ServerDataStoreEntryImpl);
-			serverDataStoreEntry = (ServerDataStoreEntryImpl) input;
-			editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(serverDataStoreEntry);
-			initDataBindings();
-		}
-		
-		protected DataBindingContext initDataBindings() {
-			if (bindingContext != null) {
-				bindingContext.dispose();
-				bindingContext = null;
-			}
-			bindingContext = new DataBindingContext();
-			
-			mandatoryServerDataUICreator.initDataBindings(bindingContext, editingDomain, serverDataStoreEntry);
-			optionalServerDataUICreator.initDataBindings(bindingContext, editingDomain, serverDataStoreEntry);
-			sncServerDataUICreator.initDataBindings(bindingContext, editingDomain, serverDataStoreEntry);
-
-			return bindingContext; 
-		}
-	}
 
 	/**
 	 * This keeps track of the editing domain that is used to track all changes
@@ -287,8 +136,8 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	private CTabFolder sapConnectionConfigurationTabFolder;
 	private CTabFolder destinationDataStoreTabFolder;
 	private CTabFolder serverDataStoreTabFolder;
-	private CTabFolder destinationDataTabFolder;
-	private CTabFolder serverDataTabFolder;
+	CTabFolder destinationDataTabFolder;
+	CTabFolder serverDataTabFolder;
 
 	private DestinationDataProperties destinationDataProperties;
 	private ServerDataProperties serverDataProperties;
@@ -340,10 +189,10 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		createServerDataStoreTabFolder();
 
 		destinationDataProperties = new DestinationDataProperties();
-		destinationDataProperties.createControl();
+		destinationDataProperties.createControl(properties);
 		
 		serverDataProperties = new ServerDataProperties();
-		serverDataProperties.createControl();
+		serverDataProperties.createControl(properties);
 
 		sc.setContent(properties);
 		sc.setExpandHorizontal(true);
@@ -520,7 +369,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	    testAction = new TestAction(this);
 	}
 	
-	private FormLayout compositeFormLayout() {
+	FormLayout compositeFormLayout() {
 		FormLayout layout = new FormLayout();
 		layout.marginWidth = ITabbedPropertyConstants.HSPACE + 2;
 		layout.marginHeight = ITabbedPropertyConstants.VSPACE;
