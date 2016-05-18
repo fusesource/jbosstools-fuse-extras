@@ -16,7 +16,6 @@ import java.util.Collection;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.commands.IHandler;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CompoundCommand;
 import org.eclipse.emf.ecore.EObject;
@@ -24,21 +23,20 @@ import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.edit.command.PasteFromClipboardCommand;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.ISources;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.fusesource.camel.component.sap.model.rfc.DestinationDataStore;
 import org.fusesource.camel.component.sap.model.rfc.RfcPackage;
 import org.fusesource.camel.component.sap.model.rfc.ServerDataStore;
 import org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataStoreEntryImpl;
 import org.fusesource.camel.component.sap.model.rfc.impl.ServerDataStoreEntryImpl;
-import org.fusesource.ide.sap.ui.dialog.DestinationDialog;
-import org.fusesource.ide.sap.ui.dialog.ServerDialog;
-import org.fusesource.ide.sap.ui.edit.command.TransactionalCommandStack;
+import org.fusesource.ide.sap.ui.Messages;
 
-public class PasteHandler extends AbstractHandler implements IHandler {
+public class PasteHandler extends AbstractHandler {
 
 	private boolean isServerPaste;
 	private ServerDataStore serverDataStore;
@@ -50,28 +48,34 @@ public class PasteHandler extends AbstractHandler implements IHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		int status;
-		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
-		((TransactionalCommandStack)editingDomain.getCommandStack()).begin();
 		if (isServerPaste) {
-			ServerDialog pasteServerDialog = new ServerDialog(window.getShell(), ServerDialog.Type.PASTE, editingDomain, serverDataStore, serverDataStoreEntry);
-		 	status = pasteServerDialog.open();
+			InputDialog inputDialog = new InputDialog(getShell(event), Messages.ServerDialog_shellPasteTitle, Messages.ServerDialog_message, serverDataStoreEntry.getKey(),
+					new NewStoreValidator(serverDataStore.getEntries().keySet(), Messages.ServerDialog_message, Messages.ServerDialog_serverAlreadyExists));
+			if (inputDialog.open() == Window.OK) {
+				String newName = inputDialog.getValue();
+				serverDataStoreEntry.setKey(newName);
+				editingDomain.getCommandStack().execute(command);
+			}
 		} else {
-			DestinationDialog pasteDestinationDialog = new DestinationDialog(window.getShell(), DestinationDialog.Type.PASTE, editingDomain, destinationDataStore, destinationDataStoreEntry);
-		 	status = pasteDestinationDialog.open();
+			InputDialog inputDialog = new InputDialog(getShell(event), Messages.DestinationDialog_shellPasteTitle, Messages.DestinationDialog_message,
+					destinationDataStoreEntry.getKey(),
+					new NewStoreValidator(destinationDataStore.getEntries().keySet(), Messages.DestinationDialog_message, Messages.DestinationDialog_destinationAlreadyExists));
+
+			if (inputDialog.open() == Window.OK) {
+				String newName = inputDialog.getValue();
+				destinationDataStoreEntry.setKey(newName);
+				editingDomain.getCommandStack().execute(command);
+			}
 		}
-		if (status != Window.OK) {
-	    	((TransactionalCommandStack)editingDomain.getCommandStack()).rollback();
-			return null;
-		}
-		editingDomain.getCommandStack().execute(command);
-	    ((TransactionalCommandStack)editingDomain.getCommandStack()).commit();
 	    return null;
 	}
 	
+	private Shell getShell(ExecutionEvent event) {
+		return HandlerUtil.getActiveWorkbenchWindow(event).getShell();
+	}
+
 	@Override
 	public void setEnabled(Object evaluationContext) {
-		Command pasteFromClipboardCommand = null;
 		setBaseEnabled(false);
 		Object obj = HandlerUtil.getVariable(evaluationContext, ISources.ACTIVE_CURRENT_SELECTION_NAME);
 		if (obj instanceof IStructuredSelection) {
@@ -82,7 +86,7 @@ public class PasteHandler extends AbstractHandler implements IHandler {
 					EObject eObject = (EObject) obj;
 					editingDomain = AdapterFactoryEditingDomain.getEditingDomainFor(eObject);
 					if (editingDomain != null) {
-						pasteFromClipboardCommand = PasteFromClipboardCommand.create(editingDomain, eObject, null);
+						Command pasteFromClipboardCommand = PasteFromClipboardCommand.create(editingDomain, eObject, null);
 						if (canPaste(selection)) {
 							command = new CompoundCommand();
 							command.append(createAddValueCommand(obj, editingDomain.getClipboard()));
