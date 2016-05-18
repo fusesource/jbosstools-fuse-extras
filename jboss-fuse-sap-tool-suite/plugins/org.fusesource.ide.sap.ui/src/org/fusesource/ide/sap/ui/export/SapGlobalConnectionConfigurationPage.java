@@ -189,10 +189,10 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		createServerDataStoreTabFolder();
 
 		destinationDataProperties = new DestinationDataProperties();
-		destinationDataProperties.createControl(properties);
+		destinationDataTabFolder = destinationDataProperties.createControl(properties);
 		
 		serverDataProperties = new ServerDataProperties();
-		serverDataProperties.createControl(properties);
+		serverDataTabFolder = serverDataProperties.createControl(properties);
 
 		sc.setContent(properties);
 		sc.setExpandHorizontal(true);
