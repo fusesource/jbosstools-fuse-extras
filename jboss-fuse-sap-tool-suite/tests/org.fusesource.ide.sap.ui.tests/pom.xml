@@ -12,6 +12,6 @@
   
   <artifactId>org.fusesource.ide.sap.ui.tests</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <name>JBoss Fuse Tooling :: SAP :: Tests :: SAP Tool Suite UI Integration Tests</name>
+  <name>JBoss Fuse Tooling :: SAP :: Tests :: SAP Tool Suite UI Tests</name>
   
   </project>
