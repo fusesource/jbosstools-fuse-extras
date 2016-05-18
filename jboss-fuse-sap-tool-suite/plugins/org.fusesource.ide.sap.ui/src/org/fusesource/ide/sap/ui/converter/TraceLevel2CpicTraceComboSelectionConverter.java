@@ -21,6 +21,9 @@ public class TraceLevel2CpicTraceComboSelectionConverter extends Converter {
 
 	@Override
 	public Object convert(Object fromObject) {
+		if (fromObject == null) {
+			return 0;
+		}
 		String selection = (String) fromObject;
 		switch (selection) {
 		case "0":

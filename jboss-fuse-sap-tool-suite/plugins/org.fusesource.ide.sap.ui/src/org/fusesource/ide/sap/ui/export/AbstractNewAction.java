@@ -35,6 +35,7 @@ public abstract class AbstractNewAction<T> extends Action {
 
 	protected final SapGlobalConnectionConfigurationPage sapGlobalConnectionConfigurationPage;
 	protected final EditingDomain editingDomain;
+	protected T parentTarget;
 
 	public AbstractNewAction(String text, ImageDescriptor image, SapGlobalConnectionConfigurationPage sapGlobalConnectionConfigurationPage, EditingDomain editingDomain) {
 		super(text, image);
@@ -44,51 +45,57 @@ public abstract class AbstractNewAction<T> extends Action {
 
 	@Override
 	public void run() {
+		T dataStore = getParentTarget();
 
-		if (this.sapGlobalConnectionConfigurationPage.selection.size() == 1) {
-			Object obj = this.sapGlobalConnectionConfigurationPage.selection.getFirstElement();
-			if (isOfCorrectInstanceOf(obj)) {
-				T dataStore = (T) obj;
-				if (editingDomain != null) {
-					Command createDataStoreEntryCommand = null;
-					Command createDataCommand = null;
-					EObject dataStoreEntry = null;
-					Object data = null;
-					Collection<?> descriptors = editingDomain.getNewChildDescriptors(dataStore, null);
-					for (Object descriptor : descriptors) {
-						CommandParameter parameter = (CommandParameter) descriptor;
-						if (parameter.getFeature() == getStoreEntriesFeature()) {
-							dataStoreEntry = (EObject) parameter.getValue();
-							createDataStoreEntryCommand = CreateChildCommand.create(editingDomain, dataStore, descriptor,
-									Collections.singletonList(dataStore));
-							continue;
-						} else if (parameter.getFeature() == getStoreDataFeature()) {
-							data = parameter.getValue();
-							createDataCommand = CreateChildCommand.create(editingDomain, dataStore, descriptor,
-									Collections.singletonList(dataStore));
-							continue;
-						}
-
-					}
-					if (createDataStoreEntryCommand == null || createDataCommand == null) {
-						return;
-					}
-
-					CompoundCommand command = new CompoundCommand();
-					command.append(createDataCommand);
-					command.append(SetCommand.create(editingDomain, dataStoreEntry, getStoreDataValue(), data));
-					command.append(createDataStoreEntryCommand);
-					InputDialog newNameDialog = createNewDialog(dataStore, dataStoreEntry);
-					int status = newNameDialog.open();
-					if (status == Window.OK) {
-						String newName = newNameDialog.getValue();
-						dataStoreEntry.eSet(getStoreDataEntry(), newName);
-						editingDomain.getCommandStack().execute(command);
-						sapGlobalConnectionConfigurationPage.setSelectionToViewer(Collections.singleton(dataStoreEntry));
-					}
+		if (editingDomain != null) {
+			Command createDataStoreEntryCommand = null;
+			Command createDataCommand = null;
+			EObject dataStoreEntry = null;
+			Object data = null;
+			Collection<?> descriptors = editingDomain.getNewChildDescriptors(dataStore, null);
+			for (Object descriptor : descriptors) {
+				CommandParameter parameter = (CommandParameter) descriptor;
+				if (parameter.getFeature() == getStoreEntriesFeature()) {
+					dataStoreEntry = (EObject) parameter.getValue();
+					createDataStoreEntryCommand = CreateChildCommand.create(editingDomain, dataStore, descriptor, Collections.singletonList(dataStore));
+					continue;
+				} else if (parameter.getFeature() == getStoreDataFeature()) {
+					data = parameter.getValue();
+					createDataCommand = CreateChildCommand.create(editingDomain, dataStore, descriptor, Collections.singletonList(dataStore));
+					continue;
 				}
+
+			}
+			if (createDataStoreEntryCommand == null || createDataCommand == null) {
+				return;
+			}
+
+			CompoundCommand command = new CompoundCommand();
+			command.append(createDataCommand);
+			command.append(SetCommand.create(editingDomain, dataStoreEntry, getStoreDataValue(), data));
+			command.append(createDataStoreEntryCommand);
+			InputDialog newNameDialog = createNewDialog(dataStore, dataStoreEntry);
+			int status = newNameDialog.open();
+			if (status == Window.OK) {
+				String newName = newNameDialog.getValue();
+				dataStoreEntry.eSet(getStoreDataEntry(), newName);
+				editingDomain.getCommandStack().execute(command);
+				sapGlobalConnectionConfigurationPage.setSelectionToViewer(Collections.singleton(dataStoreEntry));
 			}
 		}
+	}
+
+	private T getParentTarget() {
+		if (parentTarget != null) {
+			return parentTarget;
+		}
+		if (sapGlobalConnectionConfigurationPage.selection.size() == 1) {
+			Object obj = sapGlobalConnectionConfigurationPage.selection.getFirstElement();
+			if (isOfCorrectInstanceOf(obj)) {
+				return (T) obj;
+			}
+		}
+		return null;
 	}
 
 	protected abstract boolean isOfCorrectInstanceOf(Object obj);
@@ -102,4 +109,12 @@ public abstract class AbstractNewAction<T> extends Action {
 	protected abstract EReference getStoreDataFeature();
 
 	protected abstract EReference getStoreEntriesFeature();
+
+	/**
+	 * @param parentTarget
+	 *            the parentTarget to set
+	 */
+	public void setParentTarget(T parentTarget) {
+		this.parentTarget = parentTarget;
+	}
 }

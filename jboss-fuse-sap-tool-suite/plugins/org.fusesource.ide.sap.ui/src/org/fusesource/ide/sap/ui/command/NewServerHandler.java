@@ -49,7 +49,7 @@ public class NewServerHandler extends AbstractHandler {
 		Shell shell = getShell(event);
 
 		InputDialog inputDialog = new InputDialog(shell, Messages.ServerDialog_shellCreateTitle, Messages.ServerDialog_message, "",
-				new NewStoreValidator(serverDataStore.getEntries().keySet(), Messages.ServerDialog_message, Messages.ServerDialog_serverAlreadyExists));
+				new NewStoreValidator(serverDataStore.getEntries().keySet(), Messages.ServerDialog_serverAlreadyExists));
 
 		if (inputDialog.open() == Window.OK) {
 			String newName = inputDialog.getValue();

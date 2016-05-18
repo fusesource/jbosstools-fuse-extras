@@ -50,7 +50,7 @@ class NewDestinationAction extends AbstractNewAction<DestinationDataStore> {
 	@Override
 	protected InputDialog createNewDialog(DestinationDataStore destinationDataStore, Object destinationDataStoreEntry) {
 		return new InputDialog(sapGlobalConnectionConfigurationPage.getShell(), Messages.DestinationDialog_shellCreateTitle, Messages.DestinationDialog_message, "",
-				new NewStoreValidator(destinationDataStore.getEntries().keySet(), Messages.DestinationDialog_message, Messages.DestinationDialog_destinationAlreadyExists));
+				new NewStoreValidator(destinationDataStore.getEntries().keySet(), Messages.DestinationDialog_destinationAlreadyExists));
 	}
 
 	@Override

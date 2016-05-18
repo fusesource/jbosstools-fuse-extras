@@ -61,6 +61,7 @@ class DeleteAction extends Action {
 					command.append(deleteEntryCommand);
 					command.append(removeValueCommand);
 					editingDomain.getCommandStack().execute(command);
+					sapGlobalConnectionConfigurationPage.setSelectionToTopElement();
 				}
 			}
 		}

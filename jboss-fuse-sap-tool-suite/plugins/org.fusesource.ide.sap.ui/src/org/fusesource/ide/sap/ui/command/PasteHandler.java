@@ -50,7 +50,7 @@ public class PasteHandler extends AbstractHandler {
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		if (isServerPaste) {
 			InputDialog inputDialog = new InputDialog(getShell(event), Messages.ServerDialog_shellPasteTitle, Messages.ServerDialog_message, serverDataStoreEntry.getKey(),
-					new NewStoreValidator(serverDataStore.getEntries().keySet(), Messages.ServerDialog_message, Messages.ServerDialog_serverAlreadyExists));
+					new NewStoreValidator(serverDataStore.getEntries().keySet(), Messages.ServerDialog_serverAlreadyExists));
 			if (inputDialog.open() == Window.OK) {
 				String newName = inputDialog.getValue();
 				serverDataStoreEntry.setKey(newName);
@@ -58,8 +58,7 @@ public class PasteHandler extends AbstractHandler {
 			}
 		} else {
 			InputDialog inputDialog = new InputDialog(getShell(event), Messages.DestinationDialog_shellPasteTitle, Messages.DestinationDialog_message,
-					destinationDataStoreEntry.getKey(),
-					new NewStoreValidator(destinationDataStore.getEntries().keySet(), Messages.DestinationDialog_message, Messages.DestinationDialog_destinationAlreadyExists));
+					destinationDataStoreEntry.getKey(), new NewStoreValidator(destinationDataStore.getEntries().keySet(), Messages.DestinationDialog_destinationAlreadyExists));
 
 			if (inputDialog.open() == Window.OK) {
 				String newName = inputDialog.getValue();

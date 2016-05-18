@@ -64,7 +64,7 @@ public class NewDestinationHandler extends AbstractHandler {
 	 */
 	private InputDialog createDialogAskingForName(Shell shell) {
 		return new InputDialog(shell, Messages.DestinationDialog_shellCreateTitle, Messages.DestinationDialog_message, "",
-				new NewStoreValidator(destinationDataStore.getEntries().keySet(), Messages.DestinationDialog_message, Messages.DestinationDialog_destinationAlreadyExists));
+				new NewStoreValidator(destinationDataStore.getEntries().keySet(), Messages.DestinationDialog_destinationAlreadyExists));
 	}
 
 	/**
