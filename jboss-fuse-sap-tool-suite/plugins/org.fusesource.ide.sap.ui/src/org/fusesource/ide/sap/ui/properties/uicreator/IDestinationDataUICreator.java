@@ -12,17 +12,13 @@ package org.fusesource.ide.sap.ui.properties.uicreator;
 
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataStoreEntryImpl;
 
 /**
  * @author Aurelien Pupier
  *
  */
-public interface IDestinationDataUICreator {
-
-	void createControls(Composite basicContainer, TabbedPropertySheetWidgetFactory widgetFactory);
+public interface IDestinationDataUICreator extends IDataUICreator {
 
 	void initDataBindings(DataBindingContext bindingContext, EditingDomain editingDomain, DestinationDataStoreEntryImpl destinationDataStoreEntry);
 

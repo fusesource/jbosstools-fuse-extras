@@ -10,16 +10,15 @@
  ******************************************************************************/ 
 package org.fusesource.ide.sap.ui.properties.uicreator;
 
-import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.emf.edit.domain.EditingDomain;
-import org.fusesource.camel.component.sap.model.rfc.impl.ServerDataStoreEntryImpl;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 
 /**
  * @author Aurelien Pupier
  *
  */
-public interface IServerDataUICreator extends IDataUICreator {
+public interface IDataUICreator {
 
-	void initDataBindings(DataBindingContext bindingContext, EditingDomain editingDomain, ServerDataStoreEntryImpl serverDataStoreEntry);
+	void createControls(Composite basicContainer, TabbedPropertySheetWidgetFactory widgetFactory);
 
 }

@@ -31,4 +31,4 @@ Bundle-ClassPath: .
 Bundle-Localization: OSGI-INF/l10n/bundle
 Export-Package: org.fusesource.ide.sap.ui.command;x-friends:="org.fusesource.ide.sap.ui.tests",
  org.fusesource.ide.sap.ui.export;x-friends:="org.fusesource.ide.sap.ui.tests.integration",
- org.fusesource.ide.sap.ui.properties.uicreator
+ org.fusesource.ide.sap.ui.properties.uicreator;x-friends:="org.fusesource.ide.sap.ui.tests,org.fusesource.ide.sap.ui.tests.integration"
