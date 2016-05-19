@@ -16,11 +16,14 @@ import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.eclipse.ui.views.properties.tabbed.AbstractPropertySection;
+import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 
 public class LayoutUtil {
 	
+	private LayoutUtil() {
+	}
+
 	public static FormLayout compositeFormLayout() {
 		FormLayout layout = new FormLayout();
 		layout.marginWidth = ITabbedPropertyConstants.HSPACE + 2;
@@ -39,7 +42,7 @@ public class LayoutUtil {
 	
 	public static FormData firstEntryLayoutData() {
 		FormData data = new FormData();
-		data.left = new FormAttachment(0, (int) 4 * AbstractPropertySection.STANDARD_LABEL_WIDTH);
+		data.left = new FormAttachment(0, 4 * AbstractPropertySection.STANDARD_LABEL_WIDTH);
 		data.right = new FormAttachment(100, 0);
 		data.top = new FormAttachment(0, ITabbedPropertyConstants.VSPACE);
 		return data;
@@ -55,8 +58,7 @@ public class LayoutUtil {
 	
 	public static FormData entryLayoutData(Control referenceControl) {
 		FormData data = new FormData();
-		data = new FormData();
-		data.left = new FormAttachment(0, (int) 4 * AbstractPropertySection.STANDARD_LABEL_WIDTH);
+		data.left = new FormAttachment(0, 4 * AbstractPropertySection.STANDARD_LABEL_WIDTH);
 		data.right = new FormAttachment(100, 0);
 		data.top = new FormAttachment(referenceControl, 2 * ITabbedPropertyConstants.VSPACE);
 		return data;

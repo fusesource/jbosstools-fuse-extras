@@ -49,7 +49,7 @@ public class BasicDestinationDataUICreator implements IDestinationDataUICreator 
 	@Override
 	public void createControls(Composite basicContainer, TabbedPropertySheetWidgetFactory widgetFactory) {
 		ashostText = widgetFactory.createText(basicContainer, null);
-		ashostText.setToolTipText(Messages.BasicPropertySection_AshostToolTip);
+		HelpDecorator.createHelpDecoration(Messages.BasicPropertySection_AshostToolTip, ashostText);
 		ashostText.setLayoutData(LayoutUtil.firstEntryLayoutData());
 
 		CLabel ashostLbl = widgetFactory.createCLabel(basicContainer, Messages.BasicPropertySection_AshostLabel);
@@ -57,7 +57,7 @@ public class BasicDestinationDataUICreator implements IDestinationDataUICreator 
 		ashostLbl.setAlignment(SWT.RIGHT);
 
 		sysnrText = widgetFactory.createText(basicContainer, null);
-		sysnrText.setToolTipText(Messages.BasicPropertySection_SysnrToolTip);
+		HelpDecorator.createHelpDecoration(Messages.BasicPropertySection_SysnrToolTip, sysnrText);
 		sysnrText.setLayoutData(LayoutUtil.entryLayoutData(ashostText));
 
 		CLabel systemNumberLbl = widgetFactory.createCLabel(basicContainer, Messages.BasicPropertySection_SysnrLabel);
@@ -65,7 +65,7 @@ public class BasicDestinationDataUICreator implements IDestinationDataUICreator 
 		systemNumberLbl.setAlignment(SWT.RIGHT);
 
 		clientText = widgetFactory.createText(basicContainer, null);
-		clientText.setToolTipText(Messages.BasicPropertySection_ClientToolTip);
+		HelpDecorator.createHelpDecoration(Messages.BasicPropertySection_ClientToolTip, clientText);
 		clientText.setLayoutData(LayoutUtil.entryLayoutData(sysnrText));
 
 		CLabel clientLbl = widgetFactory.createCLabel(basicContainer, Messages.BasicPropertySection_ClientLabel);
@@ -73,7 +73,7 @@ public class BasicDestinationDataUICreator implements IDestinationDataUICreator 
 		clientLbl.setAlignment(SWT.RIGHT);
 
 		userText = widgetFactory.createText(basicContainer, null);
-		userText.setToolTipText(Messages.BasicPropertySection_UserToolTip);
+		HelpDecorator.createHelpDecoration(Messages.BasicPropertySection_UserToolTip, userText);
 		userText.setLayoutData(LayoutUtil.entryLayoutData(clientText));
 
 		CLabel userLbl = widgetFactory.createCLabel(basicContainer, Messages.BasicPropertySection_UserLabel);
@@ -81,7 +81,7 @@ public class BasicDestinationDataUICreator implements IDestinationDataUICreator 
 		userLbl.setAlignment(SWT.RIGHT);
 
 		passwordText = widgetFactory.createText(basicContainer, null, SWT.PASSWORD);
-		passwordText.setToolTipText(Messages.BasicPropertySection_PasswordToolTip);
+		HelpDecorator.createHelpDecoration(Messages.BasicPropertySection_PasswordToolTip, passwordText);
 		passwordText.setLayoutData(LayoutUtil.entryLayoutData(userText));
 
 		CLabel passwordLbl = widgetFactory.createCLabel(basicContainer, Messages.BasicPropertySection_PasswordLabel);
@@ -89,7 +89,7 @@ public class BasicDestinationDataUICreator implements IDestinationDataUICreator 
 		passwordLbl.setAlignment(SWT.RIGHT);
 
 		languageText = widgetFactory.createText(basicContainer, null);
-		languageText.setToolTipText(Messages.BasicPropertySection_LanguageToolTip);
+		HelpDecorator.createHelpDecoration(Messages.BasicPropertySection_LanguageToolTip, languageText);
 		languageText.setLayoutData(LayoutUtil.entryLayoutData(passwordText));
 		new Label(basicContainer, SWT.NONE);
 		new Label(basicContainer, SWT.NONE);

@@ -51,7 +51,7 @@ public class SncServerDataUICreator implements IServerDataUICreator {
 		sncModeBtn.setLayoutData(LayoutUtil.firstEntryLayoutData());
 
 		sncQopCombo = widgetFactory.createCCombo(sncContainer, SWT.READ_ONLY);
-		sncQopCombo.setToolTipText(Messages.SncServerPropertySection_SncQopToolTip);
+		HelpDecorator.createHelpDecoration(Messages.SncServerPropertySection_SncQopToolTip, sncQopCombo);
 		sncQopCombo.setItems(new String[] { "", Messages.SncServerPropertySection_SncSecurityLevel1Label, Messages.SncServerPropertySection_SncSecurityLevel2Label, //$NON-NLS-1$
 				Messages.SncServerPropertySection_SncSecurityLevel3Label, Messages.SncServerPropertySection_SncSecurityLevel8Label,
 				Messages.SncServerPropertySection_SncSecurityLevel9Label });
@@ -63,7 +63,7 @@ public class SncServerDataUICreator implements IServerDataUICreator {
 		sncQopLbl.setAlignment(SWT.RIGHT);
 
 		sncMynameText = widgetFactory.createText(sncContainer, null);
-		sncMynameText.setToolTipText(Messages.SncServerPropertySection_SncMynameToolTip);
+		HelpDecorator.createHelpDecoration(Messages.SncServerPropertySection_SncMynameToolTip, sncMynameText);
 		sncMynameText.setLayoutData(LayoutUtil.entryLayoutData(sncQopCombo));
 
 		CLabel sncMynameLbl = widgetFactory.createCLabel(sncContainer, Messages.SncServerPropertySection_SncMynameLabel);
@@ -71,7 +71,7 @@ public class SncServerDataUICreator implements IServerDataUICreator {
 		sncMynameLbl.setAlignment(SWT.RIGHT);
 
 		sncLibraryText = widgetFactory.createText(sncContainer, null);
-		sncLibraryText.setToolTipText(Messages.SncServerPropertySection_SncLibraryToolTip);
+		HelpDecorator.createHelpDecoration(Messages.SncServerPropertySection_SncLibraryToolTip, sncLibraryText);
 		sncLibraryText.setLayoutData(LayoutUtil.entryLayoutData(sncMynameText));
 
 		CLabel sncLibraryLbl = widgetFactory.createCLabel(sncContainer, Messages.SncServerPropertySection_SncLibraryLabel);
