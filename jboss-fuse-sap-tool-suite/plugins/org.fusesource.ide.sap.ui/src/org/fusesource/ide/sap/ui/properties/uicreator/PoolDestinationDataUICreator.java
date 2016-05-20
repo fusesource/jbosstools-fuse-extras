@@ -44,43 +44,43 @@ public class PoolDestinationDataUICreator implements IDestinationDataUICreator {
 
 	@Override
 	public void createControls(Composite poolContainer, TabbedPropertySheetWidgetFactory widgetFactory) {
-		peakLimitText = widgetFactory.createText(poolContainer, null, SWT.NONE);
-		peakLimitText.setToolTipText(Messages.PoolPropertySection_PeakLimitToolTip);
+		peakLimitText = widgetFactory.createText(poolContainer, null);
+		HelpDecorator.createHelpDecoration(Messages.PoolPropertySection_PeakLimitToolTip, peakLimitText);
 		peakLimitText.setLayoutData(LayoutUtil.firstEntryLayoutData());
 
-		CLabel peakLimitLbl = widgetFactory.createCLabel(poolContainer, Messages.PoolPropertySection_PeakLimitLabel, SWT.NONE);
+		CLabel peakLimitLbl = widgetFactory.createCLabel(poolContainer, Messages.PoolPropertySection_PeakLimitLabel);
 		peakLimitLbl.setLayoutData(LayoutUtil.labelLayoutData(peakLimitText));
 		peakLimitLbl.setAlignment(SWT.RIGHT);
 
-		poolCapacityText = widgetFactory.createText(poolContainer, null, SWT.NONE);
-		poolCapacityText.setToolTipText(Messages.PoolPropertySection_PoolCapacityToolTip);
+		poolCapacityText = widgetFactory.createText(poolContainer, null);
+		HelpDecorator.createHelpDecoration(Messages.PoolPropertySection_PoolCapacityToolTip, poolCapacityText);
 		poolCapacityText.setLayoutData(LayoutUtil.entryLayoutData(peakLimitText));
 
-		CLabel poolCapacityLbl = widgetFactory.createCLabel(poolContainer, Messages.PoolPropertySection_PoolCapacityLabel, SWT.NONE);
+		CLabel poolCapacityLbl = widgetFactory.createCLabel(poolContainer, Messages.PoolPropertySection_PoolCapacityLabel);
 		poolCapacityLbl.setLayoutData(LayoutUtil.labelLayoutData(poolCapacityText));
 		poolCapacityLbl.setAlignment(SWT.RIGHT);
 
-		expirationTimeText = widgetFactory.createText(poolContainer, null, SWT.NONE);
-		expirationTimeText.setToolTipText(Messages.PoolPropertySection_ExpirationTimeToolTip);
+		expirationTimeText = widgetFactory.createText(poolContainer, null);
+		HelpDecorator.createHelpDecoration(Messages.PoolPropertySection_ExpirationTimeToolTip, expirationTimeText);
 		expirationTimeText.setLayoutData(LayoutUtil.entryLayoutData(poolCapacityText));
 
-		CLabel expirationTimeLbl = widgetFactory.createCLabel(poolContainer, Messages.PoolPropertySection_ExpirationTimeLabel, SWT.NONE);
+		CLabel expirationTimeLbl = widgetFactory.createCLabel(poolContainer, Messages.PoolPropertySection_ExpirationTimeLabel);
 		expirationTimeLbl.setLayoutData(LayoutUtil.labelLayoutData(expirationTimeText));
 		expirationTimeLbl.setAlignment(SWT.RIGHT);
 
-		expirationCheckPeriodText = widgetFactory.createText(poolContainer, null, SWT.NONE);
-		expirationCheckPeriodText.setToolTipText(Messages.PoolPropertySection_ExpirationCheckPeriodToolTip);
+		expirationCheckPeriodText = widgetFactory.createText(poolContainer, null);
+		HelpDecorator.createHelpDecoration(Messages.PoolPropertySection_ExpirationCheckPeriodToolTip, expirationCheckPeriodText);
 		expirationCheckPeriodText.setLayoutData(LayoutUtil.entryLayoutData(expirationTimeText));
 
-		CLabel expirationCheckPeriodLbl = widgetFactory.createCLabel(poolContainer, Messages.PoolPropertySection_ExpirationCheckPeriodLabel, SWT.NONE);
+		CLabel expirationCheckPeriodLbl = widgetFactory.createCLabel(poolContainer, Messages.PoolPropertySection_ExpirationCheckPeriodLabel);
 		expirationCheckPeriodLbl.setLayoutData(LayoutUtil.labelLayoutData(expirationCheckPeriodText));
 		expirationCheckPeriodLbl.setAlignment(SWT.RIGHT);
 
-		maxGetClientTimeText = widgetFactory.createText(poolContainer, null, SWT.NONE);
-		maxGetClientTimeText.setToolTipText(Messages.PoolPropertySection_MaxGetClientTimeToolTip);
+		maxGetClientTimeText = widgetFactory.createText(poolContainer, null);
+		HelpDecorator.createHelpDecoration(Messages.PoolPropertySection_MaxGetClientTimeToolTip, maxGetClientTimeText);
 		maxGetClientTimeText.setLayoutData(LayoutUtil.entryLayoutData(expirationCheckPeriodText));
 
-		CLabel maxGetClientTimeLbl = widgetFactory.createCLabel(poolContainer, Messages.PoolPropertySection_MaxGetClientTimeLabel, SWT.NONE);
+		CLabel maxGetClientTimeLbl = widgetFactory.createCLabel(poolContainer, Messages.PoolPropertySection_MaxGetClientTimeLabel);
 		maxGetClientTimeLbl.setLayoutData(LayoutUtil.labelLayoutData(maxGetClientTimeText));
 		maxGetClientTimeLbl.setAlignment(SWT.RIGHT);
 	}

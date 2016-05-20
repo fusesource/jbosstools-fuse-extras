@@ -55,7 +55,7 @@ public class SpecialDestinationDataUICreator implements IDestinationDataUICreato
 		cpicTraceCombo = widgetFactory.createCCombo(specialContainer, SWT.READ_ONLY);
 		cpicTraceCombo.setItems(new String[] { "", Messages.SpecialPropertySection_CpicTraceLevel0Label, Messages.SpecialPropertySection_CpicTraceLevel1Label, //$NON-NLS-1$
 				Messages.SpecialPropertySection_CpicTraceLevel2Label, Messages.SpecialPropertySection_CpicTraceLevel3Label });
-		cpicTraceCombo.setToolTipText(Messages.SpecialPropertySection_CpicTraceToolTip);
+		HelpDecorator.createHelpDecoration(Messages.SpecialPropertySection_CpicTraceToolTip, cpicTraceCombo);
 		cpicTraceCombo.setLayoutData(LayoutUtil.entryLayoutData(traceBtn));
 		cpicTraceCombo.select(0);
 
@@ -69,7 +69,7 @@ public class SpecialDestinationDataUICreator implements IDestinationDataUICreato
 		lcheckBtn.setText(Messages.SpecialPropertySection_LcheckLabel);
 
 		codepageText = widgetFactory.createText(specialContainer, null);
-		codepageText.setToolTipText(Messages.SpecialPropertySection_CodepageToolTip);
+		HelpDecorator.createHelpDecoration(Messages.SpecialPropertySection_CodepageToolTip, codepageText);
 		codepageText.setLayoutData(LayoutUtil.entryLayoutData(lcheckBtn));
 
 		CLabel codepageLbl = widgetFactory.createCLabel(specialContainer, Messages.SpecialPropertySection_CodepageLabel);
@@ -81,7 +81,7 @@ public class SpecialDestinationDataUICreator implements IDestinationDataUICreato
 		getsso2Btn.setLayoutData(LayoutUtil.entryLayoutData(codepageText));
 
 		denyInitialPasswordBtn = widgetFactory.createButton(specialContainer, Messages.SpecialPropertySection_DenyInitialPasswordLabel, SWT.CHECK);
-		denyInitialPasswordBtn.setToolTipText(Messages.SpecialPropertySection_DenyInitialPasswordToolTip);
+		HelpDecorator.createHelpDecoration(Messages.SpecialPropertySection_DenyInitialPasswordToolTip, denyInitialPasswordBtn);
 		denyInitialPasswordBtn.setLayoutData(LayoutUtil.entryLayoutData(codepageText));
 	}
 

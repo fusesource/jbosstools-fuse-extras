@@ -52,7 +52,7 @@ public class SncDestinationDataUICreator implements IDestinationDataUICreator {
 		sncModeBtn.setLayoutData(LayoutUtil.firstEntryLayoutData());
 
 		sncPartnernameText = widgetFactory.createText(sncContainer, null);
-		sncPartnernameText.setToolTipText(Messages.SncPropertySection_SncPartnernameToolTip);
+		HelpDecorator.createHelpDecoration(Messages.SncPropertySection_SncPartnernameToolTip, sncPartnernameText);
 		sncPartnernameText.setLayoutData(LayoutUtil.entryLayoutData(sncModeBtn));
 
 		CLabel sncPartnernameLbl = widgetFactory.createCLabel(sncContainer, Messages.SncPropertySection_SncPartnernameLabel);
@@ -60,7 +60,7 @@ public class SncDestinationDataUICreator implements IDestinationDataUICreator {
 		sncPartnernameLbl.setAlignment(SWT.RIGHT);
 
 		sncQopCombo = widgetFactory.createCCombo(sncContainer, SWT.READ_ONLY);
-		sncQopCombo.setToolTipText(Messages.SncPropertySection_SncQopToolTip);
+		HelpDecorator.createHelpDecoration(Messages.SncPropertySection_SncQopToolTip, sncQopCombo);
 		sncQopCombo.setItems(new String[] { "", Messages.SncPropertySection_SncSecurityLevel1Label, Messages.SncPropertySection_SncSecurityLevel2Label, //$NON-NLS-1$
 				Messages.SncPropertySection_SncSecurityLevel3Label, Messages.SncPropertySection_SncSecurityLevel8Label, Messages.SncPropertySection_SncSecurityLevel9Label });
 		sncQopCombo.setLayoutData(LayoutUtil.entryLayoutData(sncPartnernameText));
@@ -71,7 +71,7 @@ public class SncDestinationDataUICreator implements IDestinationDataUICreator {
 		sncQopLbl.setAlignment(SWT.RIGHT);
 
 		sncMynameText = widgetFactory.createText(sncContainer, null);
-		sncMynameText.setToolTipText(Messages.SncPropertySection_SncMynameToolTip);
+		HelpDecorator.createHelpDecoration(Messages.SncPropertySection_SncMynameToolTip, sncMynameText);
 		sncMynameText.setLayoutData(LayoutUtil.entryLayoutData(sncQopCombo));
 
 		CLabel sncMynameLbl = widgetFactory.createCLabel(sncContainer, Messages.SncPropertySection_SncMynameLabel);
@@ -79,7 +79,7 @@ public class SncDestinationDataUICreator implements IDestinationDataUICreator {
 		sncMynameLbl.setAlignment(SWT.RIGHT);
 
 		sncLibraryText = widgetFactory.createText(sncContainer, null);
-		sncLibraryText.setToolTipText(Messages.SncPropertySection_SncLibraryToolTip);
+		HelpDecorator.createHelpDecoration(Messages.SncPropertySection_SncLibraryToolTip, sncLibraryText);
 		sncLibraryText.setLayoutData(LayoutUtil.entryLayoutData(sncMynameText));
 
 		CLabel sncLibraryLbl = widgetFactory.createCLabel(sncContainer, Messages.SncPropertySection_SncLibraryLabel);

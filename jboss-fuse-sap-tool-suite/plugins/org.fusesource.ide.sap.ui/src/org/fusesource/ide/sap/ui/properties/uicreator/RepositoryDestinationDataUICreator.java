@@ -45,7 +45,7 @@ public class RepositoryDestinationDataUICreator implements IDestinationDataUICre
 	@Override
 	public void createControls(Composite repositoryContainer, TabbedPropertySheetWidgetFactory widgetFactory) {
 		repositoryDestinationText = widgetFactory.createText(repositoryContainer, null);
-		repositoryDestinationText.setToolTipText(Messages.RepositoryPropertySection_RepositoryDestinationToolTip);
+		HelpDecorator.createHelpDecoration(Messages.RepositoryPropertySection_RepositoryDestinationToolTip, repositoryDestinationText);
 		repositoryDestinationText.setLayoutData(LayoutUtil.firstEntryLayoutData());
 
 		CLabel repositoryDestinationLbl = widgetFactory.createCLabel(repositoryContainer, Messages.RepositoryPropertySection_RepositoryDestinationLabel);
@@ -53,7 +53,7 @@ public class RepositoryDestinationDataUICreator implements IDestinationDataUICre
 		repositoryDestinationLbl.setAlignment(SWT.RIGHT);
 
 		repositoryUserText = widgetFactory.createText(repositoryContainer, null);
-		repositoryUserText.setToolTipText(Messages.RepositoryPropertySection_RepositoryUserToolTip);
+		HelpDecorator.createHelpDecoration(Messages.RepositoryPropertySection_RepositoryUserToolTip, repositoryUserText);
 		repositoryUserText.setLayoutData(LayoutUtil.entryLayoutData(repositoryDestinationText));
 
 		CLabel repositoryUserLbl = widgetFactory.createCLabel(repositoryContainer, Messages.RepositoryPropertySection_RepositoryUserLabel);
@@ -61,7 +61,7 @@ public class RepositoryDestinationDataUICreator implements IDestinationDataUICre
 		repositoryUserLbl.setAlignment(SWT.RIGHT);
 
 		repositoryPasswordText = widgetFactory.createText(repositoryContainer, null, SWT.PASSWORD);
-		repositoryPasswordText.setToolTipText(Messages.RepositoryPropertySection_RepositoryPasswordToolTip);
+		HelpDecorator.createHelpDecoration(Messages.RepositoryPropertySection_RepositoryPasswordToolTip, repositoryPasswordText);
 		repositoryPasswordText.setLayoutData(LayoutUtil.entryLayoutData(repositoryUserText));
 
 		CLabel repositoryPasswordLbl = widgetFactory.createCLabel(repositoryContainer, Messages.RepositoryPropertySection_RepositoryPasswordLabel);

@@ -53,7 +53,7 @@ public class ConnectionDestinationDataUICreator implements IDestinationDataUICre
 	 */
 	public void createControls(Composite connectionContainer, TabbedPropertySheetWidgetFactory widgetFactory) {
 		sysnrText2 = widgetFactory.createText(connectionContainer, null);
-		sysnrText2.setToolTipText(Messages.ConnectionPropertySection_SysnrToolTip);
+		HelpDecorator.createHelpDecoration(Messages.ConnectionPropertySection_SysnrToolTip, sysnrText2);
 		sysnrText2.setLayoutData(LayoutUtil.firstEntryLayoutData());
 
 		CLabel sysnrLbl2 = widgetFactory.createCLabel(connectionContainer, Messages.ConnectionPropertySection_SysnrLabel);
@@ -61,7 +61,7 @@ public class ConnectionDestinationDataUICreator implements IDestinationDataUICre
 		sysnrLbl2.setAlignment(SWT.RIGHT);
 
 		saprouterText = widgetFactory.createText(connectionContainer, null);
-		saprouterText.setToolTipText(Messages.ConnectionPropertySection_SaprouterToolTip);
+		HelpDecorator.createHelpDecoration(Messages.ConnectionPropertySection_SaprouterToolTip, saprouterText);
 		saprouterText.setLayoutData(LayoutUtil.entryLayoutData(sysnrText2));
 
 		CLabel saprouterLbl = widgetFactory.createCLabel(connectionContainer, Messages.ConnectionPropertySection_SaprouterLabel);
@@ -69,7 +69,7 @@ public class ConnectionDestinationDataUICreator implements IDestinationDataUICre
 		saprouterLbl.setAlignment(SWT.RIGHT);
 
 		ashostText2 = widgetFactory.createText(connectionContainer, null);
-		ashostText2.setToolTipText(Messages.ConnectionPropertySection_AshostToolTip);
+		HelpDecorator.createHelpDecoration(Messages.ConnectionPropertySection_AshostToolTip, ashostText2);
 		ashostText2.setLayoutData(LayoutUtil.entryLayoutData(saprouterText));
 
 		CLabel ashostLbl2 = widgetFactory.createCLabel(connectionContainer, Messages.ConnectionPropertySection_AshostLabel);
@@ -77,7 +77,7 @@ public class ConnectionDestinationDataUICreator implements IDestinationDataUICre
 		ashostLbl2.setAlignment(SWT.RIGHT);
 
 		mshostText = widgetFactory.createText(connectionContainer, null);
-		mshostText.setToolTipText(Messages.ConnectionPropertySection_MshostToolTip);
+		HelpDecorator.createHelpDecoration(Messages.ConnectionPropertySection_MshostToolTip, mshostText);
 		mshostText.setLayoutData(LayoutUtil.entryLayoutData(ashostText2));
 
 		CLabel mshostLbl = widgetFactory.createCLabel(connectionContainer, Messages.ConnectionPropertySection_MshostLabel);
@@ -85,7 +85,7 @@ public class ConnectionDestinationDataUICreator implements IDestinationDataUICre
 		mshostLbl.setAlignment(SWT.RIGHT);
 
 		msservText = widgetFactory.createText(connectionContainer, null);
-		msservText.setToolTipText(Messages.ConnectionPropertySection_MsservToolTip);
+		HelpDecorator.createHelpDecoration(Messages.ConnectionPropertySection_MsservToolTip, msservText);
 		msservText.setLayoutData(LayoutUtil.entryLayoutData(mshostText));
 
 		CLabel msgservLbl = widgetFactory.createCLabel(connectionContainer, Messages.ConnectionPropertySection_MsservLabel);
@@ -93,7 +93,7 @@ public class ConnectionDestinationDataUICreator implements IDestinationDataUICre
 		msgservLbl.setAlignment(SWT.RIGHT);
 
 		gwhostText = widgetFactory.createText(connectionContainer, null);
-		gwhostText.setToolTipText(Messages.ConnectionPropertySection_GwhostToolTip);
+		HelpDecorator.createHelpDecoration(Messages.ConnectionPropertySection_GwhostToolTip, gwhostText);
 		gwhostText.setLayoutData(LayoutUtil.entryLayoutData(msservText));
 
 		CLabel gwhostLbl = widgetFactory.createCLabel(connectionContainer, Messages.ConnectionPropertySection_GwhostLabel);
@@ -101,7 +101,7 @@ public class ConnectionDestinationDataUICreator implements IDestinationDataUICre
 		gwhostLbl.setAlignment(SWT.RIGHT);
 
 		gwservText = widgetFactory.createText(connectionContainer, null);
-		gwservText.setToolTipText(Messages.ConnectionPropertySection_GwservToolTip);
+		HelpDecorator.createHelpDecoration(Messages.ConnectionPropertySection_GwservToolTip, gwservText);
 		gwservText.setLayoutData(LayoutUtil.entryLayoutData(gwhostText));
 
 		CLabel gwservLbl = widgetFactory.createCLabel(connectionContainer, Messages.ConnectionPropertySection_GwservLabel);
@@ -109,7 +109,7 @@ public class ConnectionDestinationDataUICreator implements IDestinationDataUICre
 		gwservLbl.setAlignment(SWT.RIGHT);
 
 		r3nameText = widgetFactory.createText(connectionContainer, null);
-		r3nameText.setToolTipText(Messages.ConnectionPropertySection_R3nameToolTip);
+		HelpDecorator.createHelpDecoration(Messages.ConnectionPropertySection_R3nameToolTip, r3nameText);
 		r3nameText.setLayoutData(LayoutUtil.entryLayoutData(gwservText));
 
 		CLabel r3nameLbl = widgetFactory.createCLabel(connectionContainer, Messages.ConnectionPropertySection_R3nameLabel);
@@ -117,7 +117,7 @@ public class ConnectionDestinationDataUICreator implements IDestinationDataUICre
 		r3nameLbl.setAlignment(SWT.RIGHT);
 
 		groupText = widgetFactory.createText(connectionContainer, null);
-		groupText.setToolTipText(Messages.ConnectionPropertySection_GroupToolTip);
+		HelpDecorator.createHelpDecoration(Messages.ConnectionPropertySection_GroupToolTip, groupText);
 		groupText.setLayoutData(LayoutUtil.entryLayoutData(r3nameText));
 
 		CLabel groupLbl = widgetFactory.createCLabel(connectionContainer, Messages.ConnectionPropertySection_GroupLabel);

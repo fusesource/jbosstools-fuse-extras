@@ -60,7 +60,7 @@ public class AuthenticationDestinationDataUICreator implements IDestinationDataU
 		authTypeLbl.setAlignment(SWT.RIGHT);
 
 		clientText2 = widgetFactory.createText(authContainer, null);
-		clientText2.setToolTipText(Messages.AuthenticationPropertySection_ClientToolTip);
+		HelpDecorator.createHelpDecoration(Messages.AuthenticationPropertySection_ClientToolTip, clientText2);
 		clientText2.setLayoutData(LayoutUtil.entryLayoutData(authTypeCombo));
 
 		CLabel clientLbl2 = widgetFactory.createCLabel(authContainer, Messages.AuthenticationPropertySection_ClientLable);
@@ -68,7 +68,7 @@ public class AuthenticationDestinationDataUICreator implements IDestinationDataU
 		clientLbl2.setAlignment(SWT.RIGHT);
 
 		userText2 = widgetFactory.createText(authContainer, null);
-		userText2.setToolTipText(Messages.AuthenticationPropertySection_UserToolTip);
+		HelpDecorator.createHelpDecoration(Messages.AuthenticationPropertySection_UserToolTip, userText2);
 		userText2.setLayoutData(LayoutUtil.entryLayoutData(clientText2));
 
 		CLabel userLbl2 = widgetFactory.createCLabel(authContainer, Messages.AuthenticationPropertySection_UserLabel);
@@ -76,7 +76,7 @@ public class AuthenticationDestinationDataUICreator implements IDestinationDataU
 		userLbl2.setAlignment(SWT.RIGHT);
 
 		userAlias = widgetFactory.createText(authContainer, null);
-		userAlias.setToolTipText(Messages.AuthenticationPropertySection_UserAliasToolTip);
+		HelpDecorator.createHelpDecoration(Messages.AuthenticationPropertySection_UserAliasToolTip, userAlias);
 		userAlias.setLayoutData(LayoutUtil.entryLayoutData(userText2));
 
 		CLabel userAliasLbl = widgetFactory.createCLabel(authContainer, Messages.AuthenticationPropertySection_UserAliasLabel);
@@ -84,7 +84,7 @@ public class AuthenticationDestinationDataUICreator implements IDestinationDataU
 		userAliasLbl.setAlignment(SWT.RIGHT);
 
 		passwordText2 = widgetFactory.createText(authContainer, null, SWT.PASSWORD);
-		passwordText2.setToolTipText(Messages.AuthenticationPropertySection_PasswordToolTip);
+		HelpDecorator.createHelpDecoration(Messages.AuthenticationPropertySection_PasswordToolTip, passwordText2);
 		passwordText2.setLayoutData(LayoutUtil.entryLayoutData(userAlias));
 
 		CLabel passwordLbl2 = widgetFactory.createCLabel(authContainer, Messages.AuthenticationPropertySection_PasswordLabel);
@@ -92,7 +92,7 @@ public class AuthenticationDestinationDataUICreator implements IDestinationDataU
 		passwordLbl2.setAlignment(SWT.RIGHT);
 
 		mysapsso2Text = widgetFactory.createText(authContainer, null);
-		mysapsso2Text.setToolTipText(Messages.AuthenticationPropertySection_Mysapsso2ToolTip);
+		HelpDecorator.createHelpDecoration(Messages.AuthenticationPropertySection_Mysapsso2ToolTip, mysapsso2Text);
 		mysapsso2Text.setLayoutData(LayoutUtil.entryLayoutData(passwordText2));
 
 		CLabel mysapsso2Lbl = widgetFactory.createCLabel(authContainer, Messages.AuthenticationPropertySection_Mysapsso2Label);
@@ -100,7 +100,7 @@ public class AuthenticationDestinationDataUICreator implements IDestinationDataU
 		mysapsso2Lbl.setAlignment(SWT.RIGHT);
 
 		x509certText = widgetFactory.createText(authContainer, null);
-		x509certText.setToolTipText(Messages.AuthenticationPropertySection_X509certToolTip);
+		HelpDecorator.createHelpDecoration(Messages.AuthenticationPropertySection_X509certToolTip, x509certText);
 		x509certText.setLayoutData(LayoutUtil.entryLayoutData(mysapsso2Text));
 
 		CLabel x509certLbl = widgetFactory.createCLabel(authContainer, Messages.AuthenticationPropertySection_X509certLabel);
@@ -108,7 +108,7 @@ public class AuthenticationDestinationDataUICreator implements IDestinationDataU
 		x509certLbl.setAlignment(SWT.RIGHT);
 
 		languageText2 = widgetFactory.createText(authContainer, null);
-		languageText2.setToolTipText(Messages.AuthenticationPropertySection_LanguageToolTip);
+		HelpDecorator.createHelpDecoration(Messages.AuthenticationPropertySection_LanguageToolTip, languageText2);
 		languageText2.setLayoutData(LayoutUtil.entryLayoutData(x509certText));
 
 		CLabel languageLbl2 = widgetFactory.createCLabel(authContainer, Messages.AuthenticationPropertySection_LanguageLabel);

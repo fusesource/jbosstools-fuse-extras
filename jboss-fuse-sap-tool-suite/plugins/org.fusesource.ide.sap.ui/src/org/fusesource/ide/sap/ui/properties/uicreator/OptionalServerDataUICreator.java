@@ -54,7 +54,7 @@ public class OptionalServerDataUICreator implements IServerDataUICreator {
 		traceBtn.setLayoutData(LayoutUtil.firstEntryLayoutData());
 
 		saprouterText = widgetFactory.createText(optionalContainer, null);
-		saprouterText.setToolTipText(Messages.OptionalServerPropertySection_SaprouterToolTip);
+		HelpDecorator.createHelpDecoration(Messages.OptionalServerPropertySection_SaprouterToolTip, saprouterText);
 		saprouterText.setLayoutData(LayoutUtil.entryLayoutData(traceBtn));
 
 		CLabel saprouterLbl = widgetFactory.createCLabel(optionalContainer, Messages.OptionalServerPropertySection_SaprouterLabel);
@@ -62,7 +62,7 @@ public class OptionalServerDataUICreator implements IServerDataUICreator {
 		saprouterLbl.setAlignment(SWT.RIGHT);
 
 		workerThreadCountText = widgetFactory.createText(optionalContainer, null);
-		workerThreadCountText.setToolTipText(Messages.OptionalServerPropertySection_WorkerThreadCountToolTip);
+		HelpDecorator.createHelpDecoration(Messages.OptionalServerPropertySection_WorkerThreadCountToolTip, workerThreadCountText);
 		workerThreadCountText.setLayoutData(LayoutUtil.entryLayoutData(saprouterText));
 
 		CLabel workerThreadCountLbl = widgetFactory.createCLabel(optionalContainer, Messages.OptionalServerPropertySection_WorkerThreadCountLabel);
@@ -70,7 +70,7 @@ public class OptionalServerDataUICreator implements IServerDataUICreator {
 		workerThreadCountLbl.setAlignment(SWT.RIGHT);
 
 		workerThreadMinCountText = widgetFactory.createText(optionalContainer, null);
-		workerThreadMinCountText.setToolTipText(Messages.OptionalServerPropertySection_WorkerThreadMinCountToolTip);
+		HelpDecorator.createHelpDecoration(Messages.OptionalServerPropertySection_WorkerThreadMinCountToolTip, workerThreadMinCountText);
 		workerThreadMinCountText.setLayoutData(LayoutUtil.entryLayoutData(workerThreadCountText));
 
 		CLabel workerThreadMinCountLbl = widgetFactory.createCLabel(optionalContainer, Messages.OptionalServerPropertySection_WorkerThreadMinCountLabel);
@@ -78,7 +78,7 @@ public class OptionalServerDataUICreator implements IServerDataUICreator {
 		workerThreadMinCountLbl.setAlignment(SWT.RIGHT);
 
 		maxStartupDelayText = widgetFactory.createText(optionalContainer, null);
-		maxStartupDelayText.setToolTipText(Messages.OptionalServerPropertySection_MaxStartupDelayToolTip);
+		HelpDecorator.createHelpDecoration(Messages.OptionalServerPropertySection_MaxStartupDelayToolTip, maxStartupDelayText);
 		maxStartupDelayText.setLayoutData(LayoutUtil.entryLayoutData(workerThreadMinCountText));
 
 		CLabel maxStartupDelayLbl = widgetFactory.createCLabel(optionalContainer, Messages.OptionalServerPropertySection_MaxStartupDelayLabel);
@@ -86,7 +86,7 @@ public class OptionalServerDataUICreator implements IServerDataUICreator {
 		maxStartupDelayLbl.setAlignment(SWT.RIGHT);
 
 		repositoryMapText = widgetFactory.createText(optionalContainer, null);
-		repositoryMapText.setToolTipText(Messages.OptionalServerPropertySection_RepoistoryMapToolTip);
+		HelpDecorator.createHelpDecoration(Messages.OptionalServerPropertySection_RepoistoryMapToolTip, repositoryMapText);
 		repositoryMapText.setLayoutData(LayoutUtil.entryLayoutData(maxStartupDelayText));
 
 		CLabel repositoryMapLbl = widgetFactory.createCLabel(optionalContainer, Messages.OptionalServerPropertySection_RepoistoryMapLabel);

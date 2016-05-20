@@ -46,7 +46,7 @@ public class MandatoryServerDataUICreator implements IServerDataUICreator {
 	@Override
 	public void createControls(Composite mandatoryContainer, TabbedPropertySheetWidgetFactory widgetFactory) {
 		gwhostText = widgetFactory.createText(mandatoryContainer, null);
-		gwhostText.setToolTipText(Messages.MandatoryServerPropertySection_GwhostToolTip);
+		HelpDecorator.createHelpDecoration(Messages.MandatoryServerPropertySection_GwhostToolTip, gwhostText);
 		gwhostText.setLayoutData(LayoutUtil.firstEntryLayoutData());
 
 		CLabel gwhostLbl = widgetFactory.createCLabel(mandatoryContainer, Messages.MandatoryServerPropertySection_GwhostLabel);
@@ -54,7 +54,7 @@ public class MandatoryServerDataUICreator implements IServerDataUICreator {
 		gwhostLbl.setAlignment(SWT.RIGHT);
 
 		gwservText = widgetFactory.createText(mandatoryContainer, null);
-		gwservText.setToolTipText(Messages.MandatoryServerPropertySection_GwservToolTip);
+		HelpDecorator.createHelpDecoration(Messages.MandatoryServerPropertySection_GwservToolTip, gwservText);
 		gwservText.setLayoutData(LayoutUtil.entryLayoutData(gwhostText));
 
 		CLabel gwservLbl = widgetFactory.createCLabel(mandatoryContainer, Messages.MandatoryServerPropertySection_GwservLabel);
@@ -62,7 +62,7 @@ public class MandatoryServerDataUICreator implements IServerDataUICreator {
 		gwservLbl.setAlignment(SWT.RIGHT);
 
 		progidText = widgetFactory.createText(mandatoryContainer, null);
-		progidText.setToolTipText(Messages.MandatoryServerPropertySection_ProgidToolTip);
+		HelpDecorator.createHelpDecoration(Messages.MandatoryServerPropertySection_ProgidToolTip, progidText);
 		progidText.setLayoutData(LayoutUtil.entryLayoutData(gwservText));
 
 		CLabel progidLbl = widgetFactory.createCLabel(mandatoryContainer, Messages.MandatoryServerPropertySection_ProgidLabel);
@@ -70,7 +70,7 @@ public class MandatoryServerDataUICreator implements IServerDataUICreator {
 		progidLbl.setAlignment(SWT.RIGHT);
 
 		repositoryDestinationText = widgetFactory.createText(mandatoryContainer, null);
-		repositoryDestinationText.setToolTipText(Messages.OptionalServerPropertySection_RepositoryDestinationToolTip);
+		HelpDecorator.createHelpDecoration(Messages.OptionalServerPropertySection_RepositoryDestinationToolTip, repositoryDestinationText);
 		repositoryDestinationText.setLayoutData(LayoutUtil.entryLayoutData(progidText));
 
 		CLabel repositoryDestinationLbl = widgetFactory.createCLabel(mandatoryContainer, Messages.OptionalServerPropertySection_RepositoryDestinationLabel);
@@ -78,7 +78,7 @@ public class MandatoryServerDataUICreator implements IServerDataUICreator {
 		repositoryDestinationLbl.setAlignment(SWT.RIGHT);
 
 		connectionCountText = widgetFactory.createText(mandatoryContainer, null);
-		connectionCountText.setToolTipText(Messages.MandatoryServerPropertySection_ConnectionCountToolTip);
+		HelpDecorator.createHelpDecoration(Messages.MandatoryServerPropertySection_ConnectionCountToolTip, connectionCountText);
 		connectionCountText.setLayoutData(LayoutUtil.entryLayoutData(repositoryDestinationText));
 		new Label(mandatoryContainer, SWT.NONE);
 		new Label(mandatoryContainer, SWT.NONE);
