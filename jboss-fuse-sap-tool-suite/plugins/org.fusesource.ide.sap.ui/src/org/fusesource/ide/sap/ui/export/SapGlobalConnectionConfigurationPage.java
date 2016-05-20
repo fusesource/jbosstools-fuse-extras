@@ -12,14 +12,10 @@
 package org.fusesource.ide.sap.ui.export;
 
 import java.util.Collection;
-import java.util.EventObject;
+import java.util.Collections;
 import java.util.HashMap;
 
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.emf.common.command.BasicCommandStack;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.command.CommandStack;
-import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -31,6 +27,7 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -44,16 +41,18 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StackLayout;
-import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.views.properties.tabbed.ITabbedPropertyConstants;
 import org.fusesource.camel.component.sap.model.rfc.DestinationDataStore;
 import org.fusesource.camel.component.sap.model.rfc.SapConnectionConfiguration;
 import org.fusesource.camel.component.sap.model.rfc.ServerDataStore;
@@ -142,6 +141,10 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	private DestinationDataProperties destinationDataProperties;
 	private ServerDataProperties serverDataProperties;
 
+	private Button testButton;
+
+	private Button deleteButton;
+
 	public SapGlobalConnectionConfigurationPage(DataBindingContext context, SapConnectionConfiguration sapConnectionConfiguration) {
 		super(Messages.SapGlobalConnectionConfigurationPage_EditSapConnectionConfigurations,
 				Messages.SapGlobalConnectionConfigurationPage_EditSapDestinationAndServerDataStores,
@@ -170,13 +173,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		sashForm.setSashWidth(50);
 		sashForm.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
 		
-		viewer = new TreeViewer(sashForm, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-			        	
-		viewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
-		viewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
-		viewer.setInput(sapConnectionConfiguration.eResource());
-		viewer.addSelectionChangedListener(this);
-		viewer.expandAll();
+		createLeftPanel(sashForm);
 
 		ScrolledComposite sc = new ScrolledComposite(sashForm, SWT.H_SCROLL | SWT.V_SCROLL);
 		
@@ -199,10 +196,95 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		sc.setExpandVertical(true);
 		sc.setMinSize(properties.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
+		sashForm.setWeights(new int[] { 3, 5 });
+
 		initActions();
 		
 		// Create Context Menu
 		hookContextMenu();
+
+		viewer.getTree().setFocus();
+	}
+
+	private void createLeftPanel(SashForm sashForm) {
+		Composite leftPanelComposite = new Composite(sashForm, SWT.NONE);
+		leftPanelComposite.setLayout(GridLayoutFactory.fillDefaults().numColumns(2).create());
+		createLeftPanelTreeViewer(leftPanelComposite);
+		createLeftPanelButtons(leftPanelComposite);
+	}
+
+	private void createLeftPanelButtons(Composite leftPanelComposite) {
+		Composite buttonsComposite = new Composite(leftPanelComposite, SWT.NONE);
+		buttonsComposite.setLayout(new FillLayout(SWT.VERTICAL));
+		buttonsComposite.setLayoutData(GridDataFactory.fillDefaults().align(SWT.CENTER, SWT.TOP).create());
+
+		createAddDestinationButton(buttonsComposite);
+		createAddServerButton(buttonsComposite);
+		createDeleteButton(buttonsComposite);
+		createTestButton(buttonsComposite);
+	}
+
+	private void createTestButton(Composite buttonsComposite) {
+		testButton = new Button(buttonsComposite, SWT.PUSH);
+		testButton.setText(Messages.SapGlobalConnectionConfigurationPage_buttonTest);
+		testButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+				new TestAction(SapGlobalConnectionConfigurationPage.this).run();
+			}
+		});
+	}
+
+	private void createDeleteButton(Composite buttonsComposite) {
+		deleteButton = new Button(buttonsComposite, SWT.PUSH);
+		deleteButton.setText(Messages.SapGlobalConnectionConfigurationPage_buttonDelete);
+		deleteButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+				new DeleteAction(SapGlobalConnectionConfigurationPage.this, editingDomain).run();
+			}
+		});
+	}
+
+	private void createAddServerButton(Composite buttonsComposite) {
+		Button addServerButton = new Button(buttonsComposite, SWT.PUSH);
+		addServerButton.setText(Messages.SapGlobalConnectionConfigurationPage_buttonAddServer);
+		addServerButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+				final NewServerAction newLocalServerAction = new NewServerAction(SapGlobalConnectionConfigurationPage.this, editingDomain);
+				newLocalServerAction.setParentTarget(sapConnectionConfiguration.getServerDataStore());
+				newLocalServerAction.run();
+			}
+		});
+	}
+
+	private void createAddDestinationButton(Composite buttonsComposite) {
+		Button addDestinationButton = new Button(buttonsComposite, SWT.PUSH);
+		addDestinationButton.setText(Messages.SapGlobalConnectionConfigurationPage_buttonAddDestination);
+		addDestinationButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				super.widgetSelected(e);
+				final NewDestinationAction newLocalDestinationAction = new NewDestinationAction(SapGlobalConnectionConfigurationPage.this, editingDomain);
+				newLocalDestinationAction.setParentTarget(sapConnectionConfiguration.getDestinationDataStore());
+				newLocalDestinationAction.run();
+			}
+		});
+	}
+
+	private void createLeftPanelTreeViewer(Composite parent) {
+		viewer = new TreeViewer(parent, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+		viewer.getTree().setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
+			        	
+		viewer.setContentProvider(new AdapterFactoryContentProvider(adapterFactory));
+		viewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+		viewer.setInput(sapConnectionConfiguration.eResource());
+		viewer.addSelectionChangedListener(this);
+		viewer.expandAll();
 	}
 
 	private void createSapConnectionConfigurationTabFolder() {
@@ -257,7 +339,6 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	}
 
 	private void fillContextMenu(IMenuManager menuManager) {
-		
 		Object obj = selection.getFirstElement();
 		if (obj instanceof DestinationDataStore){
 			menuManager.add(newDestinationAction);
@@ -271,36 +352,35 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 			menuManager.add(testAction);
 		}
 
-
 		menuManager.add(new Separator("edit")); //$NON-NLS-1$
-		
 		menuManager.add(new Separator("additions")); //$NON-NLS-1$
 		menuManager.add(new Separator("additions-end")); //$NON-NLS-1$
-
 	}
 	
 	public void setSelectionToViewer(Collection<?> collection) {
-		final Collection<?> theSelection = collection;
-
-		if (theSelection != null && !theSelection.isEmpty()) {
-			Runnable runnable = new Runnable() {
-				public void run() {
-					viewer.setSelection(new StructuredSelection(theSelection.toArray()), true);
-				}
-			};
-			getShell().getDisplay().asyncExec(runnable);
-		}
+		viewer.refresh();
+		viewer.setSelection(new StructuredSelection(collection.toArray()), true);
 	}
 
 	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
 		selection = event.getSelection() instanceof IStructuredSelection ? (IStructuredSelection) event.getSelection() : StructuredSelection.EMPTY;
 		updateProperties();
+		updateButtons();
 	}
 	
+	private void updateButtons() {
+		Object obj = selection.getFirstElement();
+		final boolean isDataStoreEntry = obj instanceof ServerDataStoreEntryImpl || obj instanceof DestinationDataStoreEntryImpl;
+		testButton.setEnabled(isDataStoreEntry);
+		deleteButton.setEnabled(isDataStoreEntry);
+	}
+
 	private void updateProperties() {
 		Object obj = selection.getFirstElement();
-		if (obj instanceof SapConnectionConfiguration) {
+		if (obj == null) {
+			stackLayout.topControl = sapConnectionConfigurationTabFolder;
+		} else if (obj instanceof SapConnectionConfiguration) {
 			stackLayout.topControl = sapConnectionConfigurationTabFolder;
 		} else if (obj instanceof DestinationDataStore) {
 			stackLayout.topControl = destinationDataStoreTabFolder;
@@ -316,16 +396,8 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		properties.layout();
 	}
 
-	/**
-	 * Passing the focus request to the viewer's control.
-	 */
-	public void setFocus() {
-		viewer.getControl().setFocus();
-	}
-
 	protected void initializeEditingDomain() {
 		// Create an adapter factory that yields item providers.
-		//
 		adapterFactory = new ComposedAdapterFactory(ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
 
 		adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
@@ -333,31 +405,7 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 		adapterFactory.addAdapterFactory(new IdocItemProviderAdapterFactory());
 		adapterFactory.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
-		// Create the command stack that will notify this page as commands are
-		// executed.
-		//
-		BasicCommandStack commandStack = new TransactionalCommandStack();
-		commandStack.addCommandStackListener(new CommandStackListener() {
-
-			@Override
-			public void commandStackChanged(final EventObject event) {
-				getShell().getDisplay().asyncExec(new Runnable() {
-
-					@Override
-					public void run() {
-						Command mostRecentCommand = ((CommandStack) event.getSource()).getMostRecentCommand();
-						if (mostRecentCommand != null) {
-							setSelectionToViewer(mostRecentCommand.getAffectedObjects());
-						}
-					}
-				});
-
-			}
-		});
-
-		// Create the editing domain with a special command stack.
-		//
-		editingDomain = new AdapterFactoryEditingDomain(adapterFactory, commandStack, new HashMap<Resource, Boolean>());
+		editingDomain = new AdapterFactoryEditingDomain(adapterFactory, new TransactionalCommandStack(), new HashMap<Resource, Boolean>());
 	}
 
 	protected void initActions() {
@@ -369,12 +417,8 @@ public class SapGlobalConnectionConfigurationPage extends WizardPage implements 
 	    testAction = new TestAction(this);
 	}
 	
-	FormLayout compositeFormLayout() {
-		FormLayout layout = new FormLayout();
-		layout.marginWidth = ITabbedPropertyConstants.HSPACE + 2;
-		layout.marginHeight = ITabbedPropertyConstants.VSPACE;
-        layout.spacing = ITabbedPropertyConstants.VMARGIN + 1;
-		return layout;
+	public void setSelectionToTopElement() {
+		setSelectionToViewer(Collections.singleton(sapConnectionConfiguration));
 	}
 	
 }

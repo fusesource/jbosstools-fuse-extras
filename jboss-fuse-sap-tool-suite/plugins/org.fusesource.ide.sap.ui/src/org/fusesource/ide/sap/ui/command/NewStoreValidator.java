@@ -22,19 +22,17 @@ import org.eclipse.osgi.util.NLS;
 public final class NewStoreValidator implements IInputValidator {
 
 	private Set<String> existingValues;
-	private String messageForEmptyValue;
 	private String messageForDuplicatedValue;
 
-	public NewStoreValidator(Set<String> existingValues, String messageForEmptyValue, String messageForDuplicatedValue) {
+	public NewStoreValidator(Set<String> existingValues, String messageForDuplicatedValue) {
 		this.existingValues = existingValues;
-		this.messageForEmptyValue = messageForEmptyValue;
 		this.messageForDuplicatedValue = messageForDuplicatedValue;
 	}
 
 	@Override
 	public String isValid(String newText) {
 		if (newText == null || newText.isEmpty()) {
-			return messageForEmptyValue;
+			return "";
 		}
 		if (existingValues.contains(newText)) {
 			return NLS.bind(messageForDuplicatedValue, newText);

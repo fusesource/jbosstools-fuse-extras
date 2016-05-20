@@ -145,6 +145,10 @@ public class Messages extends NLS {
 	public static String SapConnectionsView_ErrorWhenSavingViewState;
 	public static String SapGlobalConnectionConfigurationPage_Authentication;
 	public static String SapGlobalConnectionConfigurationPage_Basic;
+	public static String SapGlobalConnectionConfigurationPage_buttonAddDestination;
+	public static String SapGlobalConnectionConfigurationPage_buttonAddServer;
+	public static String SapGlobalConnectionConfigurationPage_buttonDelete;
+	public static String SapGlobalConnectionConfigurationPage_buttonTest;
 	public static String SapGlobalConnectionConfigurationPage_Connection;
 	public static String SapGlobalConnectionConfigurationPage_CreateEditDeleteDestinationAndServerConnectionConfigurations;
 	public static String SapGlobalConnectionConfigurationPage_Delete;
@@ -245,7 +249,7 @@ public class Messages extends NLS {
 	public static String SapGlobalConnectionConfigurationPage_lblContainsSapConnection_1_text;
 	public static String SapGlobalConnectionConfigurationPage_Pool;
 	public static String SapGlobalConnectionConfigurationPage_Repository;
-	public static String SapGlobalConnectionConfigurationPage_Run;
+	public static String SapGlobalConnectionConfigurationPage_Test;
 	public static String SapGlobalConnectionConfigurationPage_ServerDataMandatoryItemTitle;
 	public static String SapGlobalConnectionConfigurationPage_ServerDataOptionalItemTitle;
 	public static String SapGlobalConnectionConfigurationPage_ServerDataSncItemTitle;

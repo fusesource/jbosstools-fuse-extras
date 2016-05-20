@@ -19,6 +19,6 @@ public class String2BooleanConverter extends Converter {
 	}
 	@Override
 	public Object convert(Object fromObject) {
-		return ((String)fromObject).equals("1") ? true : false;
+		return "1".equals((String) fromObject);
 	}
 }

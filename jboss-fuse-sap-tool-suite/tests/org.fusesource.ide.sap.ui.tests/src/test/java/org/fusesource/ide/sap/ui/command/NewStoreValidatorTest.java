@@ -22,23 +22,23 @@ public class NewStoreValidatorTest {
 
 	@Test
 	public void testIsValid() throws Exception {
-		assertThat(new NewStoreValidator(Collections.<String> emptySet(), "", "").isValid("Test1")).isNull();
+		assertThat(new NewStoreValidator(Collections.<String> emptySet(), "").isValid("Test1")).isNull();
 	}
 
 	@Test
 	public void testIsNotValidDuplication() throws Exception {
-		assertThat(new NewStoreValidator(Collections.singleton("TestDuplicate"), "", Messages.DestinationDialog_destinationAlreadyExists).isValid("TestDuplicate"))
+		assertThat(new NewStoreValidator(Collections.singleton("TestDuplicate"), Messages.DestinationDialog_destinationAlreadyExists).isValid("TestDuplicate"))
 				.isEqualTo(NLS.bind(Messages.DestinationDialog_destinationAlreadyExists, "TestDuplicate"));
 	}
 
 	@Test
 	public void testIsNotValidEmpty() throws Exception {
-		assertThat(new NewStoreValidator(Collections.<String> emptySet(), Messages.DestinationDialog_message, "").isValid("")).isEqualTo(Messages.DestinationDialog_message);
+		assertThat(new NewStoreValidator(Collections.<String> emptySet(), "").isValid("")).isEqualTo("");
 	}
 
 	@Test
 	public void testIsNotValidNull() throws Exception {
-		assertThat(new NewStoreValidator(Collections.<String> emptySet(), Messages.DestinationDialog_message, "").isValid(null)).isEqualTo(Messages.DestinationDialog_message);
+		assertThat(new NewStoreValidator(Collections.<String> emptySet(), "").isValid(null)).isEqualTo("");
 	}
 
 }

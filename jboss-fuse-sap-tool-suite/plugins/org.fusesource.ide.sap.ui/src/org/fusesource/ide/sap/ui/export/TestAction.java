@@ -23,7 +23,7 @@ class TestAction extends Action {
 	private final SapGlobalConnectionConfigurationPage sapGlobalConnectionConfigurationPage;
 
 	public TestAction(SapGlobalConnectionConfigurationPage sapGlobalConnectionConfigurationPage) {
-		super(Messages.SapGlobalConnectionConfigurationPage_Run, Activator.getDefault().getImageRegistry().getDescriptor(Activator.TEST_IMAGE));
+		super(Messages.SapGlobalConnectionConfigurationPage_Test, Activator.getDefault().getImageRegistry().getDescriptor(Activator.TEST_IMAGE));
 		this.sapGlobalConnectionConfigurationPage = sapGlobalConnectionConfigurationPage;
 	}
 	

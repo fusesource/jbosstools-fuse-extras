@@ -55,7 +55,7 @@ class NewServerAction extends AbstractNewAction<ServerDataStore> {
 	@Override
 	protected InputDialog createNewDialog(ServerDataStore serverDataStore, Object serverDataStoreEntry) {
 		return new InputDialog(sapGlobalConnectionConfigurationPage.getShell(), Messages.ServerDialog_shellCreateTitle, Messages.ServerDialog_message, "",
-				new NewStoreValidator(serverDataStore.getEntries().keySet(), Messages.ServerDialog_message, Messages.ServerDialog_serverAlreadyExists));
+				new NewStoreValidator(serverDataStore.getEntries().keySet(), Messages.ServerDialog_serverAlreadyExists));
 	}
 
 	@Override

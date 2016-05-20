@@ -104,7 +104,7 @@ public class SncDestinationDataUICreator implements IDestinationDataUICreator {
 		IObservableValue managedConnectionFactorySncPartnernameObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__SNC_PARTNERNAME))
 				.observe(destinationDataStoreEntry);
-		bindingContext.bindValue(observeTextSncPartnernameTextObserveWidget, managedConnectionFactorySncPartnernameObserveValue, null, null);
+		bindingContext.bindValue(observeTextSncPartnernameTextObserveWidget, managedConnectionFactorySncPartnernameObserveValue);
 		//
 		IObservableValue observeSingleSelectionIndexSncQopComboObserveWidget = WidgetProperties.singleSelectionIndex().observe(sncQopCombo);
 		IObservableValue managedConnectionFactorySncQopObserveValue = EMFEditProperties
@@ -118,13 +118,13 @@ public class SncDestinationDataUICreator implements IDestinationDataUICreator {
 		IObservableValue observeTextSncMynameTextObserveWidget = WidgetProperties.text(SWT.Modify).observeDelayed(300, sncMynameText);
 		IObservableValue managedConnectionFactorySncMynameObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__SNC_MYNAME)).observe(destinationDataStoreEntry);
-		bindingContext.bindValue(observeTextSncMynameTextObserveWidget, managedConnectionFactorySncMynameObserveValue, null, null);
+		bindingContext.bindValue(observeTextSncMynameTextObserveWidget, managedConnectionFactorySncMynameObserveValue);
 		//
 		IObservableValue observeTextSncLibraryTextObserveWidget = WidgetProperties.text(SWT.Modify).observeDelayed(300, sncLibraryText);
 		IObservableValue managedConnectionFactorySncLibraryObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__SNC_LIBRARY))
 				.observe(destinationDataStoreEntry);
-		bindingContext.bindValue(observeTextSncLibraryTextObserveWidget, managedConnectionFactorySncLibraryObserveValue, null, null);
+		bindingContext.bindValue(observeTextSncLibraryTextObserveWidget, managedConnectionFactorySncLibraryObserveValue);
 	}
 
 }
