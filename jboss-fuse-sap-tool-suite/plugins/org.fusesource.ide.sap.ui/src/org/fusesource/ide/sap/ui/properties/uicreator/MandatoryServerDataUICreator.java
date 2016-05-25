@@ -17,8 +17,13 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.jface.bindings.keys.KeyStroke;
+import org.eclipse.jface.bindings.keys.ParseException;
 import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.fieldassist.ContentProposalAdapter;
+import org.eclipse.jface.fieldassist.IContentProposalProvider;
+import org.eclipse.jface.fieldassist.TextContentAdapter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Composite;
@@ -93,22 +98,31 @@ public class MandatoryServerDataUICreator implements IServerDataUICreator {
 		IObservableValue observeTextAshostTextObserveWidget = WidgetProperties.text(SWT.Modify).observeDelayed(300, gwhostText);
 		IObservableValue destinationAshostObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__GWHOST)).observe(serverDataStoreEntry);
-		bindingContext.bindValue(observeTextAshostTextObserveWidget, destinationAshostObserveValue, null, null);
+		bindingContext.bindValue(observeTextAshostTextObserveWidget, destinationAshostObserveValue);
 		//
 		IObservableValue observeTextSysnrTextObserveWidget = WidgetProperties.text(SWT.Modify).observeDelayed(300, gwservText);
 		IObservableValue destinationSysnrObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__GWSERV)).observe(serverDataStoreEntry);
-		bindingContext.bindValue(observeTextSysnrTextObserveWidget, destinationSysnrObserveValue, null, null);
+		bindingContext.bindValue(observeTextSysnrTextObserveWidget, destinationSysnrObserveValue);
 		//
 		IObservableValue observeTextClientTextObserveWidget = WidgetProperties.text(SWT.Modify).observeDelayed(300, progidText);
 		IObservableValue destinationClientObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__PROGID)).observe(serverDataStoreEntry);
-		bindingContext.bindValue(observeTextClientTextObserveWidget, destinationClientObserveValue, null, null);
+		bindingContext.bindValue(observeTextClientTextObserveWidget, destinationClientObserveValue);
 		//
 		IObservableValue observeRepositoryDestinationTextObserveWidget = WidgetProperties.text(SWT.Modify).observeDelayed(300, repositoryDestinationText);
 		IObservableValue serverRepositoryDestinationObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__REPOSITORY_DESTINATION)).observe(serverDataStoreEntry);
-		bindingContext.bindValue(observeRepositoryDestinationTextObserveWidget, serverRepositoryDestinationObserveValue, null, null);
+		bindingContext.bindValue(observeRepositoryDestinationTextObserveWidget, serverRepositoryDestinationObserveValue);
+		IContentProposalProvider proposalProvider = new SAPDestinationContentProposalProvider(serverDataStoreEntry);
+		try {
+			ContentProposalAdapter contentProposalAdapter = new ContentProposalAdapter(repositoryDestinationText, new TextContentAdapter(), proposalProvider,
+					KeyStroke.getInstance("Ctrl+Space"), null);
+			contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
+		} catch (ParseException e) {
+			org.fusesource.ide.sap.ui.Activator.logWarning("Cannot provide Content assist.", e);// $NON-NLS-1$
+		}
+
 		//
 		IObservableValue observeTextLanguageTextObserveWidget = WidgetProperties.text(SWT.Modify).observeDelayed(300, connectionCountText);
 		IObservableValue destinationLangObserveValue = EMFEditProperties
