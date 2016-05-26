@@ -26,6 +26,7 @@ import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigElementType;
 import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard;
 import org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementContribution;
 import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
+import org.fusesource.ide.camel.model.service.core.model.AbstractCamelModelElement;
 import org.fusesource.ide.camel.model.service.core.model.CamelFile;
 import org.fusesource.ide.sap.ui.export.SapGlobalConnectionConfigurationWizard;
 import org.w3c.dom.Element;
@@ -56,18 +57,12 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	}
 
 	/* (non-Javadoc)
-	 * @see org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementContribution#onGlobalElementDeleted(org.w3c.dom.Node)
-	 */
-	@Override
-	public void onGlobalElementDeleted(Node node) {
-	}
-
-	/* (non-Javadoc)
 	 * @see org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementContribution#canHandle(org.w3c.dom.Node)
 	 */
 	@Override
-	public boolean canHandle(Node nodeToHandle) {
-		return ((Element)nodeToHandle).getAttribute("class").equals("org.fusesource.camel.component.sap.SapConnectionConfiguration");
+	public boolean canHandle(AbstractCamelModelElement cme) {
+		final Node xmlNode = cme.getXmlNode();
+		return xmlNode instanceof Element && "org.fusesource.camel.component.sap.SapConnectionConfiguration".equals(((Element) xmlNode).getAttribute("class"));
 	}	
 	
 	/* (non-Javadoc)
@@ -109,6 +104,11 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 		}
 		wizard.init(PlatformUI.getWorkbench(), (IStructuredSelection) selection);
 		return wizard;
+	}
+
+	@Override
+	public void onGlobalElementDeleted(AbstractCamelModelElement camelModelElement) {
+		// No specific action
 	}
 
 }
