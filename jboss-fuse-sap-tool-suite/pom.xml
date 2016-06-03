@@ -12,13 +12,13 @@
 	<parent>
 		<groupId>org.jboss.tools</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.4.0.Alpha1-SNAPSHOT</version>
+		<version>4.3.1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- JBoss Tools Integration Stack version -->
-		<jbtis.version>4.4.0.Alpha1-SNAPSHOT</jbtis.version>
+		<jbtis.version>4.3.1.Final</jbtis.version>
 
 		<!-- Tycho versions -->
 		<jboss-tycho-version>0.23.3</jboss-tycho-version>
@@ -59,7 +59,7 @@
 		<repository>
 			<id>fuse-sap.mw.lab.eng.bos.redhat.com</id>
 			<name>jboss-fuse-sap-data-layer</name>
-			<url>http://fuse-sap.mw.lab.eng.bos.redhat.com/repositories/fuse-sap-data-layer/updatesite/6.2.0-SNAPSHOT/</url>
+			<url>http://fuse-sap.mw.lab.eng.bos.redhat.com/repositories/fuse-sap-data-layer/updatesite/6.3.0-SNAPSHOT/</url>
 			<layout>p2</layout>
 		</repository>
 
