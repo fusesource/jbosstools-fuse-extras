@@ -425,9 +425,7 @@ public class TestServerDialog extends TitleAreaDialog {
 		getShell().getDisplay().syncExec(new Runnable() {
 			@Override
 			public void run() {
-				String log = text.getText();
-				log += System.lineSeparator() + str;
-				text.setText(log);
+				text.append(System.lineSeparator() + str);
 			}
 		});
 	}
