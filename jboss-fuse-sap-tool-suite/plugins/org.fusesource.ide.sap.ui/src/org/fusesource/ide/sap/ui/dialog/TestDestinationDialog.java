@@ -203,9 +203,7 @@ public class TestDestinationDialog extends TitleAreaDialog {
 	}
 	
 	private void append2Console(String str) {
-		String log = text.getText();
-		log += System.lineSeparator() + str;
-		text.setText(log);
+		text.append(System.lineSeparator() + str);
 	}
 
 }
