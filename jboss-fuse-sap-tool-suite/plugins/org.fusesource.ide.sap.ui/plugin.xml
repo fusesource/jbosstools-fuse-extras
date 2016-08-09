@@ -548,6 +548,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcDestinationPaletteEntry"
+            dependenciesManager="org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager"
             diagramImage="icons/sap.png"
             id="sap-srfc-destination"
             paletteIcon="icons/sap.png">
@@ -555,6 +556,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapSynchronousRfcServerPaletteEntry"
+            dependenciesManager="org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager"
             diagramImage="icons/sap.png"
             id="sap-srfc-server"
             paletteIcon="icons/sap.png">
@@ -562,6 +564,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapTransactionalRfcDestinationPaletteEntry"
+            dependenciesManager="org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager"
             diagramImage="icons/sap.png"
             id="sap-trfc-destination"
             paletteIcon="icons/sap.png">
@@ -569,6 +572,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapTransactionalRfcServerPaletteEntry"
+            dependenciesManager="org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager"
             diagramImage="icons/sap.png"
             id="sap-trfc-server"
             paletteIcon="icons/sap.png">
@@ -576,6 +580,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedRfcDestinationPaletteEntry"
+            dependenciesManager="org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager"
             diagramImage="icons/sap.png"
             id="sap-qrfc-destination"
             paletteIcon="icons/sap.png">
@@ -583,6 +588,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapIDocDestinationPaletteEntry"
+            dependenciesManager="org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager"
             diagramImage="icons/sap.png"
             id="sap-idoc-destination"
             paletteIcon="icons/sap.png">
@@ -590,6 +596,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListDestinationPaletteEntry"
+            dependenciesManager="org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager"
             diagramImage="icons/sap.png"
             id="sap-idoclist-destination"
             paletteIcon="icons/sap.png">
@@ -597,6 +604,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedIDocDestinationPaletteEntry"
+            dependenciesManager="org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager"
             diagramImage="icons/sap.png"
             id="sap-qidoc-destination"
             paletteIcon="icons/sap.png">
@@ -604,6 +612,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapQueuedIDocListDestinationPaletteEntry"
+            dependenciesManager="org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager"
             diagramImage="icons/sap.png"
             id="sap-qidoclist-destination"
             paletteIcon="icons/sap.png">
@@ -611,6 +620,7 @@
       <PaletteContribution
             categoryName="COMPONENTS"
             class="org.fusesource.ide.sap.ui.editor.provider.SapIDocListServerPaletteEntry"
+            dependenciesManager="org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager"
             diagramImage="icons/sap.png"
             id="sap-idoclist-server"
             paletteIcon="icons/sap.png">
