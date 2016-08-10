@@ -12,7 +12,6 @@ package org.fusesource.ide.sap.ui.editor.globalconf.provider;
 
 import static org.fusesource.ide.sap.ui.Activator.CAMEL_SAP_ARTIFACT_ID;
 import static org.fusesource.ide.sap.ui.Activator.CAMEL_SAP_GROUP_ID;
-import static org.fusesource.ide.sap.ui.Activator.CAMEL_SAP_VERSION;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +24,7 @@ import org.eclipse.ui.PlatformUI;
 import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigElementType;
 import org.fusesource.ide.camel.editor.provider.ext.GlobalConfigurationTypeWizard;
 import org.fusesource.ide.camel.editor.provider.ext.ICustomGlobalConfigElementContribution;
+import org.fusesource.ide.camel.editor.utils.CamelUtils;
 import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
 import org.fusesource.ide.camel.model.service.core.model.AbstractCamelModelElement;
 import org.fusesource.ide.camel.model.service.core.model.CamelFile;
@@ -78,12 +78,12 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 	 */
 	@Override
 	public List<Dependency> getElementDependencies() {
-		List<Dependency> deps = new ArrayList<Dependency>();
+		List<Dependency> deps = new ArrayList<>();
 		
 		Dependency dep = new Dependency();
         dep.setGroupId(CAMEL_SAP_GROUP_ID);
         dep.setArtifactId(CAMEL_SAP_ARTIFACT_ID);
-        dep.setVersion(CAMEL_SAP_VERSION);
+        dep.setVersion(CamelUtils.getCurrentProjectCamelVersion());
         deps.add(dep);
 		
 		return deps;
