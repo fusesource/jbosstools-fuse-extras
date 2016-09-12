@@ -6,30 +6,30 @@
 	<groupId>org.fusesource.ide</groupId>
 	<artifactId>sap</artifactId>
 	<name>JBoss Fuse Tooling :: SAP</name>
-	<version>8.0.0-SNAPSHOT</version>
+	<version>9.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<parent>
 		<groupId>org.jboss.tools</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.3.1.Final-SNAPSHOT</version>
+		<version>4.4.0.Alpha1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- JBoss Tools Integration Stack version -->
-		<jbtis.version>4.3.4-SNAPSHOT</jbtis.version>
+		<jbtis.version>4.4.0.Alpha2-SNAPSHOT</jbtis.version>
 
 		<!-- Tycho versions -->
-		<jboss-tycho-version>0.23.3</jboss-tycho-version>
-		<tychoVersion>0.24.0</tychoVersion>
+		<jboss-tycho-version>0.26.0-SNAPSHOT</jboss-tycho-version>
+		<tychoVersion>0.26.0</tychoVersion>
 		<tychoExtrasVersion>${tychoVersion}</tychoExtrasVersion>
 
 		<!-- fuse tooling related versions -->
 		<tycho.scmUrl>scm:git:https://github.com/fusesource/fuseide.git</tycho.scmUrl>
 		<forge-project-id>ide</forge-project-id>
 		<ide-version>${project.version}</ide-version>
-		<fuse-tooling-url>http://download.jboss.org/jbosstools/mars/integration/updates/integration-stack/fuse-tooling/8.0.0.MASTER/</fuse-tooling-url>
+		<fuse-tooling-url>http://download.jboss.org/jbosstools/neon/integration/updates/integration-stack/fuse-tooling/9.0.0.MASTER/</fuse-tooling-url>
 
 		<!-- camel version -->
 		<camel.version>2.15.1.redhat-620133</camel.version>
