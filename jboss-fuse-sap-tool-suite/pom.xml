@@ -18,7 +18,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- JBoss Tools Integration Stack version -->
-		<jbtis.version>4.3.1.Final</jbtis.version>
+		<jbtis.version>4.3.4-SNAPSHOT</jbtis.version>
 
 		<!-- Tycho versions -->
 		<jboss-tycho-version>0.23.3</jboss-tycho-version>
@@ -29,7 +29,7 @@
 		<tycho.scmUrl>scm:git:https://github.com/fusesource/fuseide.git</tycho.scmUrl>
 		<forge-project-id>ide</forge-project-id>
 		<ide-version>${project.version}</ide-version>
-		<fuse-tooling-url>http://download.jboss.org/jbosstools/snapshots/builds/Fuse-Tooling/all/repo/</fuse-tooling-url>
+		<fuse-tooling-url>http://download.jboss.org/jbosstools/mars/integration/updates/integration-stack/fuse-tooling/8.0.0.MASTER/</fuse-tooling-url>
 
 		<!-- camel version -->
 		<camel.version>2.15.1.redhat-620133</camel.version>
