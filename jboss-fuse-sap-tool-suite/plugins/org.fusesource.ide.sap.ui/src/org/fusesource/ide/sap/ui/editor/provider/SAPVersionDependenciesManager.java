@@ -10,7 +10,9 @@
  ******************************************************************************/
 package org.fusesource.ide.sap.ui.editor.provider;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Plugin;
@@ -18,9 +20,23 @@ import org.fusesource.ide.camel.editor.provider.ext.IDependenciesManager;
 import org.fusesource.ide.sap.ui.Activator;
 
 public class SAPVersionDependenciesManager implements IDependenciesManager {
+	
+	static final String SAP_VERSION_621 = "6.2.1.redhat-084";
+	static final String SAP_VERSION_630 = "6.3.0.redhat-185";
+	static final String LAST_SAP_VERSION = SAP_VERSION_630;
+	private static Map<String, String> camelToSAPVersionMapping;
+
+	static {
+		camelToSAPVersionMapping = new HashMap<>();
+		camelToSAPVersionMapping.put("2.15.1", SAP_VERSION_621);
+		camelToSAPVersionMapping.put("2.17.0", LAST_SAP_VERSION);
+		camelToSAPVersionMapping.put("2.17.3", LAST_SAP_VERSION);
+		// TODO: update me with every new release of camel and sap supported in tooling
+	}
+	
 
 	public SAPVersionDependenciesManager() {
-		// keep for reflection isntanciation
+		// keep for reflection instanciation
 	}
 
 	@Override
@@ -32,9 +48,14 @@ public class SAPVersionDependenciesManager implements IDependenciesManager {
 	public void updateDependencies(List<Dependency> currentDependencies, String camelVersion) {
 		for (Dependency dependency : currentDependencies) {
 			if(isSAPCamelDependency(dependency)){
-				dependency.setVersion(camelVersion);
+				dependency.setVersion(computeSapVersion(camelVersion));
 			}
 		}
+	}
+
+	private String computeSapVersion(String camelVersion) {
+		String strippedCamelVersion = camelVersion.replaceAll(".redhat.*", "");
+		return camelToSAPVersionMapping.getOrDefault(strippedCamelVersion, LAST_SAP_VERSION);
 	}
 
 	private boolean isSAPCamelDependency(Dependency dependency) {
