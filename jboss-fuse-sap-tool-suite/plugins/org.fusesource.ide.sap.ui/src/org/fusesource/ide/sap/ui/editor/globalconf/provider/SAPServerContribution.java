@@ -28,6 +28,7 @@ import org.fusesource.ide.camel.editor.utils.CamelUtils;
 import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
 import org.fusesource.ide.camel.model.service.core.model.AbstractCamelModelElement;
 import org.fusesource.ide.camel.model.service.core.model.CamelFile;
+import org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager;
 import org.fusesource.ide.sap.ui.export.SapGlobalConnectionConfigurationWizard;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -83,7 +84,7 @@ public class SAPServerContribution implements ICustomGlobalConfigElementContribu
 		Dependency dep = new Dependency();
         dep.setGroupId(CAMEL_SAP_GROUP_ID);
         dep.setArtifactId(CAMEL_SAP_ARTIFACT_ID);
-        dep.setVersion(CamelUtils.getCurrentProjectCamelVersion());
+        dep.setVersion(new SAPVersionDependenciesManager().computeSapVersion(CamelUtils.getCurrentProjectCamelVersion()));
         deps.add(dep);
 		
 		return deps;

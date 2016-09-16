@@ -23,7 +23,7 @@ public class SAPVersionDependenciesManager implements IDependenciesManager {
 	
 	static final String SAP_VERSION_621 = "6.2.1.redhat-084";
 	static final String SAP_VERSION_630 = "6.3.0.redhat-185";
-	static final String LAST_SAP_VERSION = SAP_VERSION_630;
+	public static final String LAST_SAP_VERSION = SAP_VERSION_630;
 	private static Map<String, String> camelToSAPVersionMapping;
 
 	static {
@@ -53,7 +53,7 @@ public class SAPVersionDependenciesManager implements IDependenciesManager {
 		}
 	}
 
-	private String computeSapVersion(String camelVersion) {
+	public String computeSapVersion(String camelVersion) {
 		String strippedCamelVersion = camelVersion.replaceAll(".redhat.*", "");
 		return camelToSAPVersionMapping.getOrDefault(strippedCamelVersion, LAST_SAP_VERSION);
 	}

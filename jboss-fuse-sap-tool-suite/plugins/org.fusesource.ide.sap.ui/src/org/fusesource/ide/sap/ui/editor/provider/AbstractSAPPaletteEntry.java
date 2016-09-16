@@ -28,7 +28,7 @@ public abstract class AbstractSAPPaletteEntry implements ICustomPaletteEntry{
 	    Dependency dep = new Dependency();
 	    dep.setGroupId(CAMEL_SAP_GROUP_ID);
 	    dep.setArtifactId(CAMEL_SAP_ARTIFACT_ID);
-	    dep.setVersion(CamelUtils.getCurrentProjectCamelVersion());
+	    dep.setVersion(new SAPVersionDependenciesManager().computeSapVersion(CamelUtils.getCurrentProjectCamelVersion()));
 	    deps.add(dep);
 	    return deps;
 	}
