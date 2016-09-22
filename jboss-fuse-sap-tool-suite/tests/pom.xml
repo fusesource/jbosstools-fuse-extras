@@ -3,20 +3,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.fusesource.ide</groupId>
-        <artifactId>sap</artifactId>
-		<version>8.0.0-SNAPSHOT</version>
+        	<artifactId>sap</artifactId>
+		<version>9.0.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.fusesource.ide.sap</groupId>
 	<artifactId>tests</artifactId>
-	<name>JBoss Fuse Tooling :: SAP :: Tests</name>
+	<name>JBoss Tools Fuse Extras :: SAP Tooling :: Tests</name>
 	<packaging>pom</packaging>
 	<properties>
 		<!-- set a different path with -Djbosstools.test.jre.7= -->
 		<jbosstools.test.jre.7>/qa/tools/opt/jdk1.7.0_last</jbosstools.test.jre.7>
 	</properties>
 	<modules>
-	<module>org.fusesource.ide.sap.ui.tests</module>
+		<module>org.fusesource.ide.sap.ui.tests</module>
 		<module>org.fusesource.ide.sap.ui.tests.integration</module>
 	</modules>
 </project>

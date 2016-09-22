@@ -3,59 +3,24 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.fusesource.ide</groupId>
-	<artifactId>sap</artifactId>
-	<name>JBoss Fuse Tooling :: SAP</name>
-	<version>8.0.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
-
 	<parent>
-		<groupId>org.jboss.tools</groupId>
-		<artifactId>parent</artifactId>
-		<version>4.3.1.Final-SNAPSHOT</version>
+        	<groupId>org.jboss.tools</groupId>
+		<artifactId>fuse-extras</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
+	<groupId>org.fusesource.ide</groupId>
+	<artifactId>sap</artifactId>
+	<name>JBoss Tools Fuse Extras :: SAP Tooling</name>
+	<version>9.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<!-- JBoss Tools Integration Stack version -->
-		<jbtis.version>4.3.4-SNAPSHOT</jbtis.version>
-
-		<!-- Tycho versions -->
-		<jboss-tycho-version>0.23.3</jboss-tycho-version>
-		<tychoVersion>0.24.0</tychoVersion>
-		<tychoExtrasVersion>${tychoVersion}</tychoExtrasVersion>
-
-		<!-- fuse tooling related versions -->
-		<tycho.scmUrl>scm:git:https://github.com/fusesource/fuseide.git</tycho.scmUrl>
-		<forge-project-id>ide</forge-project-id>
-		<ide-version>${project.version}</ide-version>
-		<fuse-tooling-url>http://download.jboss.org/jbosstools/mars/integration/updates/integration-stack/fuse-tooling/8.0.0.CR1</fuse-tooling-url>
-
-		<!-- camel version -->
-		<camel.version>2.15.1.redhat-620133</camel.version>
-
-		<!-- AMQ JMX plugin -->
-		<activemq.version>5.11.0.redhat-620133</activemq.version>
-		<geronimo.jms.version>1.1.1</geronimo.jms.version>
-
-		<!-- SMX JMX plugin -->
-		<servicemix-nmr.version>1.6.1</servicemix-nmr.version>
-
-		<!-- codegen/buildtools fabric8 versions (only build time deps) -->
-		<fabric.version>1.2.0.redhat-133</fabric.version>
-
-		<spring.version>4.1.5.RELEASE</spring.version>
-		<jclouds.version>1.8.0</jclouds.version>
-		<slf4j.version>1.7.5</slf4j.version>
-		<guava.version>18.0</guava.version>
-		<jolokia.version>1.2.2</jolokia.version>
-		<json-simple.version>1.1.1</json-simple.version>
-		<apache.http.version>4.3.6</apache.http.version>
-		<apache.httpcore.version>4.3.3</apache.httpcore.version>
+		<fuse-tooling-url>http://download.jboss.org/jbosstools/neon/integration/updates/integration-stack/fuse-tooling/9.0.0.MASTER</fuse-tooling-url>
+		<tycho.scmUrl>scm:git:https://github.com/jbosstools/jbosstools-fuse-extras.git</tycho.scmUrl>
 	</properties>
 
 	<repositories>
-
 		<repository>
 			<id>fuse-sap.mw.lab.eng.bos.redhat.com</id>
 			<name>jboss-fuse-sap-data-layer</name>
@@ -70,83 +35,7 @@
 			<layout>p2</layout>
 		</repository>
 
-		<repository>
-			<id>fusesource.ea.repo</id>
-			<name>JBoss Fuse Early Access Repository</name>
-			<url>https://repo.fusesource.com/nexus/content/groups/ea</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-
-		<repository>
-			<id>fusesource.release.repo</id>
-			<name>JBoss Fuse Release Repository</name>
-			<url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-
-		<repository>
-			<id>jboss.public.repo</id>
-			<name>JBoss Public Repository</name>
-			<url>http://repository.jboss.org/nexus/content/repositories/public</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-
 	</repositories>
-
-	<pluginRepositories>
-
-		<pluginRepository>
-			<id>fusesource.ea.repo</id>
-			<name>JBoss Fuse Early Access Repository</name>
-			<url>https://repo.fusesource.com/nexus/content/groups/ea</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-
-		<pluginRepository>
-			<id>fusesource.release.repo</id>
-			<name>JBoss Fuse Release Repository</name>
-			<url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-
-		<pluginRepository>
-			<id>jboss.public.repo</id>
-			<name>JBoss Public Repository</name>
-			<url>http://repository.jboss.org/nexus/content/repositories/public</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-
-	</pluginRepositories>
 
 	<build>
 		<defaultGoal>install</defaultGoal>
@@ -187,11 +76,6 @@
 						<environment>
 							<os>linux</os>
 							<ws>gtk</ws>
-							<arch>x86</arch>
-						</environment>
-						<environment>
-							<os>macosx</os>
-							<ws>cocoa</ws>
 							<arch>x86</arch>
 						</environment>
 						<environment>

@@ -1,0 +1,134 @@
+<!--
+
+    Copyright (C) 2010 FuseSource, Corp. All rights reserved.
+    http://fusesource.com
+
+    The software in this package is published under the terms of the AGPL license
+    a copy of which has been included with this distribution in the license.txt file.
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+ 
+  <parent>
+    <groupId>org.jboss.tools</groupId>
+    <artifactId>parent</artifactId>
+    <version>4.4.0.Alpha1-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.jboss.tools</groupId>
+  <artifactId>fuse-extras</artifactId>
+  <name>JBoss Tools Fuse Extras</name>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <organization>
+    <name>Red Hat</name>
+    <url>http://www.redhat.com</url>
+  </organization>
+
+  <prerequisites>
+    <maven>3.0.2</maven>
+  </prerequisites>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    
+    <!-- compiler settings -->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <!-- JBoss Tools Integration Stack version -->
+    <jbtis.version>4.4.0.Alpha2-SNAPSHOT</jbtis.version>
+    
+    <!-- Tycho versions -->
+    <jboss-tycho-version>0.26.0-SNAPSHOT</jboss-tycho-version>
+    <tychoVersion>0.26.0</tychoVersion>
+    <tychoExtrasVersion>${tychoVersion}</tychoExtrasVersion>
+  </properties>
+
+  <modules>
+    <module>jboss-fuse-sap-tool-suite</module>
+  </modules>
+
+  <repositories>
+
+    <repository>
+      <id>fusesource.ea.repo</id>
+      <name>JBoss Fuse Early Access Repository</name>
+      <url>https://repo.fusesource.com/nexus/content/groups/ea</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+
+    <repository>
+      <id>fusesource.release.repo</id>
+      <name>JBoss Fuse Release Repository</name>
+      <url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+
+    <repository>
+      <id>jboss.public.repo</id>
+      <name>JBoss Public Repository</name>
+      <url>http://repository.jboss.org/nexus/content/repositories/public</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </repository>
+
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>fusesource.ea.repo</id>
+      <name>JBoss Fuse Early Access Repository</name>
+      <url>https://repo.fusesource.com/nexus/content/groups/ea</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </pluginRepository>
+
+    <pluginRepository>
+      <id>fusesource.release.repo</id>
+      <name>JBoss Fuse Release Repository</name>
+      <url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </pluginRepository>
+
+    <pluginRepository>
+      <id>jboss.public.repo</id>
+      <name>JBoss Public Repository</name>
+      <url>http://repository.jboss.org/nexus/content/repositories/public</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </pluginRepository>
+
+  </pluginRepositories>
+</project>
