@@ -2,10 +2,10 @@
 <feature
       id="org.fusesource.ide.sap.feature"
       label="%featureName"
-      version="8.0.0.qualifier"
+      version="9.0.0.qualifier"
       provider-name="%providerName"
       license-feature="org.jboss.tools.foundation.license.feature"
-	  license-feature-version="0.0.0"
+      license-feature-version="0.0.0"
       plugin="org.fusesource.ide.tooling">
 
    <description url="http://tools.jboss.org/features/apachecamel.html">
@@ -21,7 +21,7 @@
    </license>
 
    <url>
-      <discovery label="%updateSiteName" url="http://download.jboss.org/jbosstools/updates/development/luna/"/>
+      <discovery label="%updateSiteName" url="http://download.jboss.org/jbosstools/updates/development/neon/"/>
    </url>
 
    <requires>
@@ -38,7 +38,7 @@
       <import plugin="org.apache.ant" version="1.9.2" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.launching" version="3.7.100" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.core" version="3.7.0" match="greaterOrEqual"/>
-      <import feature="org.fusesource.ide.core.feature" version="8.0.0" match="greaterOrEqual"/>
+      <import feature="org.fusesource.ide.core.feature" version="9.0.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin

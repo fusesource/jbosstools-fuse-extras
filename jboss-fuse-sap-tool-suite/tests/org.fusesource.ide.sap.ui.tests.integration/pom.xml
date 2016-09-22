@@ -6,12 +6,12 @@
   <parent>
     <groupId>org.fusesource.ide.sap</groupId>
     <artifactId>tests</artifactId>
-    <version>8.0.0-SNAPSHOT</version>
+    <version>9.0.0-SNAPSHOT</version>
     <relativePath>..</relativePath>
   </parent>
   
   <artifactId>org.fusesource.ide.sap.ui.tests.integration</artifactId>
   <packaging>eclipse-test-plugin</packaging>
-  <name>JBoss Fuse Tooling :: SAP :: Tests :: SAP Tool Suite UI Integration Tests</name>
+  <name>JBoss Tools Fuse Extras :: SAP Tooling :: Tests :: SAP Tool Suite UI Integration Tests</name>
   
   </project>
