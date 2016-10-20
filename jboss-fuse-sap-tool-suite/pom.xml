@@ -12,11 +12,11 @@
 	<groupId>org.fusesource.ide</groupId>
 	<artifactId>sap</artifactId>
 	<name>JBoss Tools Fuse Extras :: SAP Tooling</name>
-	<version>9.0.0-SNAPSHOT</version>
+	<version>9.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<fuse-tooling-url>http://download.jboss.org/jbosstools/neon/integration/updates/integration-stack/fuse-tooling/9.0.0.CI</fuse-tooling-url>
+		<fuse-tooling-url>http://download.jboss.org/jbosstools/neon/integration/updates/integration-stack/fuse-tooling/9.1.0.CI</fuse-tooling-url>
 		<tycho.scmUrl>scm:git:https://github.com/jbosstools/jbosstools-fuse-extras.git</tycho.scmUrl>
 	</properties>
 
