@@ -18,11 +18,17 @@ import java.util.List;
 
 import org.fusesource.ide.camel.editor.provider.ext.ICustomPaletteEntry;
 import org.fusesource.ide.camel.editor.utils.CamelUtils;
+import org.fusesource.ide.camel.model.service.core.catalog.CamelModelFactory;
 import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
 
 public abstract class AbstractSAPPaletteEntry implements ICustomPaletteEntry{
 
 	@Override
+	public List<Dependency> getRequiredDependencies(String runtimeProvider) {
+		//SAP supports only Karaf deployment
+	    return getRequiredDependencies();
+	}
+	
 	public List<Dependency> getRequiredDependencies() {
 	    List<Dependency> deps = new ArrayList<>();
 	    Dependency dep = new Dependency();
@@ -31,6 +37,11 @@ public abstract class AbstractSAPPaletteEntry implements ICustomPaletteEntry{
 	    dep.setVersion(new SAPVersionDependenciesManager().computeSapVersion(CamelUtils.getCurrentProjectCamelVersion()));
 	    deps.add(dep);
 	    return deps;
+	}
+	
+	@Override
+	public boolean isValid(String runtimeProvider) {
+		return CamelModelFactory.RUNTIME_PROVIDER_KARAF.equals(runtimeProvider);
 	}
 
 }
