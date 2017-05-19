@@ -21,10 +21,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SAPVersionDependenciesManagerTest {
-	
+
 	private List<Dependency> currentDependencies;
 	private Dependency dep;
-	
+
 	@Before
 	public void setup() {
 		currentDependencies = new ArrayList<>();
@@ -33,26 +33,40 @@ public class SAPVersionDependenciesManagerTest {
 		dep.setArtifactId(Activator.CAMEL_SAP_ARTIFACT_ID);
 		currentDependencies.add(dep);
 	}
-	
+
 	@Test
-	public void testWithRedHatDependency() throws Exception {
-		new SAPVersionDependenciesManager().updateDependencies(currentDependencies , "2.15.1.redhat-084");
-		
-		assertThat(dep.getVersion()).isEqualTo(SAPVersionDependenciesManager.SAP_VERSION_621);
+	public void testFuse621WithRedHatDependency() throws Exception {
+		new SAPVersionDependenciesManager().updateDependencies(currentDependencies, "2.15.1.redhat-621123");
+
+		assertThat(dep.getVersion()).isEqualTo("6.2.1.redhat-123");
 	}
-	
+
 	@Test
-	public void testWithoutRedHatDependency() throws Exception {
-		new SAPVersionDependenciesManager().updateDependencies(currentDependencies , "2.17.0");
-		
-		assertThat(dep.getVersion()).isEqualTo(SAPVersionDependenciesManager.SAP_VERSION_630);
+	public void testFuse630WithRedHatDependency() throws Exception {
+		new SAPVersionDependenciesManager().updateDependencies(currentDependencies, "2.17.0.redhat-630456");
+
+		assertThat(dep.getVersion()).isEqualTo("6.3.0.redhat-456");
+	}
+
+	@Test
+	public void testFuse621WithoutRedHatDependency() throws Exception {
+		new SAPVersionDependenciesManager().updateDependencies(currentDependencies, "2.15.1");
+
+		assertThat(dep.getVersion()).isEqualTo(SAPVersionDependenciesManager.SAP_VERSION_621_LATEST);
+	}
+
+	@Test
+	public void testFuse630WithoutRedHatDependency() throws Exception {
+		new SAPVersionDependenciesManager().updateDependencies(currentDependencies, "2.17.0");
+
+		assertThat(dep.getVersion()).isEqualTo(SAPVersionDependenciesManager.SAP_VERSION_630_LATEST);
 	}
 
 	@Test
 	public void testDefaultvalueWhenDepdenciesUnknown() throws Exception {
-		new SAPVersionDependenciesManager().updateDependencies(currentDependencies , "plop");
-		
+		new SAPVersionDependenciesManager().updateDependencies(currentDependencies, "plop");
+
 		assertThat(dep.getVersion()).isEqualTo(SAPVersionDependenciesManager.LAST_SAP_VERSION);
 	}
-	
+
 }
