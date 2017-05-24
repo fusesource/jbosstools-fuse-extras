@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+	<target name="Data Layer" sequenceNumber="10">
+	<locations>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
+			<unit id="org.fusesource.camel.component.sap.feature.feature.group" version="6.3.0.redhat-187"/>
+			<unit id="org.fusesource.camel.component.sap.feature.source.feature.group" version="6.3.0.redhat-187"/>
+			<repository 
+location="http://fuse-sap.mw.lab.eng.bos.redhat.com/repositories/fuse-sap-data-layer/updatesite/6.3.0.redhat-187/"/>
+		</location>
+	</locations>
+</target>
