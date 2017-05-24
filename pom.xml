@@ -15,7 +15,7 @@
   <parent>
     <groupId>org.jboss.tools</groupId>
     <artifactId>parent</artifactId>
-    <version>4.4.4.Final</version>
+    <version>4.5.0.AM1-SNAPSHOT</version>
   </parent>
 
   <groupId>org.jboss.tools</groupId>
@@ -41,95 +41,118 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <!-- JBoss Tools Integration Stack version -->
-    <jbtis.version>4.4.3.Final</jbtis.version>
-    <jbtis.classifier>base</jbtis.classifier> <!-- base-ea -->
-    
-    <!-- Tycho versions -->
-    <jboss-tycho-version>0.26.0</jboss-tycho-version>
-    <tychoVersion>0.26.0</tychoVersion>
-    <tychoExtrasVersion>${tychoVersion}</tychoExtrasVersion>
+    <jbtis.version>4.5.0.AM1-SNAPSHOT</jbtis.version>
   </properties>
 
   <modules>
     <module>jboss-fuse-sap-tool-suite</module>
   </modules>
 
-  <repositories>
+	<repositories>
+		<repository>
+			<id>jbosstools-base</id>
+			<layout>p2</layout>
+			<url>${jbosstools-base-site}</url>
+		</repository>
 
-    <repository>
-      <id>fusesource.ea.repo</id>
-      <name>JBoss Fuse Early Access Repository</name>
-      <url>https://repo.fusesource.com/nexus/content/groups/ea</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
+		<repository>
+			<id>jbosstools-server</id>
+			<layout>p2</layout>
+			<url>${jbosstools-server-site}</url>
+		</repository>
 
-    <repository>
-      <id>fusesource.release.repo</id>
-      <name>JBoss Fuse Release Repository</name>
-      <url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
+		<repository>
+			<id>jbosstools-central</id>
+			<layout>p2</layout>
+			<url>${jbosstools-central-site}</url>
+		</repository>
 
-    <repository>
-      <id>jboss.public.repo</id>
-      <name>JBoss Public Repository</name>
-      <url>http://repository.jboss.org/nexus/content/repositories/public</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
+		<repository>
+			<id>fusesource.ea.repo</id>
+			<name>JBoss Fuse Early Access Repository</name>
+			<url>https://repo.fusesource.com/nexus/content/groups/ea</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
 
-  </repositories>
+		<repository>
+			<id>fusesource.release.repo</id>
+			<name>JBoss Fuse Release Repository</name>
+			<url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>fusesource.ea.repo</id>
-      <name>JBoss Fuse Early Access Repository</name>
-      <url>https://repo.fusesource.com/nexus/content/groups/ea</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
+		<repository>
+			<id>jboss.public.repo</id>
+			<name>JBoss Public Repository</name>
+			<url>http://repository.jboss.org/nexus/content/repositories/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
 
-    <pluginRepository>
-      <id>fusesource.release.repo</id>
-      <name>JBoss Fuse Release Repository</name>
-      <url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
+		<repository>
+			<id>fis-internal</id>
+			<name>Fuse Integration Services internal - staging</name>
+			<url>http://download.eng.bos.redhat.com/brewroot/repos/jb-fis-2.0-maven-build/latest/maven/</url>
+		</repository>
 
-    <pluginRepository>
-      <id>jboss.public.repo</id>
-      <name>JBoss Public Repository</name>
-      <url>http://repository.jboss.org/nexus/content/repositories/public</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
+		<repository>
+			<id>fuse-early-access</id>
+			<name>Fuse Early Access - staging</name>
+			<url>https://origin-repository.jboss.org/nexus/content/</url>
+		</repository>
 
-  </pluginRepositories>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>fusesource.ea.repo</id>
+			<name>JBoss Fuse Early Access Repository</name>
+			<url>https://repo.fusesource.com/nexus/content/groups/ea</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>fusesource.release.repo</id>
+			<name>JBoss Fuse Release Repository</name>
+			<url>https://repo.fusesource.com/nexus/content/repositories/releases</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>jboss.public.repo</id>
+			<name>JBoss Public Repository</name>
+			<url>http://repository.jboss.org/nexus/content/repositories/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+
+	</pluginRepositories>
 </project>
