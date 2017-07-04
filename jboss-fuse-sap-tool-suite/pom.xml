@@ -86,7 +86,7 @@
 					<includes>
 						<include>**/*IT.class</include>
 					</includes>
-					<argLine>${tycho.testArgLine} -XX:+HeapDumpOnOutOfMemoryError -Dusage_reporting_enabled=false</argLine>
+					<argLine>${tycho.testArgLine} ${memoryOptions1} ${memoryOptions2} -XX:+HeapDumpOnOutOfMemoryError ${platformSystemProperties} ${systemProperties} -Dusage_reporting_enabled=false</argLine>
 					<osgiDataDirectory>${project.basedir}/target/work sp@cé</osgiDataDirectory>
 				</configuration>
 			</plugin>
@@ -114,6 +114,7 @@
 		<module>plugins</module>
 		<module>tests</module>
 		<module>features</module>
+		<module>qe</module>
 		<module>site</module>
 	</modules>
 
