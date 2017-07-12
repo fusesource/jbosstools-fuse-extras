@@ -18,8 +18,8 @@ import java.util.List;
 
 import org.fusesource.ide.camel.editor.provider.ext.ICustomPaletteEntry;
 import org.fusesource.ide.camel.editor.utils.CamelUtils;
-import org.fusesource.ide.camel.model.service.core.catalog.CamelModelFactory;
 import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
+import org.fusesource.ide.camel.model.service.core.util.CamelCatalogUtils;
 
 public abstract class AbstractSAPPaletteEntry implements ICustomPaletteEntry{
 
@@ -41,7 +41,7 @@ public abstract class AbstractSAPPaletteEntry implements ICustomPaletteEntry{
 	
 	@Override
 	public boolean isValid(String runtimeProvider) {
-		return CamelModelFactory.RUNTIME_PROVIDER_KARAF.equals(runtimeProvider);
+		return CamelCatalogUtils.RUNTIME_PROVIDER_KARAF.equals(runtimeProvider);
 	}
 
 }
