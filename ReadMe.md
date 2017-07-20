@@ -25,3 +25,4 @@ If you want to know how to build the project and setup an Eclipse workspace for 
 
 ## Contributing
 If you want to contribute to Fuse Tooling make sure you read the [contribution guide](https://github.com/jbosstools/jbosstools-fuse/blob/master/Contributing.md "Contribution Guide").
+please the specific [Readme](jboss-fuse-sap-tool-suite/targetplatform/ReadMe.md) for Target Platform too.
