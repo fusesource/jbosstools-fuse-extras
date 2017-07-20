@@ -41,7 +41,6 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <!-- JBoss Tools Integration Stack version -->
-    <jbtis.version>4.5.0.AM1-SNAPSHOT</jbtis.version>
   </properties>
 
   <modules>

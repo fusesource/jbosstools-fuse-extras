@@ -10,7 +10,7 @@
 		<version>10.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>org.fusesource.ide.sap.targetplatform</artifactId>
+	<artifactId>sap-tooling-multiple</artifactId>
 	<packaging>pom</packaging>
 	<name>JBoss Tools Fuse Extras :: SAP Tooling :: Target Platform Generation</name>
 
@@ -47,14 +47,17 @@
 									<classifier>jbosstools-multiple</classifier>
 								</item>
 							</sourceTargetArtifacts>
-							<sourceTargetArtifacts>
+	<!-- 						<sourceTargetArtifacts>
 								<item>
 									<groupId>org.jboss.tools.targetplatform</groupId>									
 									<artifactId>fuse-multiple</artifactId>
-									<version>10.0.0-SNAPSHOT</version>
+									<version>${project.version}</version>
 									<classifier>fuse-jbosstools</classifier>
 								</item>
-							</sourceTargetArtifacts>
+							</sourceTargetArtifacts> -->
+							<sourceTargetFiles>
+								<item>${basedir}/sap_data_layer.target</item>
+							</sourceTargetFiles>
 							<outputFile>${project.build.directory}/${project.artifactId}.target</outputFile>
 						</configuration>
 					</execution>
@@ -94,9 +97,9 @@
 							<artifacts>
 								<!-- add more artifacts if want more target platforms -->
 								<artifact>
-									<file>${project.basedir}/fuse-jbosstools.target</file>
+									<file>${project.basedir}/sap_data_layer.target</file>
 									<type>target</type>
-									<classifier>fuse-jbosstools</classifier>
+									<classifier>sap_data_layer</classifier>
 								</artifact>
 								<artifact>
 									<file>${project.build.directory}/${project.artifactId}.target</file>
@@ -114,7 +117,7 @@
 					<descriptors>
 						<descriptor>${basedir}/publish-assembly.xml</descriptor>
 					</descriptors>
-					<!-- want TP zip called fuse-multiple-target-VERSION.zip -->
+					<!-- want TP zip called sap-tooling-multiple-target-VERSION.zip -->
 					<finalName>${project.artifactId}-target-${project.version}</finalName>
 				</configuration>
 			</plugin>
@@ -139,27 +142,6 @@
 						<artifactId>target-platform-utils</artifactId>
 						<version>${jbossTychoPluginsVersion}</version>
 						<executions>
-							<execution>
-								<id>mergeTargets</id>
-								<phase>package</phase>
-								<goals>
-									<goal>merge-targets</goal>
-								</goals>
-								<configuration>
-									<sourceTargetArtifacts>
-										<sourceTargetArtifact>
-											<groupId>org.jboss.tools.integration-stack</groupId>
-											<artifactId>target-platform</artifactId>
-											<version>${jbtis.version}</version>
-											<classifier>base-ea</classifier>
-										</sourceTargetArtifact>
-									</sourceTargetArtifacts>
-									<sourceTargetFiles>
-										<sourceTargetFile>sap_data_layer.target</sourceTargetFile>
-									</sourceTargetFiles>
-								</configuration>
-							</execution>
-
 							<execution>
 								<phase>package</phase>
 								<goals>
