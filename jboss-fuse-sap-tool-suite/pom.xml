@@ -6,13 +6,12 @@
 	<parent>
         	<groupId>org.jboss.tools</groupId>
 		<artifactId>fuse-extras</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>10.0.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>org.fusesource.ide</groupId>
 	<artifactId>sap</artifactId>
 	<name>JBoss Tools Fuse Extras :: SAP Tooling</name>
-	<version>10.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
