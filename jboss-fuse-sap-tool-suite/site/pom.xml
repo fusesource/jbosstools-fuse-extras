@@ -13,4 +13,8 @@
 	<packaging>eclipse-repository</packaging>
 	<name>JBoss Tools Fuse Extras :: SAP Tooling :: Update Site</name>
 
+	<properties>
+		<skipDeployToJBossOrg>false</skipDeployToJBossOrg>
+	</properties>
+
 </project>
