@@ -4,12 +4,11 @@
 	<parent>
 		<groupId>org.fusesource.ide</groupId>
 		<artifactId>sap</artifactId>
-		<version>10.0.0-SNAPSHOT</version>
+		<version>10.1.0-SNAPSHOT</version>
 	</parent>
 	<groupId>org.fusesource.ide.sap</groupId>
 	<artifactId>qe</artifactId>
 	<name>JBoss Tools Fuse Extras :: SAP Tooling :: QE</name>
-	<version>10.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<repositories>
 		<!-- JBoss Tools Fuse QE RedDeer Framework -->
