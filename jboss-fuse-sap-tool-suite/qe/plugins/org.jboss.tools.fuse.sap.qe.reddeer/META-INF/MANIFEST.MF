@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.jboss.tools.fuse.sap.qe.reddeer
-Bundle-Version: 10.0.0.qualifier
+Bundle-Version: 10.1.0.qualifier
 Bundle-Activator: org.jboss.tools.fuse.sap.qe.reddeer.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.eclipse.ui,
@@ -18,7 +18,7 @@ Require-Bundle: org.eclipse.ui,
  org.jboss.reddeer.go;bundle-version="1.2.2",
  org.jboss.reddeer.gef;bundle-version="1.2.2",
  org.jboss.reddeer.graphiti;bundle-version="1.2.2",
- org.jboss.tools.fuse.qe.reddeer;bundle-version="10.0.0"
+ org.jboss.tools.fuse.qe.reddeer;bundle-version="10.1.0"
 Export-Package: org.jboss.tools.fuse.sap.qe.reddeer,
  org.jboss.tools.fuse.sap.qe.reddeer.component,
  org.jboss.tools.fuse.sap.qe.reddeer.dialog,
