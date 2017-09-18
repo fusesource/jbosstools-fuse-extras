@@ -1,0 +1,21 @@
+
+**** Error file opened at 20170918 092539 Central European Summer Time Rel 3.0.11 (2014-04-15) [720.612]
+Error:  >Mon Sep 18 09:25:39,889<    RfcException:
+    message: Parameter ABAP system number ('sysnr') is missing
+    return code: RFC_INVALID_PARAMETER (19)
+    error group: 101
+    key: RFC_ERROR_PROGRAM
+	at com.sap.conn.rfc.api.RfcOptions.checkSystemNumber(RfcOptions.java:401)
+	at com.sap.conn.rfc.api.RfcOptions.checkParameters(RfcOptions.java:277)
+	at com.sap.conn.jco.rt.MiddlewareJavaRfc$JavaRfcClient.initialize(MiddlewareJavaRfc.java:1365)
+	at com.sap.conn.jco.rt.MiddlewareJavaRfc$JavaRfcClient.connect(MiddlewareJavaRfc.java:1395)
+	at com.sap.conn.jco.rt.ClientConnection.connect(ClientConnection.java:725)
+	at com.sap.conn.jco.rt.PoolingFactory.init(PoolingFactory.java:115)
+	at com.sap.conn.jco.rt.ConnectionManager.createFactory(ConnectionManager.java:350)
+	at com.sap.conn.jco.rt.DefaultConnectionManager.createFactory(DefaultConnectionManager.java:46)
+	at com.sap.conn.jco.rt.ConnectionManager.getFactory(ConnectionManager.java:324)
+	at com.sap.conn.jco.rt.RfcDestination.initialize(RfcDestination.java:894)
+	at com.sap.conn.jco.rt.RfcDestination.ping(RfcDestination.java:1304)
+	at org.fusesource.ide.sap.ui.dialog.TestDestinationDialog$1$1.run(TestDestinationDialog.java:150)
+	at java.lang.Thread.run(Thread.java:748)
+

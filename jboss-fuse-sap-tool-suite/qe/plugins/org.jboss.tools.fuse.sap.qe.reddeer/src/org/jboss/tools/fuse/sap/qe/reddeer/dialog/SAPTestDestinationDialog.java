@@ -10,15 +10,14 @@
  ******************************************************************************/
 package org.jboss.tools.fuse.sap.qe.reddeer.dialog;
 
-import org.jboss.reddeer.common.wait.TimePeriod;
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ProgressInformationShellIsActive;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.text.DefaultText;
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.swt.api.Text;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.swt.impl.text.DefaultText;
 
 public class SAPTestDestinationDialog {
 
@@ -33,8 +32,8 @@ public class SAPTestDestinationDialog {
 		activate();
 		final String oldResult = getResultTXT().getText();
 		new PushButton("Test").click();
-		new WaitUntil(new ProgressInformationShellIsActive(), TimePeriod.NORMAL, false);
-		new WaitWhile(new ProgressInformationShellIsActive(), TimePeriod.LONG);
+		new WaitUntil(new ShellIsAvailable("Progress Information"), TimePeriod.DEFAULT, false);
+		new WaitWhile(new ShellIsAvailable("Progress Information"), TimePeriod.LONG);
 		return getResultTXT().getText().replaceFirst(oldResult, "").trim();
 	}
 
@@ -46,7 +45,7 @@ public class SAPTestDestinationDialog {
 	public void close() {
 		activate();
 		new PushButton("Close").click();
-		new WaitWhile(new ShellWithTextIsAvailable(TITLE));
+		new WaitWhile(new ShellIsAvailable(TITLE));
 	}
 
 	public Text getResultTXT() {

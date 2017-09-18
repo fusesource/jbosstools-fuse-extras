@@ -10,14 +10,14 @@
  ******************************************************************************/
 package org.jboss.tools.fuse.sap.qe.reddeer.view;
 
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.swt.impl.button.OkButton;
-import org.jboss.reddeer.swt.impl.menu.ContextMenu;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
-import org.jboss.reddeer.workbench.impl.view.WorkbenchView;
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.OkButton;
+import org.eclipse.reddeer.swt.impl.menu.ContextMenuItem;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.swt.impl.text.LabeledText;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.eclipse.reddeer.workbench.impl.view.WorkbenchView;
 import org.jboss.tools.fuse.sap.qe.reddeer.dialog.SAPTestDestinationDialog;
 import org.jboss.tools.fuse.sap.qe.reddeer.dialog.SAPTestServerDialog;
 
@@ -41,21 +41,21 @@ public class SAPConnectionView extends WorkbenchView {
 
 	public void newDestination(String name) {
 		selectDestination();
-		new ContextMenu("New Destination").select();
+		new ContextMenuItem("New Destination").select();
 		new DefaultShell("Create Destination");
 		new LabeledText("Please provide a destination name").setText(name);
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("Create Destination"));
+		new WaitWhile(new ShellIsAvailable("Create Destination"));
 	}
 
 	public void deleteDestination(String name) {
 		selectDestination(name);
-		new ContextMenu("Delete").select();
+		new ContextMenuItem("Delete").select();
 	}
 
 	public SAPTestDestinationDialog openDestinationTest(String name) {
 		selectDestination(name);
-		new ContextMenu("Test").select();
+		new ContextMenuItem("Test").select();
 		return new SAPTestDestinationDialog().activate();
 	}
 
@@ -78,21 +78,21 @@ public class SAPConnectionView extends WorkbenchView {
 
 	public void newServer(String name) {
 		selectServer();
-		new ContextMenu("New Server").select();
+		new ContextMenuItem("New Server").select();
 		new DefaultShell("Create Server");
 		new LabeledText("Please provide a server name").setText(name);
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("Create Server"));
+		new WaitWhile(new ShellIsAvailable("Create Server"));
 	}
 
 	public void deleteServer(String name) {
 		selectServer(name);
-		new ContextMenu("Delete").select();
+		new ContextMenuItem("Delete").select();
 	}
 
 	public SAPTestServerDialog openServerTest(String name) {
 		selectServer(name);
-		new ContextMenu("Test").select();
+		new ContextMenuItem("Test").select();
 		return new SAPTestServerDialog().activate();
 	}
 

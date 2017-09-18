@@ -13,21 +13,21 @@ package org.jboss.tools.fuse.sap.qe.reddeer.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jboss.reddeer.common.wait.WaitWhile;
-import org.jboss.reddeer.core.condition.ShellWithTextIsAvailable;
-import org.jboss.reddeer.jface.wizard.WizardDialog;
-import org.jboss.reddeer.swt.api.Button;
-import org.jboss.reddeer.swt.api.CCombo;
-import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.swt.api.TreeItem;
-import org.jboss.reddeer.swt.impl.button.CheckBox;
-import org.jboss.reddeer.swt.impl.button.OkButton;
-import org.jboss.reddeer.swt.impl.button.PushButton;
-import org.jboss.reddeer.swt.impl.ccombo.LabeledCCombo;
-import org.jboss.reddeer.swt.impl.ctab.DefaultCTabItem;
-import org.jboss.reddeer.swt.impl.shell.DefaultShell;
-import org.jboss.reddeer.swt.impl.text.LabeledText;
-import org.jboss.reddeer.swt.impl.tree.DefaultTreeItem;
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.jface.wizard.WizardDialog;
+import org.eclipse.reddeer.swt.api.Button;
+import org.eclipse.reddeer.swt.api.CCombo;
+import org.eclipse.reddeer.swt.api.Text;
+import org.eclipse.reddeer.swt.api.TreeItem;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.CheckBox;
+import org.eclipse.reddeer.swt.impl.button.OkButton;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
+import org.eclipse.reddeer.swt.impl.ccombo.LabeledCCombo;
+import org.eclipse.reddeer.swt.impl.ctab.DefaultCTabItem;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.swt.impl.text.LabeledText;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.jboss.tools.fuse.sap.qe.reddeer.dialog.SAPTestDestinationDialog;
 import org.jboss.tools.fuse.sap.qe.reddeer.dialog.SAPTestServerDialog;
 
@@ -39,6 +39,10 @@ import org.jboss.tools.fuse.sap.qe.reddeer.dialog.SAPTestServerDialog;
 public class SAPConfigurationWizard extends WizardDialog {
 
 	public static final String TITLE = "Edit SAP Connection Configuration";
+
+	public SAPConfigurationWizard() {
+		super(TITLE);
+	}
 
 	public void activate() {
 		new DefaultShell(TITLE);
@@ -56,7 +60,7 @@ public class SAPConfigurationWizard extends WizardDialog {
 		new DefaultShell("Create Destination");
 		new LabeledText("Please provide a destination name").setText(name);
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("Create Destination"));
+		new WaitWhile(new ShellIsAvailable("Create Destination"));
 	}
 
 	public void deleteDestination(String name) {
@@ -80,7 +84,7 @@ public class SAPConfigurationWizard extends WizardDialog {
 		new DefaultShell("Create Server");
 		new LabeledText("Please provide a server name").setText(name);
 		new OkButton().click();
-		new WaitWhile(new ShellWithTextIsAvailable("Create Server"));
+		new WaitWhile(new ShellIsAvailable("Create Server"));
 	}
 
 	public void selectServer(String name) {
