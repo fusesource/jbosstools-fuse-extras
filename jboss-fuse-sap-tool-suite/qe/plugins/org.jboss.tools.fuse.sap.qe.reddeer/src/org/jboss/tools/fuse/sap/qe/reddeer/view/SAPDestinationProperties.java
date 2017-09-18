@@ -10,16 +10,16 @@
  ******************************************************************************/
 package org.jboss.tools.fuse.sap.qe.reddeer.view;
 
-import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesView;
-import org.jboss.reddeer.swt.api.Text;
-import org.jboss.reddeer.swt.impl.text.LabeledText;
+import org.eclipse.reddeer.eclipse.ui.views.properties.PropertySheet;
+import org.eclipse.reddeer.swt.api.Text;
+import org.eclipse.reddeer.swt.impl.text.LabeledText;
 
 /**
  * 
  * @author apodhrad
  *
  */
-public class SAPDestinationProperties extends PropertiesView {
+public class SAPDestinationProperties extends PropertySheet {
 
 	public void selectBasic() {
 		activate();

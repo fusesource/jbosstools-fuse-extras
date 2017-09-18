@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
-Bundle-SymbolicName: org.jboss.tools.fuse.sap.qe.reddeer
+Bundle-SymbolicName: org.jboss.tools.fuse.sap.qe.reddeer;singleton:=true
 Bundle-Version: 10.1.0.qualifier
 Bundle-Activator: org.jboss.tools.fuse.sap.qe.reddeer.Activator
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
@@ -15,17 +15,16 @@ Require-Bundle: org.eclipse.ui,
  com.jcraft.jsch;bundle-version="0.1.50",
  org.eclipse.wst.server.core;bundle-version="1.10.0",
  org.hamcrest.core;bundle-version="1.3.0",
- org.jboss.reddeer.go;bundle-version="1.2.2",
- org.jboss.reddeer.gef;bundle-version="1.2.2",
- org.jboss.reddeer.graphiti;bundle-version="1.2.2",
+ org.eclipse.reddeer.go;bundle-version="2.0.0",
+ org.eclipse.reddeer.gef;bundle-version="2.0.0",
+ org.eclipse.reddeer.graphiti;bundle-version="2.0.0",
  org.jboss.tools.fuse.qe.reddeer;bundle-version="10.1.0"
 Export-Package: org.jboss.tools.fuse.sap.qe.reddeer,
  org.jboss.tools.fuse.sap.qe.reddeer.component,
  org.jboss.tools.fuse.sap.qe.reddeer.dialog,
  org.jboss.tools.fuse.sap.qe.reddeer.editor,
  org.jboss.tools.fuse.sap.qe.reddeer.requirement,
- org.jboss.tools.fuse.sap.qe.reddeer.runtime.impl,
  org.jboss.tools.fuse.sap.qe.reddeer.view,
  org.jboss.tools.fuse.sap.qe.reddeer.wizard
-Import-Package: org.jboss.reddeer.common.logging
+Import-Package: org.eclipse.reddeer.common.logging
 Bundle-Vendor: %Bundle-Vendor

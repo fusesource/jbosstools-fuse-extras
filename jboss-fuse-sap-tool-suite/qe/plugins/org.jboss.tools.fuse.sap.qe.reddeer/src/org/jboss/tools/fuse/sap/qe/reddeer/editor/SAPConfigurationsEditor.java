@@ -10,6 +10,10 @@
  ******************************************************************************/
 package org.jboss.tools.fuse.sap.qe.reddeer.editor;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
 import org.jboss.tools.fuse.qe.reddeer.editor.ConfigurationsEditor;
 import org.jboss.tools.fuse.sap.qe.reddeer.wizard.SAPConfigurationWizard;
 
@@ -40,6 +44,13 @@ public class SAPConfigurationsEditor extends ConfigurationsEditor {
 	public SAPConfigurationWizard deleteSapConfig() {
 		deleteConfig(SAP_CONFIG_PATH);
 		return new SAPConfigurationWizard();
+	}
+
+	@Override
+	public void save() {
+		super.save();
+		new WaitUntil(new ShellIsAvailable("Progress Information"), false);
+		new WaitWhile(new ShellIsAvailable("Progress Information"), TimePeriod.LONG);
 	}
 
 }

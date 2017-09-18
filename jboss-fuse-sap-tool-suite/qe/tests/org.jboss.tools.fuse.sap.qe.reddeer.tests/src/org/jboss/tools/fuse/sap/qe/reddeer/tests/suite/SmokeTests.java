@@ -12,7 +12,7 @@ package org.jboss.tools.fuse.sap.qe.reddeer.tests.suite;
 
 import junit.framework.TestSuite;
 
-import org.jboss.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.jboss.tools.fuse.sap.qe.reddeer.tests.SAPComponentTest;
 import org.jboss.tools.fuse.sap.qe.reddeer.tests.SAPConfigurationTest;
 import org.jboss.tools.fuse.sap.qe.reddeer.tests.SAPConnectionTest;

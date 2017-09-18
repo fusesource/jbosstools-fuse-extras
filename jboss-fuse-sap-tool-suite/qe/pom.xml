@@ -14,7 +14,7 @@
 		<!-- JBoss Tools Fuse QE RedDeer Framework -->
 		<repository>
 			<id>jbosstools-fuse-qe-reddeer</id>
-			<url>http://tooling.fuse-qe.eng.rdu2.redhat.com/p2/custom/fuseide/apodhrad/FUSETOOLS-1768/</url>
+			<url>http://tooling.fuse-qe.eng.rdu2.redhat.com/p2/custom/fuseide/apodhrad/FUSETOOLS-2477/</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>

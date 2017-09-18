@@ -15,21 +15,20 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.Collection;
 
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.ui.views.log.LogView;
-import org.jboss.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
-import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
-import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
-import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
-import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
+import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
+import org.eclipse.reddeer.eclipse.ui.views.log.LogView;
+import org.eclipse.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
+import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
+import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
+import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.tools.fuse.qe.reddeer.ProjectType;
 import org.jboss.tools.fuse.qe.reddeer.SupportedCamelVersions;
 import org.jboss.tools.fuse.qe.reddeer.XPathEvaluator;
 import org.jboss.tools.fuse.qe.reddeer.editor.CamelEditor;
 import org.jboss.tools.fuse.qe.reddeer.perspectives.FuseIntegrationPerspective;
 import org.jboss.tools.fuse.qe.reddeer.projectexplorer.CamelProject;
-import org.jboss.tools.fuse.qe.reddeer.view.ErrorLogView;
 import org.jboss.tools.fuse.sap.qe.reddeer.SupportedSAPVersions;
 import org.jboss.tools.fuse.sap.qe.reddeer.component.SAPIDocListServer;
 import org.jboss.tools.fuse.sap.qe.reddeer.tests.utils.ProjectFactory;
@@ -93,7 +92,8 @@ public class SAPVersionTest {
 	public void testSAPVersion() throws Exception {
 		new WorkbenchShell();
 		ProjectFactory.newProject(PROJECT_NAME).version(camelVersion).type(PROJECT_TYPE).create();
-		new ErrorLogView().deleteLog();
+		new LogView().open();
+		new LogView().deleteLog();
 
 		new ProjectExplorer().open();
 		new CamelProject(PROJECT_NAME).openCamelContext(PROJECT_TYPE.getCamelContext());

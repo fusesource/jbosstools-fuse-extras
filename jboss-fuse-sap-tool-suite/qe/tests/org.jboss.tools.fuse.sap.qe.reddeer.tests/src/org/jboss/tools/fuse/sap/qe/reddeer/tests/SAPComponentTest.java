@@ -23,16 +23,21 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.jboss.reddeer.common.logging.Logger;
-import org.jboss.reddeer.eclipse.jdt.ui.ProjectExplorer;
-import org.jboss.reddeer.eclipse.ui.views.log.LogMessage;
-import org.jboss.reddeer.eclipse.ui.views.properties.PropertiesView;
-import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
-import org.jboss.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
-import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
+import org.eclipse.reddeer.common.logging.Logger;
+import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
+import org.eclipse.reddeer.eclipse.ui.views.log.LogMessage;
+import org.eclipse.reddeer.eclipse.ui.views.log.LogView;
+import org.eclipse.reddeer.eclipse.ui.views.properties.PropertySheet;
+import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
+import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.tools.fuse.qe.reddeer.ProjectType;
 import org.jboss.tools.fuse.qe.reddeer.component.AbstractURICamelComponent;
+import org.jboss.tools.fuse.qe.reddeer.editor.CamelComponentEditPart;
+import org.jboss.tools.fuse.qe.reddeer.editor.CamelEditor;
+import org.jboss.tools.fuse.qe.reddeer.perspectives.FuseIntegrationPerspective;
+import org.jboss.tools.fuse.qe.reddeer.projectexplorer.CamelProject;
 import org.jboss.tools.fuse.sap.qe.reddeer.component.SAPIDocDestination;
 import org.jboss.tools.fuse.sap.qe.reddeer.component.SAPIDocListDestination;
 import org.jboss.tools.fuse.sap.qe.reddeer.component.SAPIDocListServer;
@@ -43,11 +48,6 @@ import org.jboss.tools.fuse.sap.qe.reddeer.component.SAPSRFCDestination;
 import org.jboss.tools.fuse.sap.qe.reddeer.component.SAPSRFCServer;
 import org.jboss.tools.fuse.sap.qe.reddeer.component.SAPTRFCDestination;
 import org.jboss.tools.fuse.sap.qe.reddeer.component.SAPTRFCServer;
-import org.jboss.tools.fuse.qe.reddeer.editor.CamelComponentEditPart;
-import org.jboss.tools.fuse.qe.reddeer.editor.CamelEditor;
-import org.jboss.tools.fuse.qe.reddeer.perspectives.FuseIntegrationPerspective;
-import org.jboss.tools.fuse.qe.reddeer.projectexplorer.CamelProject;
-import org.jboss.tools.fuse.qe.reddeer.view.ErrorLogView;
 import org.jboss.tools.fuse.sap.qe.reddeer.tests.utils.ProjectFactory;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -81,8 +81,8 @@ public class SAPComponentTest {
 	public static void setupResetCamelContext() throws Exception {
 		new WorkbenchShell();
 		ProjectFactory.newProject(PROJECT_NAME).version(CAMEL_2_17_0_REDHAT_630187).type(PROJECT_TYPE).create();
-		new ErrorLogView().open();
-		new ErrorLogView().deleteLog();
+		new LogView().open();
+		new LogView().deleteLog();
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class SAPComponentTest {
 	public void removeComponent() {
 		// a workaround for FUSETOOLS-2184
 		// the Properties view must be activated before deleting a component
-		new PropertiesView().open();
+		new PropertySheet().open();
 		editor = new CamelEditor(PROJECT_TYPE.getCamelContext());
 		new CamelComponentEditPart("sap").delete();
 		editor.save();
@@ -488,7 +488,7 @@ public class SAPComponentTest {
 	}
 
 	private static void assertErrorLog() {
-		List<LogMessage> errors = new ErrorLogView().getErrorMessages();
+		List<LogMessage> errors = new LogView().getErrorMessages();
 		if (!errors.isEmpty()) {
 			log.warn("The following errors occured in Error Log:");
 			for (LogMessage error : errors) {

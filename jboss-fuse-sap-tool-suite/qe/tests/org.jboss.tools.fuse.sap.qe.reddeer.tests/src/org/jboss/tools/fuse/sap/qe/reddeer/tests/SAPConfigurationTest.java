@@ -18,23 +18,23 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.jboss.reddeer.common.wait.WaitUntil;
-import org.jboss.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
-import org.jboss.reddeer.junit.requirement.inject.InjectRequirement;
-import org.jboss.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
-import org.jboss.reddeer.workbench.impl.shell.WorkbenchShell;
+import org.eclipse.reddeer.common.wait.WaitUntil;
+import org.eclipse.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
+import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
+import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
+import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.tools.fuse.qe.reddeer.ProjectType;
 import org.jboss.tools.fuse.qe.reddeer.XPathEvaluator;
 import org.jboss.tools.fuse.qe.reddeer.condition.ContainsText;
 import org.jboss.tools.fuse.qe.reddeer.projectexplorer.CamelProject;
-import org.jboss.tools.fuse.qe.reddeer.requirement.SAPRequirement;
-import org.jboss.tools.fuse.qe.reddeer.requirement.SAPRequirement.SAP;
-import org.jboss.tools.fuse.qe.reddeer.runtime.impl.SAPDestination;
-import org.jboss.tools.fuse.qe.reddeer.runtime.impl.SAPServer;
 import org.jboss.tools.fuse.sap.qe.reddeer.dialog.SAPTestDestinationDialog;
 import org.jboss.tools.fuse.sap.qe.reddeer.dialog.SAPTestServerDialog;
 import org.jboss.tools.fuse.sap.qe.reddeer.editor.SAPConfigurationsEditor;
+import org.jboss.tools.fuse.sap.qe.reddeer.requirement.SAPDestination;
+import org.jboss.tools.fuse.sap.qe.reddeer.requirement.SAPRequirement;
+import org.jboss.tools.fuse.sap.qe.reddeer.requirement.SAPRequirement.SAP;
+import org.jboss.tools.fuse.sap.qe.reddeer.requirement.SAPServer;
 import org.jboss.tools.fuse.sap.qe.reddeer.tests.utils.ProjectFactory;
 import org.jboss.tools.fuse.sap.qe.reddeer.wizard.SAPConfigurationWizard;
 import org.junit.Before;
@@ -59,10 +59,7 @@ public class SAPConfigurationTest {
 	public static final String SERVER_IMPL = "org.fusesource.camel.component.sap.model.rfc.impl.ServerDataImpl";
 
 	@InjectRequirement
-	private SAPRequirement sapRequirement;
-
-	private SAPDestination sapDestination;
-	private SAPServer sapServer;
+	private SAPRequirement sap;
 
 	@Parameters(name = "{0}")
 	public static Collection<ProjectType> data() {
@@ -83,15 +80,6 @@ public class SAPConfigurationTest {
 	}
 
 	/**
-	 * Prepare test environment
-	 */
-	@Before
-	public void setupInitSapVariables() {
-		sapDestination = sapRequirement.getConfig().getDestination();
-		sapServer = sapRequirement.getConfig().getServer();
-	}
-
-	/**
 	 * Delete any existing SAP configuration
 	 */
 	@Before
@@ -100,6 +88,9 @@ public class SAPConfigurationTest {
 			editor().deleteSapConfig();
 		} catch (Exception e) {
 			// ok
+		}
+		if (editor().isDirty()) {
+			editor().save();
 		}
 	}
 
@@ -458,35 +449,37 @@ public class SAPConfigurationTest {
 	 */
 	@Test
 	public void testConnectionOfDestinationAndServer() {
+		SAPDestination destination = sap.getConfiguration().getDestination();
+		SAPServer server = sap.getConfiguration().getServer();
+		
 		SAPConfigurationWizard wizard = editor().addSapConfig();
-		wizard.addDestination(sapDestination.getName());
-		wizard.selectDestination(sapDestination.getName());
+		wizard.addDestination(destination.getName());
+		wizard.selectDestination(destination.getName());
 		wizard.selectTab("Connection");
 		wizard.selectTab("Basic");
-		wizard.getSAPApplicationServerTXT().setText(sapDestination.getAshost());
-		wizard.getSAPSystemNumberTXT().setText(sapDestination.getSysnr());
-		wizard.getSAPClientTXT().setText(sapDestination.getClient());
-		wizard.getLogonUserTXT().setText(sapDestination.getUser());
-		wizard.getLogonPasswordTXT().setText(sapDestination.getPassword());
+		wizard.getSAPApplicationServerTXT().setText(destination.getAshost());
+		wizard.getSAPSystemNumberTXT().setText(destination.getSysnr());
+		wizard.getSAPClientTXT().setText(destination.getClient());
+		wizard.getLogonUserTXT().setText(destination.getUser());
+		wizard.getLogonPasswordTXT().setText(destination.getPassword());
 
-		SAPTestDestinationDialog destinationDialog = wizard.openDestinationTestDialog(sapDestination.getName());
-		String expected = "Connection test for destination '" + sapDestination.getName() + "' succeeded.";
+		SAPTestDestinationDialog destinationDialog = wizard.openDestinationTestDialog(destination.getName());
+		String expected = "Connection test for destination '" + destination.getName() + "' succeeded.";
 		assertEquals(expected, destinationDialog.test());
 		destinationDialog.close();
 
-		wizard.addServer(sapServer.getName());
-		wizard.selectServer(sapServer.getName());
-		wizard.getGatewayHostTXT().setText(sapServer.getGwhost());
-		wizard.getGatewayPortTXT().setText(sapServer.getGwport());
-		wizard.getProgramIDTXT().setText(sapServer.getProgid());
-		wizard.getRepositoryDestinationTXT().setText(sapServer.getDestination());
-		wizard.getConnectionCountTXT().setText(sapServer.getConnectionCount());
+		wizard.addServer(server.getName());
+		wizard.selectServer(server.getName());
+		wizard.getGatewayHostTXT().setText(server.getGwhost());
+		wizard.getGatewayPortTXT().setText(server.getGwport());
+		wizard.getProgramIDTXT().setText(server.getProgid());
+		wizard.getRepositoryDestinationTXT().setText(server.getDestination());
+		wizard.getConnectionCountTXT().setText(server.getConnectionCount());
 
-		SAPTestServerDialog serverDialog = wizard.openServerTestDialog(sapServer.getName());
-		expected = "Connection test for destination '" + sapDestination.getName() + "' succeeded.";
+		SAPTestServerDialog serverDialog = wizard.openServerTestDialog(server.getName());
+		expected = "Connection test for destination '" + destination.getName() + "' succeeded.";
 		serverDialog.clear();
 		serverDialog.start();
-		new WaitUntil(new ContainsText(serverDialog.getResultText(), "Server state: STARTED"));
 		new WaitUntil(new ContainsText(serverDialog.getResultText(), "Server state: ALIVE"));
 		serverDialog.stop();
 		new WaitUntil(new ContainsText(serverDialog.getResultText(), "Server state: STOPPED"));
