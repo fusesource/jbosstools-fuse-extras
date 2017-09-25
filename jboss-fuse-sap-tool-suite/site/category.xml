@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description>
+	<description>
       To install these features, point Eclipse at this site.
    </description>
-   <feature id="org.fusesource.ide.sap.feature">
-      <category name="AllFeatures"/>
-   </feature>
-   <feature id="org.fusesource.ide.sap.feature.source">
-      <category name="AllSources"/>
-   </feature>
-   <category-def name="AllFeatures" label="JBoss Fuse SAP Tool Suite Nightly Build Update Site">
-      <description>
+	<feature id="org.fusesource.ide.sap.feature">
+		<category name="AllFeatures"/>
+	</feature>
+	<feature id="org.fusesource.ide.sap.feature.source">
+		<category name="AllSources"/>
+	</feature>
+	<bundle id="org.jboss.tools.fuse.sap.reddeer">
+		<category name="AllUITests"/>
+	</bundle>
+	<bundle id="org.jboss.tools.fuse.sap.ui.bot.tests">
+		<category name="AllUITests"/>
+	</bundle>
+	<bundle id="org.jboss.tools.fuse.sap.reddeer.source">
+		<category name="AllUITests"/>
+	</bundle>
+	<bundle id="org.jboss.tools.fuse.sap.ui.bot.tests.source">
+		<category name="AllUITests"/>
+	</bundle>
+	<category-def name="AllFeatures" label="JBoss Fuse SAP Tool Suite Nightly Build Update Site">
+		<description>
          JBoss Fuse SAP Tool Suite Nightly Build Update Site: contains all features in this build.
       </description>
-   </category-def>
-   <category-def name="AllSources" label="JBoss Fuse SAP Tool Suite Nightly Build Update Site">
-      <description>
+	</category-def>
+	<category-def name="AllSources" label="JBoss Fuse SAP Tool Suite Nightly Build Update Site">
+		<description>
          JBoss Fuse SAP Tool Suite Nightly Build Update Site: contains all source features in this build.
       </description>
-   </category-def>
+	</category-def>
+	<category-def name="AllUITests" label="JBoss Fuse Tooling Nightly Build Update Site - UI Tests">
+		<description>
+         JBoss Fuse SAP Tool Suite Nightly Build Update Site: contains all UI tests in this build.
+      </description>
+	</category-def>
 </site>
