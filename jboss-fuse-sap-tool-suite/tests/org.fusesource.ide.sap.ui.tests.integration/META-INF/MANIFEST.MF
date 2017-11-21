@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: JBoss SAP UI Integration Tests
 Bundle-SymbolicName: org.fusesource.ide.sap.ui.tests.integration
-Bundle-Version: 10.1.0.qualifier
+Bundle-Version: 10.2.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: Red Hat
 Require-Bundle: org.eclipse.ui,
