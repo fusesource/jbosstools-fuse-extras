@@ -17,6 +17,7 @@ import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.jface.wizard.WizardDialog;
 import org.eclipse.reddeer.swt.api.Button;
 import org.eclipse.reddeer.swt.api.CCombo;
+import org.eclipse.reddeer.swt.api.Shell;
 import org.eclipse.reddeer.swt.api.Text;
 import org.eclipse.reddeer.swt.api.TreeItem;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
@@ -57,10 +58,10 @@ public class SAPConfigurationWizard extends WizardDialog {
 		activate();
 		getAddDestinationBTN().click();
 
-		new DefaultShell("Create Destination");
-		new LabeledText("Please provide a destination name").setText(name);
-		new OkButton().click();
-		new WaitWhile(new ShellIsAvailable("Create Destination"));
+		Shell shell = new DefaultShell("Create Destination");
+		new LabeledText(shell, "Please provide a destination name").setText(name);
+		new OkButton(shell).click();
+		new WaitWhile(new ShellIsAvailable(shell));
 	}
 
 	public void deleteDestination(String name) {
@@ -81,10 +82,10 @@ public class SAPConfigurationWizard extends WizardDialog {
 		activate();
 		getAddServerBTN().click();
 
-		new DefaultShell("Create Server");
-		new LabeledText("Please provide a server name").setText(name);
-		new OkButton().click();
-		new WaitWhile(new ShellIsAvailable("Create Server"));
+		Shell shell = new DefaultShell("Create Server");
+		new LabeledText(shell, "Please provide a server name").setText(name);
+		new OkButton(shell).click();
+		new WaitWhile(new ShellIsAvailable(shell));
 	}
 
 	public void selectServer(String name) {
@@ -139,27 +140,27 @@ public class SAPConfigurationWizard extends WizardDialog {
 	}
 
 	public Text getEditSAPDestinationandServerDataStoresTXT() {
-		return new LabeledText("Edit SAP Destination and Server Data Stores");
+		return new LabeledText(this, "Edit SAP Destination and Server Data Stores");
 	}
 
 	public Text getRepositoryMapTXT() {
-		return new LabeledText("Repository Map:");
+		return new LabeledText(this, "Repository Map:");
 	}
 
 	public Text getMaximumStartupDelayTXT() {
-		return new LabeledText("Maximum Startup Delay:");
+		return new LabeledText(this, "Maximum Startup Delay:");
 	}
 
 	public Text getMinimumWorkerThreadCountTXT() {
-		return new LabeledText("Minimum Worker Thread Count:");
+		return new LabeledText(this, "Minimum Worker Thread Count:");
 	}
 
 	public Text getWorkerThreadCountTXT() {
-		return new LabeledText("Worker Thread Count:");
+		return new LabeledText(this, "Worker Thread Count:");
 	}
 
 	public Text getSAPRouterStringTXT() {
-		return new LabeledText("SAP Router String:");
+		return new LabeledText(this, "SAP Router String:");
 	}
 
 	public CheckBox getEnableRFCTraceCHB() {
@@ -167,19 +168,19 @@ public class SAPConfigurationWizard extends WizardDialog {
 	}
 
 	public Text getConnectionCountTXT() {
-		return new LabeledText("Connection Count:");
+		return new LabeledText(this, "Connection Count:");
 	}
 
 	public Text getProgramIDTXT() {
-		return new LabeledText("Program ID:");
+		return new LabeledText(this, "Program ID:");
 	}
 
 	public Text getGatewayPortTXT() {
-		return new LabeledText("Gateway Port:");
+		return new LabeledText(this, "Gateway Port:");
 	}
 
 	public Text getGatewayHostTXT() {
-		return new LabeledText("Gateway Host:");
+		return new LabeledText(this, "Gateway Host:");
 	}
 
 	public CheckBox getUseRFC_METADATA_GETCHB() {
@@ -195,47 +196,47 @@ public class SAPConfigurationWizard extends WizardDialog {
 	}
 
 	public Text getRepositoryLogonPasswordTXT() {
-		return new LabeledText("Repository Logon Password:");
+		return new LabeledText(this, "Repository Logon Password:");
 	}
 
 	public Text getRepositoryLogonUserTXT() {
-		return new LabeledText("Repository Logon User:");
+		return new LabeledText(this, "Repository Logon User:");
 	}
 
 	public Text getRepositoryDestinationTXT() {
-		return new LabeledText("Repository Destination:");
+		return new LabeledText(this, "Repository Destination:");
 	}
 
 	public Text getSNCPartnerNameTXT() {
-		return new LabeledText("SNC Partner Name:");
+		return new LabeledText(this, "SNC Partner Name:");
 	}
 
 	public Text getSNCNameTXT() {
-		return new LabeledText("SNC Name:");
+		return new LabeledText(this, "SNC Name:");
 	}
 
 	public Text getSNCLibraryPathTXT() {
-		return new LabeledText("SNC Library Path:");
+		return new LabeledText(this, "SNC Library Path:");
 	}
 
 	public Text getConnectionPoolMaxGetClientTimeTXT() {
-		return new LabeledText("Connection Pool Max Get Client Time:");
+		return new LabeledText(this, "Connection Pool Max Get Client Time:");
 	}
 
 	public Text getConnectionPoolExpireCheckPeriodTXT() {
-		return new LabeledText("Connection Pool Expire Check Period:");
+		return new LabeledText(this, "Connection Pool Expire Check Period:");
 	}
 
 	public Text getConnectionPoolExpirationTimeTXT() {
-		return new LabeledText("Connection Pool Expiration Time:");
+		return new LabeledText(this, "Connection Pool Expiration Time:");
 	}
 
 	public Text getConnectionPoolCapacityTXT() {
-		return new LabeledText("Connection Pool Capacity:");
+		return new LabeledText(this, "Connection Pool Capacity:");
 	}
 
 	public Text getConnectionPoolPeakLimitTXT() {
-		return new LabeledText("Connection Pool Peak Limit:");
+		return new LabeledText(this, "Connection Pool Peak Limit:");
 	}
 
 	public Button getDenyUseofInitialPasswords() {
@@ -247,7 +248,7 @@ public class SAPConfigurationWizard extends WizardDialog {
 	}
 
 	public Text getInitialCodepage() {
-		return new LabeledText("Initial Codepage:");
+		return new LabeledText(this, "Initial Codepage:");
 	}
 
 	public CheckBox getEnableLogonCheckCHB() {
@@ -255,55 +256,55 @@ public class SAPConfigurationWizard extends WizardDialog {
 	}
 
 	public Text getLogonLanguageTXT() {
-		return new LabeledText("Logon Language:");
+		return new LabeledText(this, "Logon Language:");
 	}
 
 	public Text getSAPX509LoginTicketTXT() {
-		return new LabeledText("SAP X509 Login Ticket:");
+		return new LabeledText(this, "SAP X509 Login Ticket:");
 	}
 
 	public Text getSAPSSOLogonTicketTXT() {
-		return new LabeledText("SAP SSO Logon Ticket:");
+		return new LabeledText(this, "SAP SSO Logon Ticket:");
 	}
 
 	public Text getLogonPasswordTXT() {
-		return new LabeledText("Logon Password:");
+		return new LabeledText(this, "Logon Password:");
 	}
 
 	public Text getLogonUserAliasTXT() {
-		return new LabeledText("Logon User Alias:");
+		return new LabeledText(this, "Logon User Alias:");
 	}
 
 	public Text getLogonUserTXT() {
-		return new LabeledText("Logon User:");
+		return new LabeledText(this, "Logon User:");
 	}
 
 	public Text getSAPApplicationServerGroupTXT() {
-		return new LabeledText("SAP Application Server Group:");
+		return new LabeledText(this, "SAP Application Server Group:");
 	}
 
 	public Text getSAPSystemIDTXT() {
-		return new LabeledText("SAP System ID:");
+		return new LabeledText(this, "SAP System ID:");
 	}
 
 	public Text getSAPMessageServerPortTXT() {
-		return new LabeledText("SAP Message Server Port:");
+		return new LabeledText(this, "SAP Message Server Port:");
 	}
 
 	public Text getSAPMessageServerTXT() {
-		return new LabeledText("SAP Message Server:");
+		return new LabeledText(this, "SAP Message Server:");
 	}
 
 	public Text getSAPSystemNumberTXT() {
-		return new LabeledText("SAP System Number:");
+		return new LabeledText(this, "SAP System Number:");
 	}
 
 	public Text getSAPClientTXT() {
-		return new LabeledText("SAP Client:");
+		return new LabeledText(this, "SAP Client:");
 	}
 
 	public Text getSAPApplicationServerTXT() {
-		return new LabeledText("SAP Application Server:");
+		return new LabeledText(this, "SAP Application Server:");
 	}
 
 	public CCombo getSAPApplicationTypeCMB() {
