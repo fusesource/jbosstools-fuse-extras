@@ -10,6 +10,9 @@
  ******************************************************************************/
 package org.jboss.tools.fuse.sap.ui.bot.tests;
 
+import static org.fusesource.ide.camel.model.service.core.util.CamelCatalogUtils.CAMEL_VERSION_LATEST_PRODUCTIZED_63;
+import static org.hamcrest.Matchers.equalTo;
+import static org.jboss.tools.fuse.sap.ui.bot.tests.utils.ProjectFactory.newProject;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -18,11 +21,12 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.eclipse.reddeer.common.condition.WaitCondition;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
 import org.eclipse.reddeer.junit.requirement.inject.InjectRequirement;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
+import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.tools.fuse.reddeer.ProjectType;
 import org.jboss.tools.fuse.reddeer.XPathEvaluator;
@@ -33,12 +37,14 @@ import org.jboss.tools.fuse.sap.reddeer.dialog.SAPTestServerDialog;
 import org.jboss.tools.fuse.sap.reddeer.editor.SAPConfigurationsEditor;
 import org.jboss.tools.fuse.sap.reddeer.requirement.SAPDestination;
 import org.jboss.tools.fuse.sap.reddeer.requirement.SAPRequirement;
-import org.jboss.tools.fuse.sap.reddeer.requirement.SAPServer;
 import org.jboss.tools.fuse.sap.reddeer.requirement.SAPRequirement.SAP;
+import org.jboss.tools.fuse.sap.reddeer.requirement.SAPServer;
 import org.jboss.tools.fuse.sap.reddeer.wizard.SAPConfigurationWizard;
-import org.jboss.tools.fuse.sap.ui.bot.tests.utils.ProjectFactory;
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ErrorCollector;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.Parameterized.UseParametersRunnerFactory;
@@ -49,6 +55,7 @@ import org.junit.runners.Parameterized.UseParametersRunnerFactory;
  * @author apodhrad
  */
 @SAP
+@CleanWorkspace
 @RunWith(RedDeerSuite.class)
 @UseParametersRunnerFactory(ParameterizedRequirementsRunnerFactory.class)
 public class SAPConfigurationTest {
@@ -57,6 +64,9 @@ public class SAPConfigurationTest {
 	public static final String CONFIGURATION_IMPL = "org.fusesource.camel.component.sap.SapConnectionConfiguration";
 	public static final String DESTINATION_IMPL = "org.fusesource.camel.component.sap.model.rfc.impl.DestinationDataImpl";
 	public static final String SERVER_IMPL = "org.fusesource.camel.component.sap.model.rfc.impl.ServerDataImpl";
+
+	@Rule
+	public ErrorCollector collector = new ErrorCollector();
 
 	@InjectRequirement
 	private SAPRequirement sap;
@@ -70,13 +80,28 @@ public class SAPConfigurationTest {
 
 	public SAPConfigurationTest(ProjectType type) {
 		this.type = type;
-		new WorkbenchShell().maximize();
-		new CleanWorkspaceRequirement().fulfill();
-		ProjectFactory.newProject(PROJECT_NAME).type(type).create();
+	}
+
+	private static String getProjectName(ProjectType type) {
+		return PROJECT_NAME + "_" + type;
+	}
+
+	private String getProjectName() {
+		return getProjectName(type);
 	}
 
 	private SAPConfigurationsEditor editor() {
-		return new SAPConfigurationsEditor(PROJECT_NAME, type.getCamelContext());
+		return new SAPConfigurationsEditor(type.getCamelContext());
+	}
+
+	@BeforeClass
+	public static void createFuseProjects() {
+		new WorkbenchShell().maximize();
+		for (ProjectType type : data()) {
+			newProject(getProjectName(type)).version(CAMEL_VERSION_LATEST_PRODUCTIZED_63).type(type).create();
+			new CamelProject(getProjectName(type)).update();
+			new CamelProject(getProjectName(type)).openCamelContext(type.getCamelContext());
+		}
 	}
 
 	/**
@@ -245,36 +270,36 @@ public class SAPConfigurationTest {
 
 		/* Basic */
 		wizard.selectTab("Basic");
-		wizard.getSAPApplicationServerTXT().setText("sap.example.com");
-		wizard.getSAPSystemNumberTXT().setText("12");
-		wizard.getSAPClientTXT().setText("123");
-		wizard.getLogonUserTXT().setText("admin");
-		wizard.getLogonPasswordTXT().setText("admin123$");
-		wizard.getLogonLanguageTXT().setText("xy");
+		wizard.getSAPApplicationServerTXT().typeText("sap.example.com");
+		wizard.getSAPSystemNumberTXT().typeText("12");
+		wizard.getSAPClientTXT().typeText("123");
+		wizard.getLogonUserTXT().typeText("admin");
+		wizard.getLogonPasswordTXT().typeText("admin123$");
+		wizard.getLogonLanguageTXT().typeText("xy");
 
 		/* Connection */
 		wizard.selectTab("Connection");
-		assertEquals("12", wizard.getSAPSystemNumberTXT().getText());
-		wizard.getSAPRouterStringTXT().setText("/H/xyz/S/123/W/abc");
-		assertEquals("sap.example.com", wizard.getSAPApplicationServerTXT().getText());
-		wizard.getSAPMessageServerTXT().setText("sap-msg.example.com");
-		wizard.getSAPMessageServerPortTXT().setText("1234");
-		wizard.getGatewayHostTXT().setText("gt.example.com");
-		wizard.getGatewayPortTXT().setText("4321");
-		wizard.getSAPSystemIDTXT().setText("AB");
-		wizard.getSAPApplicationServerGroupTXT().setText("myGroup");
+		collector.checkThat(wizard.getSAPSystemNumberTXT().getText(), equalTo("12"));
+		wizard.getSAPRouterStringTXT().typeText("/H/xyz/S/123/W/abc");
+		collector.checkThat(wizard.getSAPApplicationServerTXT().getText(), equalTo("sap.example.com"));
+		wizard.getSAPMessageServerTXT().typeText("sap-msg.example.com");
+		wizard.getSAPMessageServerPortTXT().typeText("1234");
+		wizard.getGatewayHostTXT().typeText("gt.example.com");
+		wizard.getGatewayPortTXT().typeText("4321");
+		wizard.getSAPSystemIDTXT().typeText("AB");
+		wizard.getSAPApplicationServerGroupTXT().typeText("myGroup");
 
 		/* Authentication */
 		wizard.selectTab("Authentication");
 		wizard.getSAPApplicationTypeCMB().setSelection("CONFIGURED_USER");
 		wizard.getSAPApplicationTypeCMB().setSelection("CURRENT_USER");
-		assertEquals("123", wizard.getSAPClientTXT().getText());
-		assertEquals("admin", wizard.getLogonUserTXT().getText());
-		wizard.getLogonUserAliasTXT().setText("superadmin");
-		assertEquals("admin123$", wizard.getLogonPasswordTXT().getText());
-		wizard.getSAPSSOLogonTicketTXT().setText("sso");
-		wizard.getSAPX509LoginTicketTXT().setText("x509");
-		assertEquals("xy", wizard.getLogonLanguageTXT().getText());
+		collector.checkThat(wizard.getSAPClientTXT().getText(), equalTo("123"));
+		collector.checkThat(wizard.getLogonUserTXT().getText(), equalTo("admin"));
+		wizard.getLogonUserAliasTXT().typeText("superadmin");
+		collector.checkThat(wizard.getLogonPasswordTXT().getText(), equalTo("admin123$"));
+		wizard.getSAPSSOLogonTicketTXT().typeText("sso");
+		wizard.getSAPX509LoginTicketTXT().typeText("x509");
+		collector.checkThat(wizard.getLogonLanguageTXT().getText(), equalTo("xy"));
 
 		/* Special */
 		wizard.selectTab("Special");
@@ -284,34 +309,34 @@ public class SAPConfigurationTest {
 		wizard.getSelectCPICTraceCMB().setSelection("Trace Level 2: Flow and Basic Data Trace");
 		wizard.getSelectCPICTraceCMB().setSelection("Trace Level 3: Flow and Complete Data Trace");
 		wizard.getEnableLogonCheckCHB().toggle(true);
-		wizard.getInitialCodepage().setText("init");
+		wizard.getInitialCodepage().typeText("init");
 		wizard.getReqeustSSOTicketCHB().toggle(true);
 
 		/* Pool */
 		wizard.selectTab("Pool");
-		wizard.getConnectionPoolPeakLimitTXT().setText("10");
-		wizard.getConnectionPoolCapacityTXT().setText("11");
-		wizard.getConnectionPoolExpirationTimeTXT().setText("12");
-		wizard.getConnectionPoolExpireCheckPeriodTXT().setText("13");
-		wizard.getConnectionPoolMaxGetClientTimeTXT().setText("14");
+		wizard.getConnectionPoolPeakLimitTXT().typeText("10");
+		wizard.getConnectionPoolCapacityTXT().typeText("11");
+		wizard.getConnectionPoolExpirationTimeTXT().typeText("12");
+		wizard.getConnectionPoolExpireCheckPeriodTXT().typeText("13");
+		wizard.getConnectionPoolMaxGetClientTimeTXT().typeText("14");
 
 		/* SNC */
 		wizard.selectTab("SNC");
 		wizard.getTurnOnSNCModeCHB().toggle(true);
-		wizard.getSNCPartnerNameTXT().setText("snc-partner");
+		wizard.getSNCPartnerNameTXT().typeText("snc-partner");
 		wizard.getSNCLevelOfSecurityCMB().setSelection("Security Level 1: Secure Authentication Only");
 		wizard.getSNCLevelOfSecurityCMB().setSelection("Security Level 2: Data Integrity Protection");
 		wizard.getSNCLevelOfSecurityCMB().setSelection("Security Level 3: Data Privacy Protection");
 		wizard.getSNCLevelOfSecurityCMB().setSelection("Security Level 8: Default Protection");
 		wizard.getSNCLevelOfSecurityCMB().setSelection("Security Level 9: Maximum Protection");
-		wizard.getSNCNameTXT().setText("snc-name");
-		wizard.getSNCLibraryPathTXT().setText("snc-path");
+		wizard.getSNCNameTXT().typeText("snc-name");
+		wizard.getSNCLibraryPathTXT().typeText("snc-path");
 
 		/* Repository */
 		wizard.selectTab("Repository");
-		wizard.getRepositoryDestinationTXT().setText("repo");
-		wizard.getRepositoryLogonUserTXT().setText("user");
-		wizard.getRepositoryLogonPasswordTXT().setText("user123$");
+		wizard.getRepositoryDestinationTXT().typeText("repo");
+		wizard.getRepositoryLogonUserTXT().typeText("user");
+		wizard.getRepositoryLogonPasswordTXT().typeText("user123$");
 		wizard.getTurnOnSNCModeforRepositoryDestinationCHB().toggle(true);
 		wizard.getUseRFC_METADATA_GETCHB().toggle(true);
 
@@ -386,20 +411,20 @@ public class SAPConfigurationTest {
 
 		/* Mandatory */
 		wizard.selectTab("Mandatory");
-		wizard.getGatewayHostTXT().setText("host.example.com");
-		wizard.getGatewayPortTXT().setText("3333");
-		wizard.getProgramIDTXT().setText("FOO");
-		wizard.getRepositoryDestinationTXT().setText("myDest");
-		wizard.getConnectionCountTXT().setText("3");
+		wizard.getGatewayHostTXT().typeText("host.example.com");
+		wizard.getGatewayPortTXT().typeText("3333");
+		wizard.getProgramIDTXT().typeText("FOO");
+		wizard.getRepositoryDestinationTXT().typeText("myDest");
+		wizard.getConnectionCountTXT().typeText("3");
 
 		/* Optional */
 		wizard.selectTab("Optional");
 		wizard.getEnableRFCTraceCHB().toggle(true);
-		wizard.getSAPRouterStringTXT().setText("/H/abc/S/321/W/xyz");
-		wizard.getWorkerThreadCountTXT().setText("10");
-		wizard.getMinimumWorkerThreadCountTXT().setText("11");
-		wizard.getMaximumStartupDelayTXT().setText("12");
-		wizard.getRepositoryMapTXT().setText("map");
+		wizard.getSAPRouterStringTXT().typeText("/H/abc/S/321/W/xyz");
+		wizard.getWorkerThreadCountTXT().typeText("10");
+		wizard.getMinimumWorkerThreadCountTXT().typeText("11");
+		wizard.getMaximumStartupDelayTXT().typeText("12");
+		wizard.getRepositoryMapTXT().typeText("map");
 
 		/* SNC */
 		wizard.selectTab("SNC");
@@ -409,8 +434,8 @@ public class SAPConfigurationTest {
 		wizard.getSNCLevelOfSecurityCMB().setSelection("Security Level 3: Data Privacy Protection");
 		wizard.getSNCLevelOfSecurityCMB().setSelection("Security Level 8: Default Protection");
 		wizard.getSNCLevelOfSecurityCMB().setSelection("Security Level 9: Maximum Protection");
-		wizard.getSNCNameTXT().setText("snc-name");
-		wizard.getSNCLibraryPathTXT().setText("snc-path");
+		wizard.getSNCNameTXT().typeText("snc-name");
+		wizard.getSNCLibraryPathTXT().typeText("snc-path");
 
 		wizard.finish();
 		editor.save();
@@ -451,40 +476,44 @@ public class SAPConfigurationTest {
 	public void testConnectionOfDestinationAndServer() {
 		SAPDestination destination = sap.getConfiguration().getDestination();
 		SAPServer server = sap.getConfiguration().getServer();
-		
+
 		SAPConfigurationWizard wizard = editor().addSapConfig();
 		wizard.addDestination(destination.getName());
 		wizard.selectDestination(destination.getName());
 		wizard.selectTab("Connection");
 		wizard.selectTab("Basic");
-		wizard.getSAPApplicationServerTXT().setText(destination.getAshost());
-		wizard.getSAPSystemNumberTXT().setText(destination.getSysnr());
-		wizard.getSAPClientTXT().setText(destination.getClient());
-		wizard.getLogonUserTXT().setText(destination.getUser());
-		wizard.getLogonPasswordTXT().setText(destination.getPassword());
+		wizard.getSAPApplicationServerTXT().typeText(destination.getAshost());
+		wizard.getSAPSystemNumberTXT().typeText(destination.getSysnr());
+		wizard.getSAPClientTXT().typeText(destination.getClient());
+		wizard.getLogonUserTXT().typeText(destination.getUser());
+		wizard.getLogonPasswordTXT().typeText(destination.getPassword());
 
 		SAPTestDestinationDialog destinationDialog = wizard.openDestinationTestDialog(destination.getName());
 		String expected = "Connection test for destination '" + destination.getName() + "' succeeded.";
-		assertEquals(expected, destinationDialog.test());
+		collector.checkThat(destinationDialog.test(), equalTo(expected));
 		destinationDialog.close();
 
 		wizard.addServer(server.getName());
 		wizard.selectServer(server.getName());
-		wizard.getGatewayHostTXT().setText(server.getGwhost());
-		wizard.getGatewayPortTXT().setText(server.getGwport());
-		wizard.getProgramIDTXT().setText(server.getProgid());
-		wizard.getRepositoryDestinationTXT().setText(server.getDestination());
-		wizard.getConnectionCountTXT().setText(server.getConnectionCount());
+		wizard.getGatewayHostTXT().typeText(server.getGwhost());
+		wizard.getGatewayPortTXT().typeText(server.getGwport());
+		wizard.getProgramIDTXT().typeText(server.getProgid());
+		wizard.getRepositoryDestinationTXT().typeText(server.getDestination());
+		wizard.getConnectionCountTXT().typeText(server.getConnectionCount());
 
 		SAPTestServerDialog serverDialog = wizard.openServerTestDialog(server.getName());
 		expected = "Connection test for destination '" + destination.getName() + "' succeeded.";
 		serverDialog.clear();
 		serverDialog.start();
-		new WaitUntil(new ContainsText(serverDialog.getResultText(), "Server state: ALIVE"));
+		WaitCondition isAlive = new ContainsText(serverDialog.getResultText(), "Server state: ALIVE");
+		new WaitUntil(isAlive, false);
+		collector.checkThat(isAlive.errorMessageUntil(), isAlive.test(), equalTo(true));
 		serverDialog.stop();
-		new WaitUntil(new ContainsText(serverDialog.getResultText(), "Server state: STOPPED"));
+		WaitCondition isStopped = new ContainsText(serverDialog.getResultText(), "Server state: STOPPED");
+		new WaitUntil(isStopped, false);
+		collector.checkThat(isStopped.errorMessageUntil(), isStopped.test(), equalTo(true));
 		serverDialog.clear();
-		assertTrue(serverDialog.getResultText().getText().trim().equals(""));
+		collector.checkThat(serverDialog.getResultText().getText().trim(), equalTo(""));
 		serverDialog.close();
 
 		wizard.finish();
@@ -502,9 +531,9 @@ public class SAPConfigurationTest {
 	}
 
 	private void assertXPath(String expected, String query) throws IOException {
-		File contextFile = new CamelProject(PROJECT_NAME).getCamelContextFile(type.getCamelContext());
+		File contextFile = new CamelProject(getProjectName()).getCamelContextFile(type.getCamelContext());
 		XPathEvaluator xpath = new XPathEvaluator(contextFile);
-		assertEquals(expected, xpath.evaluateString(query));
+		collector.checkThat(xpath.evaluateString(query), equalTo(expected));
 	}
 
 	private String configurationQuery() {

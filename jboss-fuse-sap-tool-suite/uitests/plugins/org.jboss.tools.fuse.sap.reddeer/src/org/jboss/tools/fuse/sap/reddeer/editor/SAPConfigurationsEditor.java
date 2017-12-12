@@ -13,7 +13,11 @@ package org.jboss.tools.fuse.sap.reddeer.editor;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
+import org.eclipse.reddeer.swt.condition.MenuItemIsEnabled;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
+import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
+import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.tools.fuse.reddeer.editor.ConfigurationsEditor;
 import org.jboss.tools.fuse.sap.reddeer.wizard.SAPConfigurationWizard;
 
@@ -27,8 +31,8 @@ public class SAPConfigurationsEditor extends ConfigurationsEditor {
 	public static final String[] SAP_CONNECTION_PATH = new String[] { "SAP", "SAP Connection" };
 	public static final String[] SAP_CONFIG_PATH = new String[] { "SAP", "sap-configuration (SAP Connection)" };
 
-	public SAPConfigurationsEditor(String project, String title) {
-		super(project, title);
+	public SAPConfigurationsEditor(String title) {
+		super(title);
 	}
 
 	public SAPConfigurationWizard addSapConfig() {
@@ -48,9 +52,12 @@ public class SAPConfigurationsEditor extends ConfigurationsEditor {
 
 	@Override
 	public void save() {
+		ShellMenuItem saveItem = new ShellMenuItem(new WorkbenchShell(), "File", "Save");
+		new WaitUntil(new MenuItemIsEnabled(saveItem), false);
 		super.save();
 		new WaitUntil(new ShellIsAvailable("Progress Information"), false);
 		new WaitWhile(new ShellIsAvailable("Progress Information"), TimePeriod.LONG);
+		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
 	}
 
 }
