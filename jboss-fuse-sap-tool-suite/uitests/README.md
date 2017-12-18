@@ -41,9 +41,13 @@ org.jboss.tools.fuse.sap.reddeer.requirement.SAPRequirement.SAP:
 
 ## Executing tests from command line
 
-The UI tests are disabled by default. To enable them you need to set
+The UI smoke tests are enabled by default. You can also execute other test suite by specifying
 
-    -DskipUITests=false
+    -DtestUIClass=AllTests
+
+To disable UI tests you need to set
+
+    -DskipUITests=true
 
 It is also recommended to ignore local artifacts
 

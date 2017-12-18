@@ -16,7 +16,8 @@
 		<systemProperties>${integrationTestSystemProperties}</systemProperties>
 		<customization.file>resources/settings/plugin_customization.ini</customization.file>
 		<staging.repos>false</staging.repos>
-		<skipUITests>true</skipUITests>
+		<skipUITests>false</skipUITests>
+		<testUIClass>SmokeTests</testUIClass>
 		<test.installPath.OSX/>
 	</properties>
 	<build>
@@ -28,7 +29,7 @@
 				<configuration>
 					<appArgLine>-eclipse.password resources/security/password -pluginCustomization ${customization.file} -clean</appArgLine>
 					<testSuite>org.jboss.tools.fuse.sap.qe.reddeer.tests</testSuite>
-					<testClass>**/*Test</testClass>
+					<testClass>**/${testUIClass}</testClass>
 					<useUIThread>false</useUIThread>
 					<skip>${skipUITests}</skip>
 					<dependencies combine.children="append">
