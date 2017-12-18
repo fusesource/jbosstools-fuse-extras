@@ -11,7 +11,7 @@
 package org.jboss.tools.fuse.sap.ui.bot.tests.suite;
 
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
-import org.jboss.tools.fuse.sap.ui.bot.tests.SAPComponentTest;
+import org.jboss.tools.fuse.sap.ui.bot.tests.SAPConnectionTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite.SuiteClasses;
 
@@ -22,7 +22,7 @@ import junit.framework.TestSuite;
  * 
  * @author tsedmik
  */
-@SuiteClasses({ SAPComponentTest.class })
+@SuiteClasses({ SAPConnectionTest.class })
 @RunWith(RedDeerSuite.class)
 public class SmokeTests extends TestSuite {
 
