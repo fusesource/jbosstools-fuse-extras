@@ -1,0 +1,6 @@
+# Global Code Owner used if no specific owner can be found. 
+# Order is important; the last matching pattern takes the most precedence. 
+*	@jbosstools/fuse-tooling-eng
+
+# QE Tests
+/jboss-fuse-sap-tool-suite/uitests/	@jbosstools/fuse-tooling-qe   
