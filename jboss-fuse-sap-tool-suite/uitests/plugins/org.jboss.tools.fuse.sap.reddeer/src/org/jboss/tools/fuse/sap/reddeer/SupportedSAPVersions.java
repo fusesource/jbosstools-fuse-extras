@@ -20,14 +20,22 @@ import org.jboss.tools.fuse.reddeer.SupportedCamelVersions;
 public class SupportedSAPVersions extends SupportedCamelVersions {
 
 	public static final String SAP_621_REDHAT_084 = "6.2.1.redhat-084";
+	public static final String SAP_621_REDHAT_090 = "6.2.1.redhat-090";
+	public static final String SAP_621_REDHAT_107 = "6.2.1.redhat-107";
 	public static final String SAP_621_REDHAT_117 = "6.2.1.redhat-117";
 	public static final String SAP_621_REDHAT_159 = "6.2.1.redhat-159";
 	public static final String SAP_621_REDHAT_169 = "6.2.1.redhat-169";
+	public static final String SAP_621_REDHAT_177 = "6.2.1.redhat-177";
 	public static final String SAP_621_REDHAT_186 = "6.2.1.redhat-186";
+	public static final String SAP_621_REDHAT_195 = "6.2.1.redhat-195";
+	public static final String SAP_621_REDHAT_216 = "6.2.1.redhat-216";
+	public static final String SAP_621_REDHAT_LATEST = SAP_621_REDHAT_216;
 	public static final String SAP_630_REDHAT_187 = "6.3.0.redhat-187";
 	public static final String SAP_630_REDHAT_224 = "6.3.0.redhat-224";
 	public static final String SAP_630_REDHAT_254 = "6.3.0.redhat-254";
 	public static final String SAP_630_REDHAT_262 = "6.3.0.redhat-262";
+	public static final String SAP_630_REDHAT_310 = "6.3.0.redhat-310";
+	public static final String SAP_630_REDHAT_LATEST = SAP_630_REDHAT_310;
 
 	public static String getSAPVersion(String camelVersion) {
 		switch (camelVersion) {
@@ -50,7 +58,10 @@ public class SupportedSAPVersions extends SupportedCamelVersions {
 		case CAMEL_2_17_0_REDHAT_630262:
 			return SAP_630_REDHAT_262;
 		default:
-			return SAP_630_REDHAT_262;
+			if (camelVersion.startsWith("2.15")) {
+				return SAP_621_REDHAT_LATEST;
+			}
+			return SAP_630_REDHAT_LATEST;
 		}
 	}
 

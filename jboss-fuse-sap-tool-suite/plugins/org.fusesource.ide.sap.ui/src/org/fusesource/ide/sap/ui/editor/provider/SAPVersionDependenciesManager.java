@@ -21,10 +21,10 @@ import org.fusesource.ide.sap.ui.Activator;
 
 public class SAPVersionDependenciesManager implements IDependenciesManager {
 
-	/* Fuse 6.2.1.R7 */
-	static final String SAP_VERSION_621_LATEST = "6.2.1.redhat-183";
-	/* Fuse 6.3.0.R2 */
-	static final String SAP_VERSION_630_LATEST = "6.3.0.redhat-254";
+	/* Fuse 6.2.1.R9 */
+	static final String SAP_VERSION_621_LATEST = "6.2.1.redhat-216";
+	/* Fuse 6.3.0.R5 */
+	static final String SAP_VERSION_630_LATEST = "6.3.0.redhat-310";
 
 	public static final String LAST_SAP_VERSION = SAP_VERSION_630_LATEST;
 
