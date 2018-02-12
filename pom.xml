@@ -15,13 +15,13 @@
   <parent>
     <groupId>org.jboss.tools</groupId>
     <artifactId>parent</artifactId>
-		<version>4.5.3.AM1-SNAPSHOT</version>
+    <version>4.5.3.AM1-SNAPSHOT</version>
   </parent>
 
   <groupId>org.jboss.tools</groupId>
   <artifactId>fuse-extras</artifactId>
   <name>JBoss Tools Fuse Extras</name>
-  <version>10.2.0-SNAPSHOT</version>
+  <version>10.3.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <organization>
