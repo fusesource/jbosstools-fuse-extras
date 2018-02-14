@@ -109,7 +109,7 @@ public class SAPConnectionTest {
 
 		SAPTestServerDialog testServerConnection = sapConnectionView.openServerTest(server.getName());
 		testServerConnection.start();
-		new WaitUntil(new ContainsText(testServerConnection.getResultText(), "Server state: STARTED"));
+		new WaitUntil(new ContainsText(testServerConnection.getResultText(), "Server state: STARTED"), false);
 		new WaitUntil(new ContainsText(testServerConnection.getResultText(), "Server state: ALIVE"));
 		testServerConnection.stop();
 		new WaitUntil(new ContainsText(testServerConnection.getResultText(), "Server state: STOPPED"));
