@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Red Hat, Inc. 
+ * Copyright (c) 2018 Red Hat, Inc. 
  * Distributed under license by Red Hat, Inc. All rights reserved. 
  * This program is made available under the terms of the 
  * Eclipse Public License v1.0 which accompanies this distribution, 
@@ -10,7 +10,10 @@
  ******************************************************************************/
 package org.jboss.tools.fuse.sap.ui.bot.tests;
 
+import static org.jboss.tools.fuse.reddeer.ProjectTemplate.EMPTY_SPRING;
 import static org.jboss.tools.fuse.reddeer.SupportedCamelVersions.CAMEL_2_17_0_REDHAT_630187;
+import static org.jboss.tools.fuse.reddeer.wizard.NewFuseIntegrationProjectWizardDeploymentType.STANDALONE;
+import static org.jboss.tools.fuse.reddeer.wizard.NewFuseIntegrationProjectWizardRuntimeType.KARAF;
 import static org.jboss.tools.fuse.sap.reddeer.component.SAPLabels.APPLICATION_RELEASE;
 import static org.jboss.tools.fuse.sap.reddeer.component.SAPLabels.DESTINATION;
 import static org.jboss.tools.fuse.sap.reddeer.component.SAPLabels.IDOC_TYPE;
@@ -80,7 +83,8 @@ public class SAPComponentTest {
 	@BeforeClass
 	public static void setupResetCamelContext() throws Exception {
 		new WorkbenchShell();
-		ProjectFactory.newProject(PROJECT_NAME).version(CAMEL_2_17_0_REDHAT_630187).type(PROJECT_TYPE).create();
+		ProjectFactory.newProject(PROJECT_NAME).version(CAMEL_2_17_0_REDHAT_630187).deploymentType(STANDALONE)
+				.runtimeType(KARAF).template(EMPTY_SPRING).create();
 		new LogView().open();
 		new LogView().deleteLog();
 	}

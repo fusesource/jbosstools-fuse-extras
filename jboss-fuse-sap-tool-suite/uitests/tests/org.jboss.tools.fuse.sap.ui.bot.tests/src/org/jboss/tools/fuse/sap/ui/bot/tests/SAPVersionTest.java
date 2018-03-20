@@ -10,6 +10,9 @@
  ******************************************************************************/
 package org.jboss.tools.fuse.sap.ui.bot.tests;
 
+import static org.jboss.tools.fuse.reddeer.ProjectTemplate.EMPTY_SPRING;
+import static org.jboss.tools.fuse.reddeer.wizard.NewFuseIntegrationProjectWizardDeploymentType.STANDALONE;
+import static org.jboss.tools.fuse.reddeer.wizard.NewFuseIntegrationProjectWizardRuntimeType.KARAF;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
@@ -91,7 +94,8 @@ public class SAPVersionTest {
 	@Test
 	public void testSAPVersion() throws Exception {
 		new WorkbenchShell();
-		ProjectFactory.newProject(PROJECT_NAME).version(camelVersion).type(PROJECT_TYPE).create();
+		ProjectFactory.newProject(PROJECT_NAME).version(camelVersion).deploymentType(STANDALONE).runtimeType(KARAF)
+				.template(EMPTY_SPRING).create();
 		new LogView().open();
 		new LogView().deleteLog();
 
