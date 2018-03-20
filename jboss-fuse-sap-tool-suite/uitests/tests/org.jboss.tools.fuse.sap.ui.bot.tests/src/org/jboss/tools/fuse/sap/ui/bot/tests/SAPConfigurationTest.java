@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2017 Red Hat, Inc. 
+ * Copyright (c) 2018 Red Hat, Inc. 
  * Distributed under license by Red Hat, Inc. All rights reserved. 
  * This program is made available under the terms of the 
  * Eclipse Public License v1.0 which accompanies this distribution, 
@@ -12,6 +12,10 @@ package org.jboss.tools.fuse.sap.ui.bot.tests;
 
 import static org.fusesource.ide.camel.model.service.core.util.CamelCatalogUtils.CAMEL_VERSION_LATEST_PRODUCTIZED_63;
 import static org.hamcrest.Matchers.equalTo;
+import static org.jboss.tools.fuse.reddeer.ProjectTemplate.EMPTY_BLUEPRINT;
+import static org.jboss.tools.fuse.reddeer.ProjectTemplate.EMPTY_SPRING;
+import static org.jboss.tools.fuse.reddeer.wizard.NewFuseIntegrationProjectWizardDeploymentType.STANDALONE;
+import static org.jboss.tools.fuse.reddeer.wizard.NewFuseIntegrationProjectWizardRuntimeType.KARAF;
 import static org.jboss.tools.fuse.sap.ui.bot.tests.utils.ProjectFactory.newProject;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -98,7 +102,9 @@ public class SAPConfigurationTest {
 	public static void createFuseProjects() {
 		new WorkbenchShell().maximize();
 		for (ProjectType type : data()) {
-			newProject(getProjectName(type)).version(CAMEL_VERSION_LATEST_PRODUCTIZED_63).type(type).create();
+			String[] template = type == ProjectType.SPRING ? EMPTY_SPRING : EMPTY_BLUEPRINT;
+			newProject(getProjectName(type)).version(CAMEL_VERSION_LATEST_PRODUCTIZED_63).deploymentType(STANDALONE)
+					.runtimeType(KARAF).template(template).create();
 			new CamelProject(getProjectName(type)).update();
 			new CamelProject(getProjectName(type)).openCamelContext(type.getCamelContext());
 		}
