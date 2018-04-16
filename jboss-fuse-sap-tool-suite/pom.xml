@@ -15,7 +15,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<fuse-tooling-url>http://download.jboss.org/jbosstools/oxygen/snapshots/builds/jbosstools-fuse_master/latest/all/repo/</fuse-tooling-url>
+		<fuse-tooling-url>http://download.jboss.org/jbosstools/photon/snapshots/builds/jbosstools-fuse_master/latest/all/repo/</fuse-tooling-url>
 		<tycho.scmUrl>scm:git:https://github.com/jbosstools/jbosstools-fuse-extras.git</tycho.scmUrl>
 	</properties>
 
