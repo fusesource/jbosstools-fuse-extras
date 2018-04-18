@@ -85,7 +85,7 @@ and in IDE create a configuration for Remote Java Application in Run > Debug Con
 
 ## Executing tests from IDE
 
-Current version of JBoss Tools Fuse SAP is built on Eclipse Oxygen, so download Eclipse Oxygen for JEE Developers. There are two ways how we can execute the tests from IDE
+Current version of JBoss Tools Fuse SAP is built on Eclipse Photon, so download Eclipse Photon for JEE Developers. There are two ways how we can execute the tests from IDE
 1. Importing all jbosstools-fuse-extras plugins and setting the appropriate target platform
 2. Install all needed dependencies into Eclipse IDE and import only the test plugins
 
@@ -102,7 +102,7 @@ Current version of JBoss Tools Fuse SAP is built on Eclipse Oxygen, so download 
 
 ### Executing tests from IDE without target platform
 
-1. Install JBoss Fuse Tools, e.g from http://download.jboss.org/jbosstools/oxygen/staging/updates/
+1. Install JBoss Fuse Tools, e.g from http://download.jboss.org/jbosstools/photon/staging/updates/
 1. Install JBoss Fuse SAP Tooling via the Import wizard
 2. Install RedDeer 2.x, e.g. from http://download.eclipse.org/reddeer/releases/2.0.0/
 3. Import the tests as Existing Projects into Workspace
