@@ -21,7 +21,7 @@
   <groupId>org.jboss.tools</groupId>
   <artifactId>fuse-extras</artifactId>
   <name>JBoss Tools Fuse Extras</name>
-  <version>10.3.0-SNAPSHOT</version>
+  <version>11.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <organization>
