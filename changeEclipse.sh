@@ -11,9 +11,9 @@
 if [ "$#" -ne 2 ]; then
     echo "Illegal number of parameters"
     echo "Please specify the old and the new Eclipse name like this:"
-    echo "      changeVersion.sh <oldEclipseName> <newEclipseName>"
+    echo "      changeEclipse.sh <oldEclipseName> <newEclipseName>"
     echo "Example:"
-    echo "      changeVersion.sh oxygen photon"
+    echo "      changeEclipse.sh oxygen photon"
     exit 0
 fi
 
