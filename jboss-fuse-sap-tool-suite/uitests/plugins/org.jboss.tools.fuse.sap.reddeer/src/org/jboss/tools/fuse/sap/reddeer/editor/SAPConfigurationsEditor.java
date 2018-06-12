@@ -15,7 +15,10 @@ import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.swt.condition.MenuItemIsEnabled;
 import org.eclipse.reddeer.swt.condition.ShellIsAvailable;
+import org.eclipse.reddeer.swt.impl.button.PushButton;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenuItem;
+import org.eclipse.reddeer.swt.impl.shell.DefaultShell;
+import org.eclipse.reddeer.swt.impl.tree.DefaultTreeItem;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.tools.fuse.reddeer.editor.ConfigurationsEditor;
@@ -48,6 +51,30 @@ public class SAPConfigurationsEditor extends ConfigurationsEditor {
 	public SAPConfigurationWizard deleteSapConfig() {
 		deleteConfig(SAP_CONFIG_PATH);
 		return new SAPConfigurationWizard();
+	}
+
+	public void selectConfig(String... path) {
+		activate();
+		new DefaultTreeItem(path).select();
+	}
+
+	public void addConfig(String... path) {
+		activate();
+		new PushButton("Add").click();
+		new WaitUntil(new ShellIsAvailable("Create new global element..."));
+		new DefaultShell("Create new global element...");
+		new DefaultTreeItem(path).select();
+		new PushButton("OK").click();
+	}
+
+	public void editConfig(String... path) {
+		selectConfig(path);
+		new PushButton("Edit").click();
+	}
+
+	public void deleteConfig(String... path) {
+		selectConfig(path);
+		new PushButton("Delete").click();
 	}
 
 	@Override
