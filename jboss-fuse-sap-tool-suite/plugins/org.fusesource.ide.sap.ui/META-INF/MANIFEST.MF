@@ -28,7 +28,12 @@ Require-Bundle: org.eclipse.ui,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %Bundle-Vendor
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ libs/activation.jar,
+ libs/hamcrest-core.jar,
+ libs/jaxb-api.jar,
+ libs/jaxb-core.jar,
+ libs/jaxb-impl.jar
 Bundle-Localization: OSGI-INF/l10n/bundle
 Export-Package: org.fusesource.ide.sap.ui.command;x-friends:="org.fusesource.ide.sap.ui.tests",
  org.fusesource.ide.sap.ui.editor.globalconf.provider;x-friends:="org.fusesource.ide.sap.ui.tests.integration",

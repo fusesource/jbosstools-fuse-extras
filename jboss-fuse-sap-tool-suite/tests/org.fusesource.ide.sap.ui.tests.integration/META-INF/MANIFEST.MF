@@ -19,3 +19,9 @@ Require-Bundle: org.eclipse.ui,
  org.fusesource.camel.component.sap.model.edit;bundle-version="6.2.0",
  org.fusesource.ide.camel.model.service.core;bundle-version="10.1.0",
  org.fusesource.ide.camel.model.service.impl;bundle-version="10.1.0"
+Bundle-ClassPath: libs/activation.jar,
+ libs/hamcrest-core.jar,
+ libs/jaxb-api.jar,
+ libs/jaxb-core.jar,
+ libs/jaxb-impl.jar,
+ .
