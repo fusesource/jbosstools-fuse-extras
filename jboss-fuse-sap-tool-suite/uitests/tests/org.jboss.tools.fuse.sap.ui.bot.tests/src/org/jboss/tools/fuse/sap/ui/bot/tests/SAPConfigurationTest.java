@@ -46,6 +46,7 @@ import org.jboss.tools.fuse.sap.reddeer.requirement.SAPServer;
 import org.jboss.tools.fuse.sap.reddeer.wizard.SAPConfigurationWizard;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
@@ -62,6 +63,7 @@ import org.junit.runners.Parameterized.UseParametersRunnerFactory;
 @CleanWorkspace
 @RunWith(RedDeerSuite.class)
 @UseParametersRunnerFactory(ParameterizedRequirementsRunnerFactory.class)
+@Ignore("Ignore until SAP Instance is back")
 public class SAPConfigurationTest {
 
 	public static final String PROJECT_NAME = "sap_config";

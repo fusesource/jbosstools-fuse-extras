@@ -37,6 +37,7 @@ import org.jboss.tools.fuse.sap.reddeer.component.SAPIDocListServer;
 import org.jboss.tools.fuse.sap.ui.bot.tests.utils.ProjectFactory;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized.Parameters;
@@ -51,6 +52,7 @@ import org.junit.runners.Parameterized.UseParametersRunnerFactory;
 @OpenPerspective(FuseIntegrationPerspective.class)
 @RunWith(RedDeerSuite.class)
 @UseParametersRunnerFactory(ParameterizedRequirementsRunnerFactory.class)
+@Ignore("Ignore until SAP Instance is back")
 public class SAPVersionTest {
 
 	public static final String PROJECT_NAME = "sap-version";
