@@ -2,15 +2,15 @@
 <?pde version="3.8"?><target name="Data Layer" sequenceNumber="10">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.fusesource.camel.component.sap.feature.feature.group" version="6.3.0.redhat-187"/>
-<unit id="org.fusesource.camel.component.sap.feature.source.feature.group" version="6.3.0.redhat-187"/>
-<repository location="http://fuse-sap.mw.lab.eng.bos.redhat.com/repositories/fuse-sap-data-layer/updatesite/6.3.0.redhat-187/"/>
+<unit id="org.fusesource.camel.component.sap.feature.feature.group" version="7.1.0.201903121945"/>
+<unit id="org.fusesource.camel.component.sap.feature.source.feature.group" version="7.1.0.201903121945"/>
+<repository location="http://tooling.fuse-qe.eng.rdu2.redhat.com/p2/fuse.sap.updatesite/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.fusesource.ide.camel.editor.feature.feature.group" version="10.0.0.v20170712-1652"/>
-<unit id="org.jboss.tools.fuse.transformation.feature.feature.group" version="10.0.0.v20170712-1652"/>
-<unit id="org.fusesource.ide.server.extensions.feature.feature.group" version="10.0.0.v20170712-1652"/>
-<unit id="org.fusesource.ide.jmx.feature.feature.group" version="10.0.0.v20170712-1652"/>
+<unit id="org.fusesource.ide.camel.editor.feature.feature.group" version="11.2.0.v20190108-0804"/>
+<unit id="org.jboss.tools.fuse.transformation.feature.feature.group" version="11.2.0.v20181004-1244"/>
+<unit id="org.fusesource.ide.server.extensions.feature.feature.group" version="11.2.0.v20181004-1244"/>
+<unit id="org.fusesource.ide.jmx.feature.feature.group" version="11.2.0.v20181004-1244"/>
 <repository location="http://download.jboss.org/jbosstools/photon/staging/updates/"/>
 </location>
 </locations>
