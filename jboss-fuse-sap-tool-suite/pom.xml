@@ -21,9 +21,9 @@
 
 	<repositories>
 		<repository>
-			<id>fuse-sap.mw.lab.eng.bos.redhat.com</id>
-			<name>jboss-fuse-sap-data-layer</name>
-			<url>http://fuse-sap.mw.lab.eng.bos.redhat.com/repositories/fuse-sap-data-layer/updatesite/6.3.0-SNAPSHOT/</url>
+			<id>tooling.fuse-qe.eng.rdu2.redhat.com</id>
+			<name>redhat-fuse-sap-data-layer</name>
+			<url>http://tooling.fuse-qe.eng.rdu2.redhat.com/p2/fuse.sap.updatesite/</url>
 			<layout>p2</layout>
 		</repository>
 
