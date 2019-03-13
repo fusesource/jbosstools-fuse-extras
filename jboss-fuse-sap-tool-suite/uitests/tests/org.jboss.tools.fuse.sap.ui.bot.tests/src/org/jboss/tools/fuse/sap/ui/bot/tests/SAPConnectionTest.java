@@ -29,6 +29,7 @@ import org.jboss.tools.fuse.sap.reddeer.view.SAPConnectionView;
 import org.jboss.tools.fuse.sap.reddeer.view.SAPDestinationProperties;
 import org.jboss.tools.fuse.sap.reddeer.view.SAPServerProperties;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -41,6 +42,7 @@ import org.junit.runner.RunWith;
 @CleanWorkspace
 @OpenPerspective(FuseIntegrationPerspective.class)
 @RunWith(RedDeerSuite.class)
+@Ignore("Ignore until SAP Instance is back")
 public class SAPConnectionTest {
 
 	@InjectRequirement
