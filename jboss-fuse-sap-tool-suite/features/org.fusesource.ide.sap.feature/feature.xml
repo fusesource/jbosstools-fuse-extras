@@ -4,9 +4,9 @@
       label="%featureName"
       version="11.2.0.qualifier"
       provider-name="%providerName"
+      plugin="org.fusesource.ide.tooling"
       license-feature="org.jboss.tools.foundation.license.feature"
-      license-feature-version="0.0.0"
-      plugin="org.fusesource.ide.tooling">
+      license-feature-version="0.0.0">
 
    <description url="http://tools.jboss.org/features/apachecamel.html">
       %description
@@ -39,6 +39,7 @@
       <import plugin="org.eclipse.jdt.launching" version="3.7.100" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.core" version="3.7.0" match="greaterOrEqual"/>
       <import feature="org.fusesource.ide.core.feature" version="10.1.0" match="greaterOrEqual"/>
+      <import plugin="org.jboss.tools.common.jaxb"/>
    </requires>
 
    <plugin
