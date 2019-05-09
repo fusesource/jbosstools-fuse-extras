@@ -23,7 +23,7 @@
 		<repository>
 			<id>tooling.fuse-qe.eng.rdu2.redhat.com</id>
 			<name>redhat-fuse-sap-data-layer</name>
-			<url>http://tooling.fuse-qe.eng.rdu2.redhat.com/p2/sap.nightly.site/</url>
+			<url>http://tooling.fuse-qe.eng.rdu2.redhat.com/p2/fuse.sap.updatesite/7.4.0/latest/all/repo/</url>
 			<layout>p2</layout>
 		</repository>
 

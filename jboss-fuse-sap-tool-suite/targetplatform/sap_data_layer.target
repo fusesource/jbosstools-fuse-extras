@@ -2,9 +2,9 @@
 <?pde version="3.8"?><target name="Data Layer" sequenceNumber="10">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
-<unit id="org.fusesource.camel.component.sap.feature.feature.group" version="6.3.0.201903151433"/>
-<unit id="org.fusesource.camel.component.sap.feature.source.feature.group" version="6.3.0.201903151433"/>
-<repository location="http://tooling.fuse-qe.eng.rdu2.redhat.com/p2/sap.nightly.site/"/>
+<unit id="org.fusesource.camel.component.sap.feature.feature.group" version="7.4.0.201905081822"/>
+<unit id="org.fusesource.camel.component.sap.feature.source.feature.group" version="7.4.0.201905081822"/>
+<repository location="http://tooling.fuse-qe.eng.rdu2.redhat.com/p2/fuse.sap.updatesite/7.4.0/latest/all/repo/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="slicer" includeSource="true" type="InstallableUnit">
 <unit id="org.fusesource.ide.camel.editor.feature.feature.group" version="11.5.0.v20190402-1246"/>
