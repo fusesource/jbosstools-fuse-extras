@@ -11,7 +11,6 @@
 	<packaging>eclipse-test-plugin</packaging>
 	<properties>
 		<surefire.timeout>21600</surefire.timeout>
-		<memoryOptions2>-XX:MaxPermSize=384m</memoryOptions2>
 		<integrationTestSystemProperties>-Dorg.jboss.tools.central.donotshow=true -Dorg.eclipse.swt.internal.gtk.disablePrinting</integrationTestSystemProperties>
 		<systemProperties>${integrationTestSystemProperties}</systemProperties>
 		<customization.file>resources/settings/plugin_customization.ini</customization.file>
