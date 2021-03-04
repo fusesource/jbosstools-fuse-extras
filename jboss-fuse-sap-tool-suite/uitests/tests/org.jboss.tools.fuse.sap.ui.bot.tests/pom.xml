@@ -16,41 +16,52 @@
 		<systemProperties>${integrationTestSystemProperties}</systemProperties>
 		<customization.file>resources/settings/plugin_customization.ini</customization.file>
 		<staging.repos>false</staging.repos>
-		<skipUITests>false</skipUITests>
+		<skipUITests>true</skipUITests>
 		<testUIClass>SmokeTests</testUIClass>
 		<test.installPath.OSX/>
+		<failIfNoTests>false</failIfNoTests>
 	</properties>
-	<build>
-		<plugins>
-			<!-- Fuse SAP RedDeer Tests -->
-			<plugin>
-				<groupId>org.eclipse.tycho</groupId>
-				<artifactId>tycho-surefire-plugin</artifactId>
-				<configuration>
-					<appArgLine>-eclipse.password resources/security/password -pluginCustomization ${customization.file} -clean</appArgLine>
-					<testSuite>org.jboss.tools.fuse.sap.qe.reddeer.tests</testSuite>
-					<testClass>**/${testUIClass}</testClass>
-					<useUIThread>false</useUIThread>
-					<skip>${skipUITests}</skip>
-					<dependencies combine.children="append">
-						<!-- SAP Library Feature -->
-						<dependency>
-							<type>p2-installable-unit</type>
-							<artifactId>com.sap.conn.feature.group</artifactId>
-							<version>0.0.0</version>
-						</dependency>
-						<!-- This entry should enable creating of default JDK on Mac -->
-						<dependency>
-							<type>p2-installable-unit</type>
-							<artifactId>org.eclipse.jdt.feature.group</artifactId>
-							<version>0.0.0</version>
-						</dependency>
-					</dependencies>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 	<profiles>
+		<profile>
+			<id>surefire-ui-test-activation</id>
+			<activation>
+				<property>
+					<name>skipUITests</name>
+					<value>false</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<!-- Fuse SAP RedDeer Tests -->
+					<plugin>
+						<groupId>org.eclipse.tycho</groupId>
+						<artifactId>tycho-surefire-plugin</artifactId>
+						<configuration>
+							<appArgLine>-eclipse.password resources/security/password
+								-pluginCustomization ${customization.file} -clean</appArgLine>
+							<testSuite>org.jboss.tools.fuse.sap.qe.reddeer.tests</testSuite>
+							<testClass>**/${testUIClass}</testClass>
+							<useUIThread>false</useUIThread>
+							<skip>${skipUITests}</skip>
+							<dependencies combine.children="append">
+								<!-- SAP Library Feature -->
+								<dependency>
+									<type>p2-installable-unit</type>
+									<artifactId>com.sap.conn.feature.group</artifactId>
+									<version>0.0.0</version>
+								</dependency>
+								<!-- This entry should enable creating of default JDK on Mac -->
+								<dependency>
+									<type>p2-installable-unit</type>
+									<artifactId>org.eclipse.jdt.feature.group</artifactId>
+									<version>0.0.0</version>
+								</dependency>
+							</dependencies>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 		<profile>
 			<id>smoke</id>
 			<activation>
