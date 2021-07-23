@@ -16,7 +16,6 @@ import static org.jboss.tools.fuse.reddeer.ProjectTemplate.EMPTY_BLUEPRINT;
 import static org.jboss.tools.fuse.reddeer.ProjectTemplate.EMPTY_SPRING;
 import static org.jboss.tools.fuse.reddeer.wizard.NewFuseIntegrationProjectWizardDeploymentType.STANDALONE;
 import static org.jboss.tools.fuse.reddeer.wizard.NewFuseIntegrationProjectWizardRuntimeType.KARAF;
-import static org.jboss.tools.fuse.sap.ui.bot.tests.utils.ProjectFactory.newProject;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -36,6 +35,7 @@ import org.jboss.tools.fuse.reddeer.ProjectType;
 import org.jboss.tools.fuse.reddeer.XPathEvaluator;
 import org.jboss.tools.fuse.reddeer.condition.ContainsText;
 import org.jboss.tools.fuse.reddeer.projectexplorer.CamelProject;
+import org.jboss.tools.fuse.reddeer.utils.ProjectFactory;
 import org.jboss.tools.fuse.sap.reddeer.dialog.SAPTestDestinationDialog;
 import org.jboss.tools.fuse.sap.reddeer.dialog.SAPTestServerDialog;
 import org.jboss.tools.fuse.sap.reddeer.editor.SAPConfigurationsEditor;
@@ -46,7 +46,6 @@ import org.jboss.tools.fuse.sap.reddeer.requirement.SAPServer;
 import org.jboss.tools.fuse.sap.reddeer.wizard.SAPConfigurationWizard;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ErrorCollector;
@@ -63,7 +62,6 @@ import org.junit.runners.Parameterized.UseParametersRunnerFactory;
 @CleanWorkspace
 @RunWith(RedDeerSuite.class)
 @UseParametersRunnerFactory(ParameterizedRequirementsRunnerFactory.class)
-@Ignore("Ignore until SAP Instance is back")
 public class SAPConfigurationTest {
 
 	public static final String PROJECT_NAME = "sap_config";
@@ -105,7 +103,7 @@ public class SAPConfigurationTest {
 		new WorkbenchShell().maximize();
 		for (ProjectType type : data()) {
 			String[] template = type == ProjectType.SPRING ? EMPTY_SPRING : EMPTY_BLUEPRINT;
-			newProject(getProjectName(type)).version(CAMEL_VERSION_LATEST_PRODUCTIZED_63).deploymentType(STANDALONE)
+			ProjectFactory.newProject(getProjectName(type)).version(CAMEL_VERSION_LATEST_PRODUCTIZED_63).deploymentType(STANDALONE)
 					.runtimeType(KARAF).template(template).create();
 			new CamelProject(getProjectName(type)).update();
 			new CamelProject(getProjectName(type)).openCamelContext(type.getCamelContext());

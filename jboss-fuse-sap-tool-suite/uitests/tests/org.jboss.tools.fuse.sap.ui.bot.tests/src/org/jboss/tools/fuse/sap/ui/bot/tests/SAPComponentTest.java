@@ -11,7 +11,6 @@
 package org.jboss.tools.fuse.sap.ui.bot.tests;
 
 import static org.jboss.tools.fuse.reddeer.ProjectTemplate.EMPTY_SPRING;
-import static org.jboss.tools.fuse.reddeer.SupportedCamelVersions.CAMEL_2_17_0_REDHAT_630187;
 import static org.jboss.tools.fuse.reddeer.wizard.NewFuseIntegrationProjectWizardDeploymentType.STANDALONE;
 import static org.jboss.tools.fuse.reddeer.wizard.NewFuseIntegrationProjectWizardRuntimeType.KARAF;
 import static org.jboss.tools.fuse.sap.reddeer.component.SAPLabels.APPLICATION_RELEASE;
@@ -41,6 +40,7 @@ import org.jboss.tools.fuse.reddeer.editor.CamelComponentEditPart;
 import org.jboss.tools.fuse.reddeer.editor.CamelEditor;
 import org.jboss.tools.fuse.reddeer.perspectives.FuseIntegrationPerspective;
 import org.jboss.tools.fuse.reddeer.projectexplorer.CamelProject;
+import org.jboss.tools.fuse.reddeer.utils.ProjectFactory;
 import org.jboss.tools.fuse.sap.reddeer.component.SAPIDocDestination;
 import org.jboss.tools.fuse.sap.reddeer.component.SAPIDocListDestination;
 import org.jboss.tools.fuse.sap.reddeer.component.SAPIDocListServer;
@@ -51,12 +51,10 @@ import org.jboss.tools.fuse.sap.reddeer.component.SAPSRFCDestination;
 import org.jboss.tools.fuse.sap.reddeer.component.SAPSRFCServer;
 import org.jboss.tools.fuse.sap.reddeer.component.SAPTRFCDestination;
 import org.jboss.tools.fuse.sap.reddeer.component.SAPTRFCServer;
-import org.jboss.tools.fuse.sap.ui.bot.tests.utils.ProjectFactory;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -68,7 +66,6 @@ import org.junit.runner.RunWith;
 @CleanWorkspace
 @OpenPerspective(FuseIntegrationPerspective.class)
 @RunWith(RedDeerSuite.class)
-@Ignore("Ignore until SAP Instance is back")
 public class SAPComponentTest {
 
 	private static Logger log = Logger.getLogger(SAPComponentTest.class);
@@ -85,8 +82,9 @@ public class SAPComponentTest {
 	@BeforeClass
 	public static void setupResetCamelContext() throws Exception {
 		new WorkbenchShell();
-		ProjectFactory.newProject(PROJECT_NAME).version(CAMEL_2_17_0_REDHAT_630187).deploymentType(STANDALONE)
+		ProjectFactory.newProject(PROJECT_NAME).deploymentType(STANDALONE)
 				.runtimeType(KARAF).template(EMPTY_SPRING).create();
+		new CamelProject(PROJECT_NAME).update();
 		new LogView().open();
 		new LogView().deleteLog();
 	}

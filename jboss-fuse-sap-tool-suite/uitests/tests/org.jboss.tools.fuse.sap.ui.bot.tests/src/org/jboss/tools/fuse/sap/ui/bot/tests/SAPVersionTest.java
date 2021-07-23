@@ -18,6 +18,8 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.Collection;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
+import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.eclipse.ui.views.log.LogView;
 import org.eclipse.reddeer.junit.internal.runner.ParameterizedRequirementsRunnerFactory;
@@ -25,6 +27,7 @@ import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
 import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement.CleanWorkspace;
 import org.eclipse.reddeer.requirements.openperspective.OpenPerspectiveRequirement.OpenPerspective;
+import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
 import org.eclipse.reddeer.workbench.impl.shell.WorkbenchShell;
 import org.jboss.tools.fuse.reddeer.ProjectType;
 import org.jboss.tools.fuse.reddeer.SupportedCamelVersions;
@@ -32,12 +35,11 @@ import org.jboss.tools.fuse.reddeer.XPathEvaluator;
 import org.jboss.tools.fuse.reddeer.editor.CamelEditor;
 import org.jboss.tools.fuse.reddeer.perspectives.FuseIntegrationPerspective;
 import org.jboss.tools.fuse.reddeer.projectexplorer.CamelProject;
+import org.jboss.tools.fuse.reddeer.utils.ProjectFactory;
 import org.jboss.tools.fuse.sap.reddeer.SupportedSAPVersions;
 import org.jboss.tools.fuse.sap.reddeer.component.SAPIDocListServer;
-import org.jboss.tools.fuse.sap.ui.bot.tests.utils.ProjectFactory;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized.Parameters;
@@ -52,7 +54,6 @@ import org.junit.runners.Parameterized.UseParametersRunnerFactory;
 @OpenPerspective(FuseIntegrationPerspective.class)
 @RunWith(RedDeerSuite.class)
 @UseParametersRunnerFactory(ParameterizedRequirementsRunnerFactory.class)
-@Ignore("Ignore until SAP Instance is back")
 public class SAPVersionTest {
 
 	public static final String PROJECT_NAME = "sap-version";
@@ -98,12 +99,14 @@ public class SAPVersionTest {
 		new WorkbenchShell();
 		ProjectFactory.newProject(PROJECT_NAME).version(camelVersion).deploymentType(STANDALONE).runtimeType(KARAF)
 				.template(EMPTY_SPRING).create();
+		new CamelProject(PROJECT_NAME).update();
 		new LogView().open();
 		new LogView().deleteLog();
 
 		new ProjectExplorer().open();
 		new CamelProject(PROJECT_NAME).openCamelContext(PROJECT_TYPE.getCamelContext());
 		new CamelEditor(PROJECT_TYPE.getCamelContext()).addCamelComponent(new SAPIDocListServer(), "Route _route1");
+		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
 		new CamelEditor(PROJECT_TYPE.getCamelContext()).save();
 
 		File pomFile = new File(new CamelProject(PROJECT_NAME).getFile(), "pom.xml");
