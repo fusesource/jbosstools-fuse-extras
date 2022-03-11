@@ -13,19 +13,28 @@ package org.fusesource.ide.sap.ui.tests.integration.editor.globalconf.provider;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.fusesource.ide.camel.model.service.core.catalog.Dependency;
+import org.fusesource.ide.camel.model.service.core.util.CamelCatalogUtils;
 import org.fusesource.ide.sap.ui.editor.globalconf.provider.SAPServerContribution;
-import org.fusesource.ide.sap.ui.editor.provider.SAPVersionDependenciesManager;
 import org.junit.Test;
 
 public class SAPServerContributionIT {
 	
 	@Test
-	public void testSAPDepenencyCorrect() throws Exception {
-		Dependency dependency = new SAPServerContribution().getElementDependencies().get(0);
+	public void testSAPDependencyCorrectForKaraf() throws Exception {
+		Dependency dependency = new SAPServerContribution().getElementDependencies(CamelCatalogUtils.RUNTIME_PROVIDER_KARAF).get(0);
 		
 		assertThat(dependency.getGroupId()).isEqualTo("org.fusesource");
 		assertThat(dependency.getArtifactId()).isEqualTo("camel-sap");
-		assertThat(dependency.getVersion()).isEqualTo(SAPVersionDependenciesManager.LAST_SAP_VERSION);
+		assertThat(dependency.getVersion()).isNull();
+	}
+	
+	@Test
+	public void testSAPDependencyCorrectForSpringBoot() throws Exception {
+		Dependency dependency = new SAPServerContribution().getElementDependencies(CamelCatalogUtils.RUNTIME_PROVIDER_SPRINGBOOT).get(0);
+		
+		assertThat(dependency.getGroupId()).isEqualTo("org.fusesource");
+		assertThat(dependency.getArtifactId()).isEqualTo("camel-sap-starter");
+		assertThat(dependency.getVersion()).isNull();
 	}
 	
 }
