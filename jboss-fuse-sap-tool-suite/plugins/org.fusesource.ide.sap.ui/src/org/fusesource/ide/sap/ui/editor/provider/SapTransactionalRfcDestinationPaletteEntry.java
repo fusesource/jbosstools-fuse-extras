@@ -13,6 +13,7 @@ package org.fusesource.ide.sap.ui.editor.provider;
 import org.eclipse.graphiti.features.ICreateFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.fusesource.ide.camel.editor.features.create.ext.CreateEndpointFigureFeature;
+import org.fusesource.ide.camel.editor.utils.CamelUtils;
 
 public class SapTransactionalRfcDestinationPaletteEntry extends AbstractSAPPaletteEntry {
 	
@@ -24,7 +25,7 @@ public class SapTransactionalRfcDestinationPaletteEntry extends AbstractSAPPalet
 
 	@Override
 	public ICreateFeature newCreateFeature(IFeatureProvider fp) {
-		return new CreateEndpointFigureFeature(fp, COMPONENT_NAME, COMPONENT_DESCRIPTION, COMPONENT_URL, getRequiredDependencies()); 
+		return new CreateEndpointFigureFeature(fp, COMPONENT_NAME, COMPONENT_DESCRIPTION, COMPONENT_URL, getRequiredDependencies(CamelUtils.getRuntimeProvider(fp))); 
 	}
 
 	/* (non-Javadoc)
