@@ -24,8 +24,7 @@ Require-Bundle: org.eclipse.ui,
  org.fusesource.camel.component.sap.model.edit;bundle-version="6.2.0",
  org.fusesource.ide.camel.editor;bundle-version="10.1.0",
  org.fusesource.ide.foundation.ui;bundle-version="10.1.0",
- org.eclipse.emf.transaction,
- org.jboss.tools.common.jaxb;bundle-version="3.10.2";resolution:=optional
+ org.eclipse.emf.transaction
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %Bundle-Vendor
@@ -36,3 +35,27 @@ Export-Package: org.fusesource.ide.sap.ui.command;x-friends:="org.fusesource.ide
  org.fusesource.ide.sap.ui.editor.provider;x-friends:="org.fusesource.ide.sap.ui.tests.integration",
  org.fusesource.ide.sap.ui.export;x-friends:="org.fusesource.ide.sap.ui.tests.integration",
  org.fusesource.ide.sap.ui.properties.uicreator;x-friends:="org.fusesource.ide.sap.ui.tests,org.fusesource.ide.sap.ui.tests.integration"
+Import-Package: com.sun.xml.bind.v2;version="2.3.3",
+ com.sun.xml.bind.v2.bytecode;version="2.3.3",
+ com.sun.xml.bind.v2.model.annotation;version="2.3.3",
+ com.sun.xml.bind.v2.model.core;version="2.3.3",
+ com.sun.xml.bind.v2.model.impl;version="2.3.3",
+ com.sun.xml.bind.v2.model.nav;version="2.3.3",
+ com.sun.xml.bind.v2.model.runtime;version="2.3.3",
+ com.sun.xml.bind.v2.model.util;version="2.3.3",
+ com.sun.xml.bind.v2.runtime;version="2.3.3",
+ com.sun.xml.bind.v2.runtime.output;version="2.3.3",
+ com.sun.xml.bind.v2.runtime.property;version="2.3.3",
+ com.sun.xml.bind.v2.runtime.reflect;version="2.3.3",
+ com.sun.xml.bind.v2.runtime.reflect.opt;version="2.3.3",
+ com.sun.xml.bind.v2.runtime.unmarshaller;version="2.3.3",
+ com.sun.xml.bind.v2.schemagen;version="2.3.3",
+ com.sun.xml.bind.v2.schemagen.episode;version="2.3.3",
+ com.sun.xml.bind.v2.schemagen.xmlschema;version="2.3.3",
+ com.sun.xml.bind.v2.util;version="2.3.3",
+ javax.xml.bind;version="2.3.3",
+ javax.xml.bind.annotation;version="2.3.3",
+ javax.xml.bind.annotation.adapters;version="2.3.3",
+ javax.xml.bind.attachment;version="2.3.3",
+ javax.xml.bind.helpers;version="2.3.3",
+ javax.xml.bind.util;version="2.3.3"

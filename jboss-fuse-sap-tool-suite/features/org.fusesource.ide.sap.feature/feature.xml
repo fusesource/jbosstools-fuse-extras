@@ -39,7 +39,7 @@
       <import plugin="org.eclipse.jdt.launching" version="3.7.100" match="greaterOrEqual"/>
       <import plugin="org.eclipse.jdt.core" version="3.7.0" match="greaterOrEqual"/>
       <import feature="org.fusesource.ide.core.feature" version="10.1.0" match="greaterOrEqual"/>
-      <import plugin="org.jboss.tools.common.jaxb"/>
+      <import plugin="jakarta.xml.bind" version="2.3.3" match="greaterOrEqual"/>
    </requires>
 
    <plugin
