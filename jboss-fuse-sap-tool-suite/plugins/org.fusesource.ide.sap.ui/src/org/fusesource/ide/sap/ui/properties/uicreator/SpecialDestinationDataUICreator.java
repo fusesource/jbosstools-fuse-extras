@@ -16,7 +16,7 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.swt.typed.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
@@ -88,7 +88,7 @@ public class SpecialDestinationDataUICreator implements IDestinationDataUICreato
 	@Override
 	public void initDataBindings(DataBindingContext bindingContext, EditingDomain editingDomain, DestinationDataStoreEntryImpl destinationDataStoreEntry) {
 		//
-		IObservableValue observeSelectionTraceBtnObserveWidget = WidgetProperties.selection().observe(traceBtn);
+		IObservableValue observeSelectionTraceBtnObserveWidget = WidgetProperties.buttonSelection().observe(traceBtn);
 		IObservableValue managedConnectionFactoryTraceObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__TRACE)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy traceStrategy = new UpdateValueStrategy();
@@ -106,7 +106,7 @@ public class SpecialDestinationDataUICreator implements IDestinationDataUICreato
 		cpicTraceStrategy.setConverter(new TraceLevel2CpicTraceComboSelectionConverter());
 		bindingContext.bindValue(observeSelectionCpicTraceComboObserveWidget, managedConnectionFactoryCpicTraceObserveValue, strategy_4, cpicTraceStrategy);
 		//
-		IObservableValue observeSelectionLcheckBtnObserveWidget = WidgetProperties.selection().observe(lcheckBtn);
+		IObservableValue observeSelectionLcheckBtnObserveWidget = WidgetProperties.buttonSelection().observe(lcheckBtn);
 		IObservableValue managedConnectionFactoryLcheckObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__LCHECK)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy strategy_5 = new UpdateValueStrategy();
@@ -120,7 +120,7 @@ public class SpecialDestinationDataUICreator implements IDestinationDataUICreato
 				.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__CODEPAGE)).observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextCodepageTextObserveWidget, managedConnectionFactoryCodepageObserveValue);
 		//
-		IObservableValue observeSelectionGetsso2BtnObserveWidget = WidgetProperties.selection().observe(getsso2Btn);
+		IObservableValue observeSelectionGetsso2BtnObserveWidget = WidgetProperties.buttonSelection().observe(getsso2Btn);
 		IObservableValue managedConnectionFactoryGetsso2ObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__GETSSO2)).observe(destinationDataStoreEntry);
 		UpdateValueStrategy strategy_6 = new UpdateValueStrategy();
@@ -129,7 +129,7 @@ public class SpecialDestinationDataUICreator implements IDestinationDataUICreato
 		getssoModelStrategy.setConverter(new String2BooleanConverter());
 		bindingContext.bindValue(observeSelectionGetsso2BtnObserveWidget, managedConnectionFactoryGetsso2ObserveValue, strategy_6, getssoModelStrategy);
 		//
-		IObservableValue observeSelectionDenyInitialPasswordBtnObserveWidget = WidgetProperties.selection().observe(denyInitialPasswordBtn);
+		IObservableValue observeSelectionDenyInitialPasswordBtnObserveWidget = WidgetProperties.buttonSelection().observe(denyInitialPasswordBtn);
 		IObservableValue managedConnectionFactoryDenyInitialPasswordObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__DENY_INITIAL_PASSWORD))
 				.observe(destinationDataStoreEntry);

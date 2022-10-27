@@ -18,7 +18,7 @@ import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.databinding.fieldassist.ControlDecorationSupport;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.swt.typed.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Button;
@@ -97,7 +97,7 @@ public class OptionalServerDataUICreator implements IServerDataUICreator {
 	@Override
 	public void initDataBindings(DataBindingContext bindingContext, EditingDomain editingDomain, ServerDataStoreEntryImpl serverDataStoreEntry) {
 		//
-		IObservableValue observeSelectionTraceBtnObserveWidget = WidgetProperties.selection().observe(traceBtn);
+		IObservableValue observeSelectionTraceBtnObserveWidget = WidgetProperties.buttonSelection().observe(traceBtn);
 		IObservableValue managedConnectionFactoryTraceObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__TRACE)).observe(serverDataStoreEntry);
 		UpdateValueStrategy traceStrategy = new UpdateValueStrategy();
