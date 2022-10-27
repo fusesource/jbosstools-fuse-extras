@@ -16,7 +16,7 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.swt.typed.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
@@ -82,7 +82,7 @@ public class SncServerDataUICreator implements IServerDataUICreator {
 	@Override
 	public void initDataBindings(DataBindingContext bindingContext, EditingDomain editingDomain, ServerDataStoreEntryImpl serverDataStoreEntry) {
 		//
-		IObservableValue observeSelectionSncModeBtnObserveWidget = WidgetProperties.selection().observe(sncModeBtn);
+		IObservableValue observeSelectionSncModeBtnObserveWidget = WidgetProperties.buttonSelection().observe(sncModeBtn);
 		IObservableValue managedConnectionFactorySncModeObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.SERVER_DATA_STORE_ENTRY__VALUE, Literals.SERVER_DATA__SNC_MODE)).observe(serverDataStoreEntry);
 		UpdateValueStrategy strategy_13 = new UpdateValueStrategy();

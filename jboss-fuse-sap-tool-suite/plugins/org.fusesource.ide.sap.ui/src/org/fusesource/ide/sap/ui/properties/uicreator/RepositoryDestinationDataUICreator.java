@@ -16,7 +16,7 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.databinding.FeaturePath;
 import org.eclipse.emf.databinding.edit.EMFEditProperties;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.jface.databinding.swt.WidgetProperties;
+import org.eclipse.jface.databinding.swt.typed.WidgetProperties;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.widgets.Button;
@@ -99,7 +99,7 @@ public class RepositoryDestinationDataUICreator implements IDestinationDataUICre
 				.observe(destinationDataStoreEntry);
 		bindingContext.bindValue(observeTextRepositoryPasswordTextObserveWidget, managedConnectionFactoryRepositoryPasswdObserveValue);
 		//
-		IObservableValue observeSelectionRespositorySncBtnObserveWidget = WidgetProperties.selection().observe(respositorySncBtn);
+		IObservableValue observeSelectionRespositorySncBtnObserveWidget = WidgetProperties.buttonSelection().observe(respositorySncBtn);
 		IObservableValue managedConnectionFactoryRepositorySncObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__REPOSITORY_SNC))
 				.observe(destinationDataStoreEntry);
@@ -109,7 +109,7 @@ public class RepositoryDestinationDataUICreator implements IDestinationDataUICre
 		repositorySncModelStrategy.setConverter(new String2BooleanConverter());
 		bindingContext.bindValue(observeSelectionRespositorySncBtnObserveWidget, managedConnectionFactoryRepositorySncObserveValue, strategy_15, repositorySncModelStrategy);
 		//
-		IObservableValue observeSelectionRepositoryRoundtripOptimizationBtnObserveWidget = WidgetProperties.selection().observe(repositoryRoundtripOptimizationBtn);
+		IObservableValue observeSelectionRepositoryRoundtripOptimizationBtnObserveWidget = WidgetProperties.buttonSelection().observe(repositoryRoundtripOptimizationBtn);
 		IObservableValue managedConnectionFactoryRepositoryRoundtripOptimizationObserveValue = EMFEditProperties
 				.value(editingDomain, FeaturePath.fromList(Literals.DESTINATION_DATA_STORE_ENTRY__VALUE, Literals.DESTINATION_DATA__REPOSITORY_ROUNDTRIP_OPTIMIZATION))
 				.observe(destinationDataStoreEntry);
