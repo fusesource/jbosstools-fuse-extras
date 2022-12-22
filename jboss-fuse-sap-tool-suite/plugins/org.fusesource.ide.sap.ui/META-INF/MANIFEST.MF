@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.fusesource.ide.sap.ui;singleton:=true
-Bundle-Version: 11.17.0.qualifier
+Bundle-Version: 11.18.0.qualifier
 Bundle-Activator: org.fusesource.ide.sap.ui.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
