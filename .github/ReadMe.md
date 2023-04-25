@@ -1,5 +1,12 @@
 # JBoss Fuse Tooling for Eclipse - Extra Tools
 
+---
+**Note**
+
+Eclipse Desktop tooling for SAP is deprecated since 11.19.0.
+
+---
+
 Please visit our [project site](http://tools.jboss.org/features/apachecamel.html) or the [documentation provided by _Red Hat_](https://access.redhat.com/documentation/en-us/red_hat_jboss_fuse/6.3/html/tooling_tutorials/) to learn more about _JBoss Fuse Tooling_ .
 
 ## Summary
